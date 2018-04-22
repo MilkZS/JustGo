@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,10 +21,11 @@ import java.util.ArrayList;
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapterHolder> {
 
     private ArrayList<PlaceListInfo> placeListInfos;
+    private Context context;
 
     @Override
     public MyPlaceAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         int recyclerList = R.layout.recycler_list_card_view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(recyclerList,parent,false);
@@ -32,7 +34,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
 
     @Override
     public void onBindViewHolder(MyPlaceAdapterHolder holder, int position) {
-        holder.bindToView(position);
+        holder.bindToView(position,context);
     }
 
     @Override
@@ -78,9 +80,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
          *
          * @param position data index of array list
          */
-        public void bindToView(int position){
+        public void bindToView(int position,Context context){
             PlaceListInfo placeListInfo = placeListInfos.get(position);
-            mainPic.setImageURI(placeListInfo.getMainPicUri());
+            Picasso.with(context).load(placeListInfo.getMainPicUri()).into(mainPic);
             nameText.setText(placeListInfo.getPlaceName());
             summaryText.setText(placeListInfo.getSummary());
             addressText.setText(placeListInfo.getAddress());

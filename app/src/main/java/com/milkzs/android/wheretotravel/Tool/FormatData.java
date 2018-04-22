@@ -2,6 +2,7 @@ package com.milkzs.android.wheretotravel.Tool;
 
 import android.content.Context;
 
+import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
 
 
@@ -18,7 +19,7 @@ public class FormatData {
      * @return
      */
     public static String formatPrice(String price, Context context){
-        if(price.equals("") || price == null){
+        if(price.equals("") || price == null || price.equals(BaseInfo.ERROR_SHOW)){
             return context.getResources().getString(R.string.format_price_null);
         }
         return price + context.getResources().getString(R.string.format_price);

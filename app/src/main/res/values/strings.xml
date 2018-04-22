@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">WhereToTravel</string>
+    <string name="app_name">去哪玩</string>
+
+    <!-- for design -->
+    <string name="design_text_view_price">65元/人</string>
+    <string name="design_text_view_open_time_label">开放时间 : </string>
+    <string name="design_text_view_open_time">7:00 - 8:00</string>
+    <string name="design_text_view_name">溜溜弯</string>
+    <string name="design_text_view_summary">好好玩哦</string>
+    <string name="design_text_view_address">黑背生和谐是</string>
+
+    <!-- main view for format -->
+    <string name="format_price">元/人</string>
+    <string name="format_price_null">门票免费</string>
+
 </resources>

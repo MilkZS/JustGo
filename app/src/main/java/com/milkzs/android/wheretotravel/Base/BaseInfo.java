@@ -36,8 +36,13 @@ public interface BaseInfo {
 
 
     String CONTENT_LIST_PRICE_LIST = "priceList";
+
     String CONTENT_LIST_CONTENT = "content"; // content
 
+    /** picture */
+    String CONTENT_LIST_PIC_LIST = "picList";
+    String CONTENT_LIST_PIC_LIST__URI = "picUrl";
+    String CONTENT_LIST_PIC_LIST_SMALL_URI = "picUrlSmall";
 
-    String CONTENT_LIST_PIC_LIST = "picList"; //pic
+    String ERROR_SHOW = "NONE";
 }
