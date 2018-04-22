@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_main"
+            android:layout_width="124dp"
+            android:layout_height="108dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_mapmode"
+            android:layout_marginLeft="16dp" />
+
+        <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="145dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_main"
+            android:layout_marginRight="64dp"
+            tools:text="@string/design_text_view_name"/>
+
+        <TextView
+            android:id="@+id/text_view_open_time"
+            android:layout_width="90dp"
+            android:layout_height="27dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@+id/text_view_open_time_label"
+            app:layout_constraintTop_toTopOf="@+id/text_view_open_time_label"
+            tools:text="@string/design_text_view_open_time"/>
+
+        <TextView
+            android:id="@+id/text_view_open_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/image_main"
+            app:layout_constraintTop_toBottomOf="@+id/image_main"
+            tools:text="@string/design_text_view_open_time_label"/>
+
+        <TextView
+            android:id="@+id/text_view_summary"
+            android:layout_width="173dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/text_view_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_name"
+            tools:text="@string/design_text_view_summary"/>
+
+        <TextView
+            android:id="@+id/text_view_price"
+            android:layout_width="62dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_view_address"
+            app:layout_constraintTop_toTopOf="@+id/text_view_open_time"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginLeft="16dp"
+            tools:text="@string/design_text_view_price"/>
+
+        <TextView
+            android:id="@+id/text_view_address"
+            android:layout_width="192dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/text_view_summary"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_summary"
+            tools:text="@string/design_text_view_address"/>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
