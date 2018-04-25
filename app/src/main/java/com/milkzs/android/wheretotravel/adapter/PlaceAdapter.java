@@ -22,6 +22,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
 
     private ArrayList<PlaceListInfo> placeListInfos;
     private Context context;
+    private ClickTranform clickTranform ;
+
+
+    public PlaceAdapter(ClickTranform clickTranform) {
+        this.clickTranform = clickTranform;
+    }
 
     @Override
     public MyPlaceAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,7 +61,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         notifyDataSetChanged();
     }
 
-    class MyPlaceAdapterHolder extends RecyclerView.ViewHolder{
+    class MyPlaceAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView mainPic;
         private TextView nameText;
@@ -63,10 +69,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         private TextView addressText;
         private TextView timeText;
         private TextView priceText;
+        private int position;
+        private PlaceListInfo placeListInfo;
 
         public MyPlaceAdapterHolder(View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(this);
             mainPic = itemView.findViewById(R.id.image_main);
             nameText = itemView.findViewById(R.id.text_view_name);
             summaryText = itemView.findViewById(R.id.text_view_summary);
@@ -81,7 +89,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
          * @param position data index of array list
          */
         public void bindToView(int position,Context context){
-            PlaceListInfo placeListInfo = placeListInfos.get(position);
+            this.position = position;
+            placeListInfo = placeListInfos.get(position);
             Picasso.with(context).load(placeListInfo.getMainPicUri()).into(mainPic);
             nameText.setText(placeListInfo.getPlaceName());
             summaryText.setText(placeListInfo.getSummary());
@@ -89,5 +98,14 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
             timeText.setText(placeListInfo.getOpenTime());
             priceText.setText(placeListInfo.getPrice());
         }
+
+        @Override
+        public void onClick(View v) {
+            clickTranform.onClick(position,placeListInfo);
+        }
+    }
+
+    public interface ClickTranform{
+        void onClick(int position,PlaceListInfo placeListInfo);
     }
 }
