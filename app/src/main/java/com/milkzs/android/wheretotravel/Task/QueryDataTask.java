@@ -1,4 +1,4 @@
-package com.milkzs.android.wheretotravel;
+package com.milkzs.android.wheretotravel.Task;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -53,6 +53,4 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
             placeAdapter.swapData(arrayList);
         }
     }
-
-
 }
