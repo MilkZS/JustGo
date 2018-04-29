@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">去哪玩</string>
 
-    <!-- for design -->
+    <!-- for design place -->
     <string name="design_text_view_price">65元/人</string>
     <string name="design_text_view_open_time_label">开放时间 : </string>
     <string name="design_text_view_open_time">7:00 - 8:00</string>
@@ -9,8 +9,29 @@
     <string name="design_text_view_summary">好好玩哦</string>
     <string name="design_text_view_address">黑背生和谐是</string>
 
+    <string name="design_text_view_discount">暂无其他优惠，详见景区公告。</string>
+    <string name="design_text_view_attention">预订门票包含漂流(约3小时)、淋浴。另付费项目：保险、景区内
+        小交通等。\r\n ②漂流为水上户外项目，受天气等不可抗力因素影响较大，建议您出行前查看当地天气预报。
+    </string>
+    <string name="design_text_view_content">热高乐园冰雪欢乐世界位于沈抚交界处，巴厘岛水世界西侧。主要
+        以戏雪、滑冰为主，滑雪为辅。总规划面积10万平方米，包括单板滑雪、双板滑雪、溜冰、全地形越野车、雪
+        地摩托车、雪上飞碟、冰滑梯、雪地冲锋舟、冰上碰碰车等20多项娱乐运动。并大胆利用友爱河自然形成的冰
+        面做文章，创新打造天然滑冰场，令游客充分感受速度滑冰、花样滑冰的乐趣，形成真正的集冰雪于一身的欢
+        乐天地。 沈阳热高乐园冰雪欢乐世界 沈阳热高乐园冰雪欢乐世界雪场四周纵览6万平原生态林海，这些层林
+        将被进行人工喷雾，在整个冬季形成美丽的雾凇带，这是东三省内所有滑雪场所不具备的。 沈阳热高乐园冰
+        雪欢乐世界 沈阳热高乐园冰雪欢乐世界雪场引进了国际先进拖引设备魔毯，让初级滑雪爱好者在保证安全、
+        便捷的情况下，充分体验滑雪的魅力；也专门为孩子们设计了儿童戏雪区，使孩子在冰雪的童话世界中充分发
+        挥活泼天真的本性。 沈阳热高乐园冰雪欢乐世界 沈阳热高乐园冰雪欢乐世界</string>
+    <string name="design_text_view_summary_label">简介</string>
+    <string name="design_text_view_content_label">详细内容</string>
+
     <!-- main view for format -->
     <string name="format_price">元/人</string>
     <string name="format_price_null">门票免费</string>
+
+    <!-- Titanic  -->
+    <string name="titanic_show">Made By MilkDZ</string>
+
+    <string name="tab_string_array_list">基本信息,景点介绍,图片欣赏</string>
 
 </resources>

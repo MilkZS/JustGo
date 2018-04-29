@@ -11,10 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <ProgressBar
-        android:id="@+id/show_main_progress"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+    <com.milkzs.android.wheretotravel.Titanic.TitanicTextView
+        android:id="@+id/before_main_show"
         android:layout_gravity="center"
-        android:visibility="invisible"/>
+        android:gravity="center"
+        android:text="@string/titanic_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#212121"
+        android:textSize="50sp"
+        android:background="@color/colorPrimaryDark"
+        />
+
 </FrameLayout>

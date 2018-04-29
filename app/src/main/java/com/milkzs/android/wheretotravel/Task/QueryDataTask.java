@@ -2,8 +2,11 @@ package com.milkzs.android.wheretotravel.Task;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
 
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
+import com.milkzs.android.wheretotravel.Titanic.Titanic;
+import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
 import com.milkzs.android.wheretotravel.Tool.AnalysisJsonData;
 import com.milkzs.android.wheretotravel.Tool.DataRequest;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
@@ -19,8 +22,11 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
 
     private Context context;
     private PlaceAdapter placeAdapter;
+    private TitanicTextView titanicTextView;
+    private Titanic titanic = new Titanic();
 
-    public QueryDataTask(Context context,PlaceAdapter placeAdapter) {
+    public QueryDataTask(Context context,PlaceAdapter placeAdapter,TitanicTextView titanicTextView) {
+        this.titanicTextView = titanicTextView;
         this.context = context;
         this.placeAdapter = placeAdapter;
     }
@@ -28,6 +34,7 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        showLoad();
     }
 
     @Override
@@ -36,9 +43,7 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
         try {
             String jsonString = DataRequest.getResponseFromHttpUrl(
                     DataRequest.buildUriForShowApi());
-            ArrayList<PlaceListInfo> arrayList =
-                    AnalysisJsonData.getDataFromJson(jsonString, context);
-            return arrayList;
+            return AnalysisJsonData.getDataFromJson(jsonString, context);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +55,18 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
     protected void onPostExecute(ArrayList<PlaceListInfo> arrayList) {
         super.onPostExecute(arrayList);
         if(arrayList != null){
+            hideLoad();
             placeAdapter.swapData(arrayList);
         }
+    }
+
+    private void showLoad(){
+        titanicTextView.setVisibility(View.VISIBLE);
+        titanic.start(titanicTextView);
+    }
+
+    private void hideLoad(){
+        titanic.cancel();
+        titanicTextView.setVisibility(View.INVISIBLE);
     }
 }

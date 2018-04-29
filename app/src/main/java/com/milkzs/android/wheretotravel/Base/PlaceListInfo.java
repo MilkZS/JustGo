@@ -1,6 +1,8 @@
 package com.milkzs.android.wheretotravel.Base;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * Created by milkdz on 2018/4/21.
  */
 
-public class PlaceListInfo {
+public class PlaceListInfo implements Parcelable{
 
     private String placeName ;
     private String summary ;
@@ -17,9 +19,40 @@ public class PlaceListInfo {
     private String price;
     private Uri mainPicUri;
 
+    private String discount;
+    private String attention;
+    private String detailContent;
+
     /** pictures */
     private ArrayList<Uri> picListUrl ;
     private ArrayList<Uri> picListSmallUrl;
+
+    public PlaceListInfo() {
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getAttention() {
+        return attention;
+    }
+
+    public void setAttention(String attention) {
+        this.attention = attention;
+    }
+
+    public String getDetailContent() {
+        return detailContent;
+    }
+
+    public void setDetailContent(String detailContent) {
+        this.detailContent = detailContent;
+    }
 
     public String getPlaceName() {
         return placeName;
@@ -83,5 +116,53 @@ public class PlaceListInfo {
 
     public void setPicListSmallUrl(ArrayList<Uri> picListSmallUrl) {
         this.picListSmallUrl = picListSmallUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(placeName);
+        dest.writeString(summary);
+        dest.writeString(address);
+        dest.writeString(openTime);
+        dest.writeString(price);
+        dest.writeList(picListUrl);
+        dest.writeList(picListSmallUrl);
+        dest.writeValue(mainPicUri);
+
+        dest.writeString(discount);
+        dest.writeString(attention);
+        dest.writeString(detailContent);
+    }
+
+    public final static Parcelable.Creator<PlaceListInfo> CREATOR = new Creator<PlaceListInfo>() {
+        @Override
+        public PlaceListInfo createFromParcel(Parcel source) {
+            return new PlaceListInfo(source);
+        }
+
+        @Override
+        public PlaceListInfo[] newArray(int size) {
+            return new PlaceListInfo[size];
+        }
+    };
+
+    public PlaceListInfo(Parcel parcel) {
+        placeName = parcel.readString();
+        summary = parcel.readString();
+        address = parcel.readString();
+        openTime = parcel.readString();
+        price = parcel.readString();
+        picListUrl = parcel.readArrayList(ArrayList.class.getClassLoader());
+        picListSmallUrl = parcel.readArrayList(ArrayList.class.getClassLoader());
+        mainPicUri = (Uri) parcel.readValue(Uri.class.getClassLoader());
+
+        discount = parcel.readString();
+        attention = parcel.readString();
+        detailContent = parcel.readString();
     }
 }

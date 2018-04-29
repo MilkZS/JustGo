@@ -37,7 +37,10 @@ public interface BaseInfo {
 
     String CONTENT_LIST_PRICE_LIST = "priceList";
 
-    String CONTENT_LIST_CONTENT = "content"; // content
+    /** for detail activity */
+    String CONTENT_LIST_DISCOUNT = "coupon";       //discount
+    String CONTENT_LIST_ATTENTION = "attention";   // attention
+    String CONTENT_LIST_CONTENT = "content";       // content
 
     /** picture */
     String CONTENT_LIST_PIC_LIST = "picList";
@@ -45,4 +48,13 @@ public interface BaseInfo {
     String CONTENT_LIST_PIC_LIST_SMALL_URI = "picUrlSmall";
 
     String ERROR_SHOW = "NONE";
+
+    interface IntentFlag {
+        String FLAG_POSITION_LIST_DETAIL = "flag_position_list_detail";
+        String FLAG_ARRAY_LIST_DETAIL = "flag_array_list_detail";
+
+        String FLAG_FRAGMENT_MESSAGE = "flag_fragment_message";
+        String FLAG_FRAGMENT_CONTENT = "flag_fragment_content";
+        String FLAG_FRAGMENT_PICTURES = "flag_fragment_pictures";
+    }
 }

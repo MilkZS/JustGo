@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="grid_layout_span">1</integer>
 
+    <integer name="grid_layout_span_list">1</integer>
 
+    <integer name="grid_layout_picture_detail">3</integer>
+
+    <dimen name="detail_tab_layout_select">2dp</dimen>
 </resources>
