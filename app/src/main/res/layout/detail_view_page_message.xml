@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.milkzs.android.wheretotravel.PlaceDetailActivity">
+
+    <ImageView
+        android:id="@+id/detail_image_title"
+        android:layout_width="match_parent"
+        android:layout_height="227dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/detail_text_view_price"
+        android:layout_width="76dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_image_title"
+        tools:text="@string/design_text_view_price" />
+
+    <TextView
+        android:id="@+id/detail_text_view_discount"
+        android:layout_width="351dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="8dp"
+        tools:text="@string/design_text_view_discount"
+        app:layout_constraintStart_toStartOf="@+id/detail_text_view_price"
+        app:layout_constraintTop_toBottomOf="@+id/detail_text_view_price" />
+
+    <TextView
+        android:id="@+id/detail_text_view_time_label"
+        android:layout_width="85dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/design_text_view_open_time_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_text_view_discount" />
+
+    <TextView
+        android:id="@+id/detail_text_view_open_time"
+        android:layout_width="254dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/detail_text_view_time_label"
+        app:layout_constraintTop_toTopOf="@+id/detail_text_view_time_label"
+        tools:text="@string/design_text_view_open_time" />
+
+    <TextView
+        android:id="@+id/detail_text_view_address"
+        android:layout_width="246dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="24dp"
+        tools:text="@string/design_text_view_address"
+        app:layout_constraintStart_toStartOf="@+id/detail_text_view_time_label"
+        app:layout_constraintTop_toBottomOf="@+id/detail_text_view_open_time" />
+
+    <TextView
+        android:id="@+id/detail_text_view_attention"
+        android:layout_width="384dp"
+        android:layout_height="97dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_text_view_address"
+        tools:text="@string/design_text_view_attention" />
+
+
+</android.support.constraint.ConstraintLayout>
