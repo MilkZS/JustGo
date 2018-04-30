@@ -23,11 +23,30 @@ public class PlaceListInfo implements Parcelable{
     private String attention;
     private String detailContent;
 
+    private String location_lon;
+    private String location_lat;
+
     /** pictures */
     private ArrayList<Uri> picListUrl ;
     private ArrayList<Uri> picListSmallUrl;
 
     public PlaceListInfo() {
+    }
+
+    public String getLocation_lon() {
+        return location_lon;
+    }
+
+    public void setLocation_lon(String location_lon) {
+        this.location_lon = location_lon;
+    }
+
+    public String getLocation_lat() {
+        return location_lat;
+    }
+
+    public void setLocation_lat(String location_lat) {
+        this.location_lat = location_lat;
     }
 
     public String getDiscount() {
@@ -137,6 +156,9 @@ public class PlaceListInfo implements Parcelable{
         dest.writeString(discount);
         dest.writeString(attention);
         dest.writeString(detailContent);
+
+        dest.writeString(location_lon);
+        dest.writeString(location_lat);
     }
 
     public final static Parcelable.Creator<PlaceListInfo> CREATOR = new Creator<PlaceListInfo>() {
@@ -164,5 +186,8 @@ public class PlaceListInfo implements Parcelable{
         discount = parcel.readString();
         attention = parcel.readString();
         detailContent = parcel.readString();
+
+        location_lon = parcel.readString();
+        location_lat = parcel.readString();
     }
 }

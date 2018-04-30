@@ -56,11 +56,11 @@
     <TextView
         android:id="@+id/detail_text_view_address"
         android:layout_width="246dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="24dp"
-        tools:text="@string/design_text_view_address"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="@+id/detail_text_view_time_label"
-        app:layout_constraintTop_toBottomOf="@+id/detail_text_view_open_time" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_text_view_open_time"
+        tools:text="@string/design_text_view_address" />
 
     <TextView
         android:id="@+id/detail_text_view_attention"
@@ -74,7 +74,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_text_view_address"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@string/design_text_view_attention" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/detail_message_fba"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="396dp"
+        android:src="@drawable/detail_fba"
+        app:elevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

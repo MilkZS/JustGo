@@ -66,6 +66,16 @@ public class AnalysisJsonData {
                 //content
                 placeListInfo.setDetailContent(getJSONValue(singleOb,BaseInfo.CONTENT_LIST_CONTENT));
 
+                // for location
+                JSONObject locationOB = getObject(singleOb,BaseInfo.LOCATION);
+                if(locationOB != null){
+                    placeListInfo.setLocation_lon(getJSONValue(locationOB,BaseInfo.LOCATION_LON));
+                    placeListInfo.setLocation_lat(getJSONValue(locationOB,BaseInfo.LOCATION_LAT));
+                }else {
+                    placeListInfo.setLocation_lon("0");
+                    placeListInfo.setLocation_lat("0");
+                }
+
                 placeListInfos.add(i,placeListInfo);
             }
 
@@ -108,5 +118,20 @@ public class AnalysisJsonData {
             arrayListPicSmallUri.add(
                     i,Uri.parse(uriOB.getString(BaseInfo.CONTENT_LIST_PIC_LIST_SMALL_URI)));
         }
+    }
+
+    /**
+     * Get object from json object
+     *
+     * @param jsonObject
+     * @param param
+     * @return
+     * @throws JSONException
+     */
+    private static JSONObject getObject(JSONObject jsonObject,String param) throws JSONException {
+        if(jsonObject.has(param)){
+            return jsonObject.getJSONObject(param);
+        }
+        return null;
     }
 }

@@ -47,6 +47,10 @@ public interface BaseInfo {
     String CONTENT_LIST_PIC_LIST__URI = "picUrl";
     String CONTENT_LIST_PIC_LIST_SMALL_URI = "picUrlSmall";
 
+    String LOCATION = "location";
+    String LOCATION_LON = "lon";
+    String LOCATION_LAT = "lat";
+
     String ERROR_SHOW = "NONE";
 
     interface IntentFlag {
@@ -56,5 +60,21 @@ public interface BaseInfo {
         String FLAG_FRAGMENT_MESSAGE = "flag_fragment_message";
         String FLAG_FRAGMENT_CONTENT = "flag_fragment_content";
         String FLAG_FRAGMENT_PICTURES = "flag_fragment_pictures";
+    }
+
+    interface OpenLocationMap{
+        String COMPANY_NAME = "MilkDz";
+        String APP_NAME = "WhereToTravel";
+
+        String BAI_DU_MAP =
+                "baidumap://map/navi?src=" + COMPANY_NAME + "|" + APP_NAME + "&location=";
+        String BAI_DU_MAP_INFO = "&coord_type=gcj02&type=TIME";
+
+        String GAO_DE_MAP = "androidamap://navi?sourceApplication=" + APP_NAME ;
+        String GAO_DE_MAP_LON = "&lon=";
+        String GAO_DE_MAP_LAT = "&lat=";
+        String GAO_DE_MAP_INFO = "&dev=0&style=0";
+
+        String GOOGLE_MAP = "http://ditu.google.cn/maps?hl=zh&mrt=loc&q=";
     }
 }

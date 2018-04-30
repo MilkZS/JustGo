@@ -34,4 +34,12 @@
 
     <string name="tab_string_array_list">基本信息,景点介绍,图片欣赏</string>
 
+
+    <!-- packages of location map -->
+    <string name="package_baidu_map">com.baidu.BaiduMap</string>
+    <string name="package_gaode_map">com.autonavi.minimap</string>
+
+
 </resources>
+
+
