@@ -34,7 +34,7 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        showLoad();
+            showLoad();
     }
 
     @Override
@@ -55,8 +55,8 @@ public class QueryDataTask extends AsyncTask<Void, Void, ArrayList<PlaceListInfo
     protected void onPostExecute(ArrayList<PlaceListInfo> arrayList) {
         super.onPostExecute(arrayList);
         if(arrayList != null){
-            hideLoad();
-            placeAdapter.swapData(arrayList);
+                hideLoad();
+            placeAdapter.swapData(arrayList,null,PlaceAdapter.MODE_LIST);
         }
     }
 
