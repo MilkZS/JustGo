@@ -19,9 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlaceDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".PlaceMorePic"></activity>
+            android:name=".PlaceDetailActivity" />
+
+        <provider
+            android:name=".db.PlaceContentProvider"
+            android:authorities="com.milkzs.android.wheretotravel"
+            android:exported="true"/>
     </application>
 
 </manifest>
