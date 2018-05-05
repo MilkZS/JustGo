@@ -7,12 +7,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by milkdz on 2018/5/1.
  */
 
 public class PlaceContentProvider extends ContentProvider {
+
+    private String TAG = "PlaceContentProvider";
+    private Boolean DBG = false;
 
     private final static int CODE_PLACE = 10;
     private final static int CODE_PLACE_ID = 11;
@@ -101,6 +106,7 @@ public class PlaceContentProvider extends ContentProvider {
                 }
 
                 if (rowCount > 0) {
+                    Toast.makeText(getContext(),"insert success ",Toast.LENGTH_SHORT).show();
                     getContext().getContentResolver().notifyChange(uri, null);
                 }
                 return rowCount;
@@ -142,12 +148,15 @@ public class PlaceContentProvider extends ContentProvider {
         switch (uriMatcher.match(uri)){
             case CODE_PLACE_ID:{
                 String id = uri.getLastPathSegment();
+                Log.d(TAG,"update id is " + id);
                 count = placeDBHelper.getWritableDatabase().update(
                         PlaceContract.PlaceBase.TABLE_NAME,
                         values,
                         PlaceContract.PlaceBase.COLUMN_PLACE_ID+"="+id,
                         null);
-                if(count > 0){
+                if (DBG)Toast.makeText(getContext(),"here" + count,Toast.LENGTH_SHORT).show();
+                if(count != -1){
+                    if (DBG)Toast.makeText(getContext(),"update success",Toast.LENGTH_SHORT).show();
                     getContext().getContentResolver().notifyChange(uri,null);
                 }
                 return count;

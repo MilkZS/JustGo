@@ -1,0 +1,101 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.milkzs.android.wheretotravel.DetailFragment.LogListFragment">
+
+
+    <TextView
+        android:id="@+id/log_time_label"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/design_text_view_log_time_label" />
+
+    <TextView
+        android:id="@+id/textView_label_log"
+        android:layout_width="117dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/design_label_log"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_time_label" />
+
+    <EditText
+        android:id="@+id/log_time_edit"
+        android:layout_width="151dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="20dp"
+        android:hint="@string/design_log_year"
+        android:inputType="date"
+        app:layout_constraintStart_toEndOf="@+id/textView_label_log"
+        app:layout_constraintTop_toTopOf="@+id/textView_label_log" />
+
+    <TextView
+        android:id="@+id/textView_label_log_leave"
+        android:layout_width="121dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/design_label_log_leave"
+        app:layout_constraintStart_toStartOf="@+id/textView_label_log"
+        app:layout_constraintTop_toBottomOf="@+id/textView_label_log" />
+
+
+    <EditText
+        android:id="@+id/log_time_edit_go"
+        android:layout_width="149dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:hint="@string/design_log_year"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/log_time_edit"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/log_time_edit"
+        app:layout_constraintTop_toTopOf="@+id/textView_label_log_leave" />
+
+    <TextView
+        android:id="@+id/textView_label_history"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/design_text_view_log_history_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_save" />
+
+    <TextView
+        android:id="@+id/textView_show_history"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_label_history" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/design_button_save"
+        app:layout_constraintStart_toEndOf="@+id/button_leave"
+        app:layout_constraintTop_toTopOf="@+id/button_leave" />
+
+    <Button
+        android:id="@+id/button_leave"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/design_button_refresh"
+        app:layout_constraintStart_toStartOf="@+id/textView_label_log_leave"
+        app:layout_constraintTop_toBottomOf="@+id/log_time_edit_go" />
+</android.support.constraint.ConstraintLayout>

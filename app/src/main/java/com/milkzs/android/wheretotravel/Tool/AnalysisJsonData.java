@@ -1,17 +1,21 @@
 package com.milkzs.android.wheretotravel.Tool;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by milkdz on 2018/4/21.
@@ -38,6 +42,18 @@ public class AnalysisJsonData {
             for (int i=0;i<contentList.length();i++){
                 singleOb = contentList.getJSONObject(i);
                 placeListInfo = new PlaceListInfo();
+
+                //id
+                String sid = getJSONValue(singleOb,BaseInfo.QUERY_ID);
+                placeListInfo.setsId(sid);
+                Uri uri = PlaceContract.PlaceBase.CONTENT_BASE.buildUpon().appendPath(sid).build();
+                Log.i(TAG,"query string is " + uri.toString());
+                Cursor cursor = context.getContentResolver().query(
+                        uri,
+                        null,
+                        null,null,null);
+                Map<String,String> map = readDataFromCursor(cursor);
+                placeListInfo.setLogMap(map);
 
                 // name
                 placeListInfo.setPlaceName(getJSONValue(singleOb,BaseInfo.CONTENT_LIST_PLACE_NAME));
@@ -134,4 +150,32 @@ public class AnalysisJsonData {
         }
         return null;
     }
+
+    private static Map<String,String> readDataFromCursor(Cursor cursor){
+        Map<String,String> map = new HashMap<>();
+        if(null == cursor || cursor.getCount() == 0){
+            map.put(BaseInfo.MapFlag.FLAG_EXISTS,"0");
+            map.put(BaseInfo.MapFlag.FLAG_TIME_ARR,"");
+            map.put(BaseInfo.MapFlag.FLAG_TIME_GO,"");
+            return map;
+        }
+        cursor.moveToFirst();
+        Log.d(TAG,"cursor length is " + cursor.getCount());
+        forDebug(cursor);
+        Log.d(TAG,"cursor COLUMN_PLACE_TIME index is  "+cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME));
+
+        map.put(BaseInfo.MapFlag.FLAG_EXISTS,"1");
+        map.put(BaseInfo.MapFlag.FLAG_TIME_ARR,
+                cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME)));
+        map.put(BaseInfo.MapFlag.FLAG_TIME_GO,
+                cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO)));
+        return map;
+    }
+
+    private static void forDebug(Cursor cursor){
+        for(int i=0;i<cursor.getCount();i++){
+            Log.d(TAG,"cursor index = " + i +" and content is " + cursor.getString(i));
+        }
+    }
+
 }

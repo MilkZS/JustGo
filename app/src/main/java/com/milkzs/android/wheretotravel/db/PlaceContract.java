@@ -20,7 +20,8 @@ public class PlaceContract {
                 .appendPath(PLACE_INFO).build();
 
         public static String COLUMN_PLACE_ID = "place_id";
-        public static String COLUMN_PLACE_TIME = "place_time";
+        public static String COLUMN_PLACE_TIME = "place_time_arr";
+        public static String COLUMN_PLACE_TIME_GO = "place_time_go";
         public static String COLUMN_PLACE_NAME = "place_name";
 
         public static String[] QUERY_ENTRY = {
@@ -28,6 +29,7 @@ public class PlaceContract {
                 COLUMN_PLACE_ID,
                 COLUMN_PLACE_NAME,
                 COLUMN_PLACE_TIME,
+                COLUMN_PLACE_TIME_GO
         };
     }
 }

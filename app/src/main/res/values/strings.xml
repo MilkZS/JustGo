@@ -25,6 +25,17 @@
     <string name="design_text_view_summary_label">简介</string>
     <string name="design_text_view_content_label">详细内容</string>
 
+    <string name="design_text_view_log_time">2018-07-09</string>
+    <string name="design_text_view_log_title">哈尔冰滑雪场</string>
+
+    <string name="design_text_view_log_time_label">曾经来过，留下芳香</string>
+    <string name="design_text_view_log_history_label">多次来过，留下标记</string>
+    <string name="design_log_year">2018-01-12</string>
+    <string name="design_label_log">到达时间</string>
+    <string name="design_label_log_leave">离开时间</string>
+    <string name="design_button_refresh">重置</string>
+    <string name="design_button_save">保存</string>
+
     <!-- main view for format -->
     <string name="format_price">元/人</string>
     <string name="format_price_null">门票免费</string>
@@ -32,13 +43,21 @@
     <!-- Titanic  -->
     <string name="titanic_show">Made By MilkDZ</string>
 
-    <string name="tab_string_array_list">基本信息,景点介绍,图片欣赏</string>
-
+    <!-- for tab -->
+    <string name="tab_string_array_list">基本信息,景点介绍,图片欣赏,我的足迹</string>
+    <string name="log_none">你还没有填过来这里游玩的时间哦！</string>
 
     <!-- packages of location map -->
     <string name="package_baidu_map">com.baidu.BaiduMap</string>
     <string name="package_gaode_map">com.autonavi.minimap</string>
 
+    <!-- for main menu -->
+    <string name="menu_list">浏览景点</string>
+    <string name="menu_log">我的足迹</string>
+    <string name="menu_refresh">关于作者</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
 

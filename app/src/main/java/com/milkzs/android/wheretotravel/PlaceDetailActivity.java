@@ -1,6 +1,8 @@
 package com.milkzs.android.wheretotravel;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,10 +15,12 @@ import android.widget.TextView;
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.DetailFragment.ContentDetailFragment;
+import com.milkzs.android.wheretotravel.DetailFragment.LogListFragment;
 import com.milkzs.android.wheretotravel.DetailFragment.MessageDetailFragment;
 import com.milkzs.android.wheretotravel.DetailFragment.PicturesDetailFragment;
 import com.milkzs.android.wheretotravel.Tool.FormatData;
 import com.milkzs.android.wheretotravel.adapter.DetailViewPageAdapter;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 import java.util.ArrayList;
 
@@ -29,9 +33,10 @@ public class PlaceDetailActivity extends AppCompatActivity {
     private ArrayList<Fragment> viewArrayList;
     private TabLayout tabLayout;
     private ArrayList<String> tabList;
+    private Cursor cursor;
 
-    private int tabShowSum = 3;// sum of tab title
-    private int tabShowCount = 3; // counts of show tab at one time
+    private int tabShowSum = 4;// sum of tab title
+    private int tabShowCount = 4; // counts of show tab at one time
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         viewArrayList.add(MessageDetailFragment.newInstance(placeListInfo));
         viewArrayList.add(ContentDetailFragment.newInstance(placeListInfo));
         viewArrayList.add(PicturesDetailFragment.newInstance(placeListInfo));
+        viewArrayList.add(LogListFragment.newInstance(placeListInfo));
         DetailViewPageAdapter detailViewPageAdapter = new DetailViewPageAdapter(
                 getSupportFragmentManager(),viewArrayList);
         viewPager.setAdapter(detailViewPageAdapter);

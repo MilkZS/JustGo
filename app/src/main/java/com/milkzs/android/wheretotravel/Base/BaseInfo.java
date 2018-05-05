@@ -18,8 +18,11 @@ public interface BaseInfo {
             + SHOWAPI_API_ID + "=" + API_ID + "&"
             + SHOWAPI_API_SIGN + "=" + API_SIGN;
 
+
     /** used for get single value */
     String QUERY_BODY = "showapi_res_body";
+
+    String QUERY_ID = "id";
 
     String QUERY_BODY_PAGE = "pagebean";
     String QUERY_BODY_PAGE_CONTENT_List = "contentlist";
@@ -60,6 +63,14 @@ public interface BaseInfo {
         String FLAG_FRAGMENT_MESSAGE = "flag_fragment_message";
         String FLAG_FRAGMENT_CONTENT = "flag_fragment_content";
         String FLAG_FRAGMENT_PICTURES = "flag_fragment_pictures";
+
+        String FLAG_FRAGMENT_LOG = "fragment_cursor";
+    }
+
+    interface MapFlag {
+        String FLAG_TIME_ARR = "flag_time_arraive";
+        String FLAG_TIME_GO = "flag_time_go";
+        String FLAG_EXISTS = "flag_exists";
     }
 
     interface OpenLocationMap{

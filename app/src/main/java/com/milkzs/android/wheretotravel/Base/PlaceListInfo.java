@@ -5,12 +5,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by milkdz on 2018/4/21.
  */
 
 public class PlaceListInfo implements Parcelable{
+
+    private String sId;
 
     private String placeName ;
     private String summary ;
@@ -30,7 +34,25 @@ public class PlaceListInfo implements Parcelable{
     private ArrayList<Uri> picListUrl ;
     private ArrayList<Uri> picListSmallUrl;
 
+    private Map<String,String> logMap;
+
     public PlaceListInfo() {
+    }
+
+    public Map<String, String> getLogMap() {
+        return logMap;
+    }
+
+    public void setLogMap(Map<String, String> logMap) {
+        this.logMap = logMap;
+    }
+
+    public String getsId() {
+        return sId;
+    }
+
+    public void setsId(String sId) {
+        this.sId = sId;
     }
 
     public String getLocation_lon() {
@@ -159,6 +181,10 @@ public class PlaceListInfo implements Parcelable{
 
         dest.writeString(location_lon);
         dest.writeString(location_lat);
+
+        dest.writeString(sId);
+
+        dest.writeMap(logMap);
     }
 
     public final static Parcelable.Creator<PlaceListInfo> CREATOR = new Creator<PlaceListInfo>() {
@@ -189,5 +215,9 @@ public class PlaceListInfo implements Parcelable{
 
         location_lon = parcel.readString();
         location_lat = parcel.readString();
+
+        sId = parcel.readString();
+
+        logMap = parcel.readHashMap(HashMap.class.getClassLoader());
     }
 }
