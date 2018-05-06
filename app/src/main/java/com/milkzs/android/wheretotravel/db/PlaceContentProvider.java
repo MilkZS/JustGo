@@ -58,15 +58,17 @@ public class PlaceContentProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
+                Log.d(TAG,"provider cursor length is " + cursor.getCount());
             }
             break;
             case CODE_PLACE_ID: {
                 String id = uri.getLastPathSegment();
-                cursor = placeDBHelper.getReadableDatabase().query(
+                Log.d(TAG,"query by id and id is " + id);
+                cursor = placeDBHelper.getWritableDatabase().query(
                         PlaceContract.PlaceBase.TABLE_NAME,
-                        PlaceContract.PlaceBase.QUERY_ENTRY,
-                        PlaceContract.PlaceBase.COLUMN_PLACE_ID + "=" + id,
-                        null,
+                        projection,
+                        PlaceContract.PlaceBase.COLUMN_PLACE_ID+"=48050" ,
+                       null,
                         null,
                         null,
                         null);

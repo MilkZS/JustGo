@@ -68,22 +68,22 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
 
     @Override
     public void onBindViewHolder(MyPlaceAdapterHolder holder, int position) {
-        if(mCursor != null){
+        if (mCursor != null) {
             mCursor.moveToPosition(position);
-            Log.d(TAG,"run here test and position is " + position);
+            Log.d(TAG, "run here test and position is " + position);
         }
-        holder.bindToView(position, context,mCursor);
+        holder.bindToView(position, context, mCursor);
     }
 
     @Override
     public int getItemCount() {
-        if(mode == MODE_LIST){
-            if(placeListInfos != null){
+        if (mode == MODE_LIST) {
+            if (placeListInfos != null) {
                 return placeListInfos.size();
             }
-        }else if(mode == MODE_LOG){
-            if(mCursor != null){
-                Log.d(TAG,"recycler cursor count is " + mCursor.getCount());
+        } else if (mode == MODE_LOG) {
+            if (mCursor != null) {
+                Log.d(TAG, "recycler cursor count is " + mCursor.getCount());
                 return mCursor.getCount();
             }
         }
@@ -95,10 +95,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
      *
      * @param arrayList
      */
-    public void swapData(ArrayList<PlaceListInfo> arrayList,Cursor mCursor,int mode) {
-        if(mode == MODE_LIST){
+    public void swapData(ArrayList<PlaceListInfo> arrayList, Cursor mCursor, int mode) {
+        if (mode == MODE_LIST) {
             this.placeListInfos = arrayList;
-        }else if(mode == MODE_LOG){
+        } else if (mode == MODE_LOG) {
             this.mCursor = mCursor;
         }
         notifyDataSetChanged();
@@ -128,9 +128,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
          *
          * @param itemView
          */
-        private void initView(View itemView){
-            switch (mode){
-                case MODE_LIST:{
+        private void initView(View itemView) {
+            switch (mode) {
+                case MODE_LIST: {
                     itemView.setOnClickListener(this);
                     mainPic = itemView.findViewById(R.id.image_main);
                     nameText = itemView.findViewById(R.id.text_view_name);
@@ -138,11 +138,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
                     addressText = itemView.findViewById(R.id.text_view_address);
                     timeText = itemView.findViewById(R.id.text_view_open_time);
                     priceText = itemView.findViewById(R.id.text_view_price);
-                }break;
-                case MODE_LOG:{
+                }
+                break;
+                case MODE_LOG: {
                     log_time = itemView.findViewById(R.id.log_time);
                     log_name = itemView.findViewById(R.id.log_name);
-                }break;
+                }
+                break;
             }
         }
 
@@ -151,11 +153,11 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
          *
          * @param position data index of array list
          */
-        public void bindToView(int position, Context context,Cursor cursor) {
+        public void bindToView(int position, Context context, Cursor cursor) {
             this.position = position;
 
-            switch (mode){
-                case MODE_LIST:{
+            switch (mode) {
+                case MODE_LIST: {
                     placeListInfo = placeListInfos.get(position);
                     Picasso.with(context).load(placeListInfo.getMainPicUri()).into(mainPic);
                     nameText.setText(placeListInfo.getPlaceName());
@@ -163,16 +165,22 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
                     addressText.setText(placeListInfo.getAddress());
                     timeText.setText(placeListInfo.getOpenTime());
                     priceText.setText(placeListInfo.getPrice());
-                }break;
-                case MODE_LOG:{
-                    Log.d(TAG,"each cursor time content is " + cursor.getString(
+                }
+                break;
+                case MODE_LOG: {
+                    Log.d(TAG, "================================================");
+                    Log.d(TAG, "each cursor time content is " + cursor.getString(
                             cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_NAME)));
+                    Log.d(TAG, "cursor content id is " + cursor.getString(
+                            cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_ID)));
+                    Log.d(TAG, "================================================");
                     log_name.setText(cursor.getString(
                             cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_NAME)));
 
                     log_time.setText(cursor.getString(
                             cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME)));
-                }break;
+                }
+                break;
             }
         }
 

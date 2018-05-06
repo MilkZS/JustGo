@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,10 @@ import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Tool.FormatData;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
 
-import java.util.Map;
-
 
 public class LogListFragment extends Fragment {
+
+    private String TAG = "LogListFragment";
 
     private PlaceListInfo placeListInfo;
 
@@ -32,6 +33,7 @@ public class LogListFragment extends Fragment {
     private TextView historyTime;
     private Button button_save;
     private Button button_leave;
+    private Boolean ifFirst = false;
 
     public LogListFragment() {
     }
@@ -68,13 +70,27 @@ public class LogListFragment extends Fragment {
         final String name = placeListInfo.getPlaceName();
         final String sId = placeListInfo.getsId();
 
-        final Map<String, String> map = placeListInfo.getLogMap();
-        if (map == null || map.get(BaseInfo.MapFlag.FLAG_EXISTS).equals("0")) {
+        Uri uri = PlaceContract.PlaceBase.CONTENT_BASE;
+        Log.d(TAG, "query place id is " + sId);
+        Cursor cursor = getContext().getContentResolver().query(
+                uri,
+                PlaceContract.PlaceBase.QUERY_ENTRY,
+                null,
+                null,
+                null);
+        if (cursor == null || cursor.getCount() == 0) {
+            if (cursor != null) {
+                Log.d(TAG, "cursor length is " + cursor.getCount());
+            }
             historyTime.setText(view.getContext().getResources().getString(R.string.log_none));
+            ifFirst = true;
         } else {
-
-            String timeArr = placeListInfo.getLogMap().get(BaseInfo.MapFlag.FLAG_TIME_ARR);
-            String timeGo = placeListInfo.getLogMap().get(BaseInfo.MapFlag.FLAG_TIME_GO);
+            ifFirst = false;
+            cursor.moveToPosition(cursor.getCount()-1);
+            String timeArr = cursor.getString(
+                    cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME));
+            String timeGo = cursor.getString(
+                    cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO));
 
             arriveTime.setText(timeArr);
             leaveTime.setText(timeGo);
@@ -94,22 +110,16 @@ public class LogListFragment extends Fragment {
                     }
                     historyTime.setText(FormatData.formatHistoryShow(sArrTime, sGoTime, name));
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_NAME, name);
                     contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_ID, sId);
+                    Log.d(TAG, "input id is " + sId);
                     contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_TIME, sArrTime);
                     contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO, sGoTime);
-                    if (map.get(BaseInfo.MapFlag.FLAG_EXISTS).equals("0")) {
-                        view.getContext().getContentResolver().bulkInsert(
-                                PlaceContract.PlaceBase.CONTENT_BASE,
-                                new ContentValues[]{contentValues});
-                    } else {
-                        Uri uri = PlaceContract.PlaceBase.CONTENT_BASE.buildUpon().appendPath(sId).build();
-                        view.getContext().getContentResolver().update(uri,contentValues,null,null);
-                    }
-                    map.put(BaseInfo.MapFlag.FLAG_EXISTS,"1");
-                    map.put(BaseInfo.MapFlag.FLAG_TIME_ARR,sArrTime);
-                    map.put(BaseInfo.MapFlag.FLAG_TIME_GO,sGoTime);
-                    placeListInfo.setLogMap(map);
+                    contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_NAME, name);
+
+                    Log.d(TAG, "if first is " + ifFirst.toString());
+                    view.getContext().getContentResolver().bulkInsert(
+                            PlaceContract.PlaceBase.CONTENT_BASE,
+                            new ContentValues[]{contentValues});
                 }
             }
         });
@@ -135,7 +145,4 @@ public class LogListFragment extends Fragment {
         super.onDetach();
     }
 
-    private void debug(){
-
-    }
 }
