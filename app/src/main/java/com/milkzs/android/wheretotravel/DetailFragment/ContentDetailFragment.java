@@ -1,5 +1,6 @@
 package com.milkzs.android.wheretotravel.DetailFragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,9 @@ public class ContentDetailFragment extends Fragment {
     private PlaceListInfo placeListInfo;
     private TextView summaryTextView;
     private TextView contentTextView;
+
+    private TextView labelSummary;
+    private TextView labelContent;
 
     public ContentDetailFragment() {
     }
@@ -52,9 +56,12 @@ public class ContentDetailFragment extends Fragment {
 
         summaryTextView = view.findViewById(R.id.detail_text_view_summary);
         contentTextView = view.findViewById(R.id.detail_text_view_content);
+        labelSummary = view.findViewById(R.id.detail_text_view_summary_label);
+        labelContent = view.findViewById(R.id.detail_text_view_content_label);
 
         summaryTextView.setText(placeListInfo.getSummary());
         contentTextView.setText(placeListInfo.getDetailContent());
+
 
         return view;
     }
