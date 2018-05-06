@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlaceDetailActivity" />
+            android:name=".PlaceDetailActivity"
+            android:parentActivityName=".PlaceListActivity"/>
 
         <provider
             android:name=".db.PlaceContentProvider"

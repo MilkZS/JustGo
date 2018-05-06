@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textAlignment="center"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center"
+    android:textSize="@dimen/tab_text_view_size"
+    android:textColor="@color/tab_text_view"/>

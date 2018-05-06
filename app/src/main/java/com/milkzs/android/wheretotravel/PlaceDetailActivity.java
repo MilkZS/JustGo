@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TextView;
@@ -33,7 +34,8 @@ public class PlaceDetailActivity extends AppCompatActivity {
     private ArrayList<Fragment> viewArrayList;
     private TabLayout tabLayout;
     private ArrayList<String> tabList;
-    private Cursor cursor;
+    private Toolbar mToolbar;
+    private TextView mTitleName;
 
     private int tabShowSum = 4;// sum of tab title
     private int tabShowCount = 4; // counts of show tab at one time
@@ -43,12 +45,22 @@ public class PlaceDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
 
+        mToolbar = findViewById(R.id.toolbar_detail);
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         viewPager = findViewById(R.id.detail_view_page);
         tabLayout = findViewById(R.id.detail_tab_layout);
 
         Intent intent = getIntent();
         PlaceListInfo placeListInfo =
                 intent.getParcelableExtra(BaseInfo.IntentFlag.FLAG_ARRAY_LIST_DETAIL);
+
+        mTitleName = findViewById(R.id.detail_title_name);
+        mTitleName.setText(placeListInfo.getPlaceName());
+
 
         tabList = FormatData.formatTabString(this);
         Log.d(TAG,"tab list length is " + tabList.size());

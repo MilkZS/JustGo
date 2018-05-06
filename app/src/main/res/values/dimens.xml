@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- place list activity -->
+    <dimen name="toolbar_height">70dp</dimen>
+
+
+    <!-- place detail activity bar -->
+    <dimen name="title_toolbar_size">20dp</dimen>
+    <dimen name="title_toolbar_frame_margin_left">50dp</dimen>
+    <dimen name="tab_height">35dp</dimen>
+    <dimen name="tab_text_view_size">16dp</dimen>
+
+
     <dimen name="log_text_view_height">40dp</dimen>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,11 +37,15 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
     private TitanicTextView titanicTextView;
 
     private GridLayoutManager gridLayoutManager;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_list);
+
+        mToolbar = findViewById(R.id.list_toolbar);
+        setSupportActionBar(mToolbar);
 
         recyclerView = findViewById(R.id.main_recycler);
 

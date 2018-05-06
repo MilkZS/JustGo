@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.milkzs.android.wheretotravel.PlaceListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_recycler"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/list_actionbar_title">
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        android:layout_marginTop="70dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
 
     <com.milkzs.android.wheretotravel.Titanic.TitanicTextView
         android:id="@+id/before_main_show"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/titanic_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#212121"
-        android:textSize="50sp"
+        android:layout_gravity="center"
         android:background="@color/colorPrimaryDark"
-        />
+        android:gravity="center"
+        android:text="@string/titanic_show"
+        android:textColor="#212121"
+        android:textSize="50sp" />
 
 </FrameLayout>
