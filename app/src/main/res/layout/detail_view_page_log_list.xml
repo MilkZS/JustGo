@@ -9,23 +9,28 @@
 
     <TextView
         android:id="@+id/log_time_label"
+        style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/design_text_view_log_time_label"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/design_text_view_log_time_label" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_label_log"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="117dp"
         android:layout_height="41dp"
+        android:gravity="center"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/design_label_log"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_time_label" />
 
@@ -34,6 +39,8 @@
         android:layout_width="151dp"
         android:layout_height="44dp"
         android:layout_marginStart="20dp"
+        android:textColor="@color/text_color"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:hint="@string/design_log_year"
         android:inputType="date"
         app:layout_constraintStart_toEndOf="@+id/textView_label_log"
@@ -43,6 +50,9 @@
         android:id="@+id/textView_label_log_leave"
         android:layout_width="121dp"
         android:layout_height="43dp"
+        android:gravity="center"
+        android:textColor="@color/text_color"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_marginTop="24dp"
         android:text="@string/design_label_log_leave"
         app:layout_constraintStart_toStartOf="@+id/textView_label_log"
@@ -56,6 +66,8 @@
         android:layout_marginStart="8dp"
         android:hint="@string/design_log_year"
         android:inputType="date"
+        android:textColor="@color/text_color"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="@+id/log_time_edit"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/log_time_edit"
@@ -63,10 +75,13 @@
 
     <TextView
         android:id="@+id/textView_label_history"
+        style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="@string/design_text_view_log_history_label"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,15 +89,19 @@
 
     <TextView
         android:id="@+id/textView_show_history"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_label_history" />
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="112dp"
+        android:textColor="@color/text_color"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:text="@string/design_button_save"
@@ -95,6 +114,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:textColor="@color/text_color"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:text="@string/design_button_refresh"
         app:layout_constraintStart_toStartOf="@+id/textView_label_log_leave"
         app:layout_constraintTop_toBottomOf="@+id/log_time_edit_go" />

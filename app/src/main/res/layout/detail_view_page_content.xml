@@ -22,6 +22,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:text="@string/design_text_view_summary_label" />
+
         </FrameLayout>
 
         <TextView

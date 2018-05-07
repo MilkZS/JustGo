@@ -58,7 +58,7 @@ public class LogListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_log_list, container, false);
+        final View view = inflater.inflate(R.layout.detail_view_page_log_list, container, false);
 
         arriveTime = view.findViewById(R.id.log_time_edit);
         leaveTime = view.findViewById(R.id.log_time_edit_go);

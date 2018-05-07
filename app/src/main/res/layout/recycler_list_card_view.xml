@@ -27,8 +27,10 @@
         <TextView
             android:id="@+id/text_view_name"
             android:layout_width="145dp"
-            android:layout_height="30dp"
+            android:textColor="@color/text_color"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="64dp"
+            style="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/image_main"
             tools:text="@string/design_text_view_name"
@@ -36,10 +38,12 @@
 
         <TextView
             android:id="@+id/text_view_open_time"
+            android:textColor="@color/text_color"
             android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_view_open_time_label"
             app:layout_constraintTop_toTopOf="@+id/text_view_open_time_label"
@@ -48,6 +52,8 @@
 
         <TextView
             android:id="@+id/text_view_open_time_label"
+            android:textColor="@color/text_color"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="16dp"
@@ -58,7 +64,9 @@
 
         <TextView
             android:id="@+id/text_view_summary"
+            android:textColor="@color/text_color"
             android:layout_width="173dp"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_height="32dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/text_view_name"
@@ -67,7 +75,9 @@
 
         <TextView
             android:id="@+id/text_view_price"
+            android:textColor="@color/text_color"
             android:layout_width="87dp"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_height="26dp"
             android:layout_marginEnd="36dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +88,8 @@
         <TextView
             android:id="@+id/text_view_address"
             android:layout_width="192dp"
+            android:textColor="@color/text_color"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_height="34dp"
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@+id/text_view_summary"

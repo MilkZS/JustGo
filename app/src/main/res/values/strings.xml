@@ -29,7 +29,7 @@
     <string name="design_text_view_log_title">哈尔冰滑雪场</string>
 
     <string name="design_text_view_log_time_label">曾经来过，留下芳香</string>
-    <string name="design_text_view_log_history_label">多次来过，留下标记</string>
+    <string name="design_text_view_log_history_label">上一次旅行的足迹</string>
     <string name="design_log_year">2018-01-12</string>
     <string name="design_label_log">到达时间</string>
     <string name="design_label_log_leave">离开时间</string>
