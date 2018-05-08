@@ -39,10 +39,17 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
     private GridLayoutManager gridLayoutManager;
     private Toolbar mToolbar;
 
+    private int position = 0;
+    private String POSITION_FLAG = "flag_position";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_list);
+
+        if(savedInstanceState != null){
+            position = savedInstanceState.getInt(POSITION_FLAG);
+        }
 
         mToolbar = findViewById(R.id.list_toolbar);
         setSupportActionBar(mToolbar);
@@ -52,6 +59,7 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         gridLayoutManager = new GridLayoutManager(
                 this, getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setHasFixedSize(true);
+        recyclerView.smoothScrollToPosition(position);
 
         titanicTextView = findViewById(R.id.before_main_show);
         refreshMode(PlaceAdapter.MODE_LIST);

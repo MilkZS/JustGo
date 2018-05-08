@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "390166340871",
+    "firebase_url": "https://wheretotravel-b1689.firebaseio.com",
+    "project_id": "wheretotravel-b1689",
+    "storage_bucket": "wheretotravel-b1689.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390166340871:android:6a0f59551e09de69",
+        "android_client_info": {
+          "package_name": "com.milkzs.android.wheretotravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390166340871-k20u44otrrtfunvbhsip29kahn0qpaf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOYd3twxqO-CDjQGoUw5RXf2ApBkJZDHA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
