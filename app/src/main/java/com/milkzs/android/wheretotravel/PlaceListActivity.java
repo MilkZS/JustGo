@@ -65,7 +65,6 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-
         sharedPreferences = getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
         position = sharedPreferences.getInt(POSITION_FLAG, 0);
         Log.d(TAG,"get position is " + position);
@@ -83,8 +82,6 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         titanicTextView = findViewById(R.id.before_main_show);
         refreshMode(PlaceAdapter.MODE_LIST);
     }
-
-
 
     /**
      * chose mode to run
