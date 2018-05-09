@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- layout id -->
+    <string name="sign_app_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- pub id -->
+    <string name="sign_build_id">ca-app-pub-1614488504821142~3343792026</string>
+</resources>
