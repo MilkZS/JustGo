@@ -6,6 +6,9 @@ package com.milkzs.android.wheretotravel.Base;
 
 public interface BaseInfo {
 
+    /** error picture */
+    String ERROR_PIC = "http://pic3.40017.cn/scenery/destination/2015/04/16/09/kE682I.jpg";
+
     /** base param for query */
     String BASE_URI = "http://route.showapi.com/268-1";
     String SHOWAPI_API_ID = "showapi_appid";

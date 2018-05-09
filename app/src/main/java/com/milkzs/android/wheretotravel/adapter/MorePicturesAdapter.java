@@ -68,7 +68,10 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
             if(picUriArray.get(position).equals("")){
                 return;
             }
-            Picasso.with(context).load(picUriArray.get(position)).into(imageView);
+            Picasso.with(context)
+                    .load(picUriArray.get(position))
+                    .error(R.drawable.error_pic)
+                    .into(imageView);
         }
 
         @Override
