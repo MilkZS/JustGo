@@ -57,6 +57,8 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_list);
 
+        Log.e(TAG,"this is onCreate");
+
         MobileAds.initialize(this, getResources().getString(R.string.sign_build_id));
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
@@ -77,7 +79,8 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         gridLayoutManager = new GridLayoutManager(
                 this, getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setHasFixedSize(true);
-        recyclerView.smoothScrollToPosition(position);
+        //recyclerView.getLayoutManager().scrollToPosition(position);
+        //recyclerView.smoothScrollToPosition(position);
 
         titanicTextView = findViewById(R.id.before_main_show);
         refreshMode(PlaceAdapter.MODE_LIST);
@@ -101,8 +104,10 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
                 if (queryDataTask != null) {
                     queryDataTask.cancel(true);
                 }
-                queryDataTask = new QueryDataTask(this, placeAdapter, titanicTextView);
+                queryDataTask = new QueryDataTask(this, placeAdapter,
+                        titanicTextView,recyclerView,position);
                 queryDataTask.execute();
+                recyclerView.smoothScrollToPosition(position);
             }
             break;
             case PlaceAdapter.MODE_LOG: {
@@ -150,9 +155,10 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        Log.e(TAG,"this is onSaveInstanceState");
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
         position = ((GridLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-        Toast.makeText(this,"position is " + position,Toast.LENGTH_SHORT).show();
+        if (DBG) Toast.makeText(this,"position is " + position,Toast.LENGTH_SHORT).show();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(POSITION_FLAG, position);
         editor.apply();
@@ -163,11 +169,32 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG,"resume position is " + position);
-        recyclerView.smoothScrollToPosition(position);
-        recyclerView.getLayoutManager().scrollToPosition(position);
+        Log.e(TAG,"this is onResume");
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG,"this is onPause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG,"this is onDestroy");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG,"this is onStart ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e(TAG,"this is onRestart ");
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -181,11 +208,6 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.d(TAG, "run here times ");
         placeAdapter.swapData(null, data, PlaceAdapter.MODE_LOG);
-        if (position == RecyclerView.NO_POSITION) {
-            position = 0;
-        }
-        Log.d(TAG,"smooth scroll to position is " + position);
-        recyclerView.smoothScrollToPosition(position);
     }
 
     @Override
