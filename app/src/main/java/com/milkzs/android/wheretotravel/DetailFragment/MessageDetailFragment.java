@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
@@ -76,7 +77,7 @@ public class MessageDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 choseLocationMap(view.getContext(),
-                        placeListInfo.getLocation_lon(),placeListInfo.getLocation_lat());
+                        placeListInfo.getLocation_lon(), placeListInfo.getLocation_lat());
             }
         });
         return view;
@@ -94,28 +95,41 @@ public class MessageDetailFragment extends Fragment {
      * @param x
      * @param y
      */
-    private void choseLocationMap(Context context,String x,String y) {
-
+    private void choseLocationMap(Context context, String x, String y) {
         if (APKTools.checkApkExist(context, context.getResources()
                 .getString(R.string.package_baidu_map))) {
             Intent intent = new Intent();
             intent.setData(Uri.parse(BaseInfo.OpenLocationMap.BAI_DU_MAP + x + "," + y
                     + BaseInfo.OpenLocationMap.BAI_DU_MAP_INFO));
-            startActivity(intent);
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(intent);
+                return;
+            }
+        }
 
-        } else if (APKTools.checkApkExist(context, context.getResources()
+        if (APKTools.checkApkExist(context, context.getResources()
                 .getString(R.string.package_gaode_map))) {
             Intent intent = new Intent();
             intent.setData(Uri.parse(BaseInfo.OpenLocationMap.GAO_DE_MAP
                     + BaseInfo.OpenLocationMap.GAO_DE_MAP_LON + x
                     + BaseInfo.OpenLocationMap.GAO_DE_MAP_LAT + y
                     + BaseInfo.OpenLocationMap.GAO_DE_MAP_INFO));
-            startActivity(intent);
-
-        } else {
-            Intent intent = new Intent();
-            intent.setData(Uri.parse(BaseInfo.OpenLocationMap.GOOGLE_MAP + x + "," + y));
-            startActivity(intent);
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(intent);
+                return;
+            }
         }
+
+        Intent intent = new Intent();
+        intent.setData(Uri.parse(BaseInfo.OpenLocationMap.GOOGLE_MAP + x + "," + y));
+        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+            startActivity(intent);
+        }else {
+            Toast.makeText(
+                    context,
+                    context.getResources().getString(R.string.package_no_activity),
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

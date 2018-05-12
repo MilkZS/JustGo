@@ -51,6 +51,8 @@
     <string name="package_baidu_map">com.baidu.BaiduMap</string>
     <string name="package_gaode_map">com.autonavi.minimap</string>
 
+    <string name="package_no_activity">你还没有安装相对应的APP！</string>
+
     <!-- for main menu -->
     <string name="menu_list">浏览景点</string>
     <string name="menu_log">我的足迹</string>
