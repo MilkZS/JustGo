@@ -107,7 +107,7 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
                 queryDataTask = new QueryDataTask(this, placeAdapter,
                         titanicTextView,recyclerView,position);
                 queryDataTask.execute();
-                recyclerView.smoothScrollToPosition(position);
+//                recyclerView.smoothScrollToPosition(position);
             }
             break;
             case PlaceAdapter.MODE_LOG: {

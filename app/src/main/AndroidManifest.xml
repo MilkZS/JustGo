@@ -20,12 +20,22 @@
         </activity>
         <activity
             android:name=".PlaceDetailActivity"
-            android:parentActivityName=".PlaceListActivity"/>
+            android:parentActivityName=".PlaceListActivity" />
 
         <provider
             android:name=".db.PlaceContentProvider"
             android:authorities="com.milkzs.android.wheretotravel"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <receiver android:name=".LogListAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/log_list_app_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
