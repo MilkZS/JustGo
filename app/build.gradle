@@ -10,6 +10,24 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+
+        release {
+            storeFile file('wheretotravel.jks')
+            storePassword "774765813"
+            keyAlias "keyTravel"
+            keyPassword "774765813"
+            println("=======release=======")
+        }
+
+        debug {
+            storeFile file('wheretotravel.jks')
+            storePassword "774765813"
+            keyAlias "keyTravel"
+            keyPassword "774765813"
+            println("=======debug=======")
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -17,6 +35,8 @@ android {
         }
     }
 }
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
