@@ -73,16 +73,21 @@ class RemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public RemoteViews getViewAt(int position) {
+        Log.e(TAG,"getViewAt");
         if (cursor == null) {
             return null;
         }
         cursor.moveToPosition(position);
-
+        Log.e(TAG,"getViewAt next");
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.log_list_app_widget);
-        String show = cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME))
-                + "\t" + cursor.getString(cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_NAME));
-        views.setTextViewText(R.id.appwidget_text, show);
-
+        views.setTextViewText(
+                R.id.appwidget_text,
+                cursor.getString(
+                        cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME)));
+        views.setTextViewText(
+                R.id.appwidget_text_right,
+                cursor.getString(
+                        cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_NAME)));
         return views;
     }
 
@@ -93,7 +98,7 @@ class RemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+        return 1;
     }
 
     @Override

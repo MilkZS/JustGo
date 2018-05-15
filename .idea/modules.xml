@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WhereToTravel.iml" filepath="$PROJECT_DIR$/WhereToTravel.iml" />
-      <module fileurl="file://E:\WTG\WhereToTravel\WhereToTravel.iml" filepath="E:\WTG\WhereToTravel\WhereToTravel.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\WTG\WhereToTravel\app\app.iml" filepath="E:\WTG\WhereToTravel\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -157,9 +157,10 @@ public class LogListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String sArrTime = arriveTime.getText().toString();
+                String sLeaveTime = leaveTime.getText().toString();
                 if (sArrTime == null || sArrTime.equals("")) {
                     Toast.makeText(view.getContext(), "必须输入到来的时间！", Toast.LENGTH_SHORT).show();
-                } else if (DateTime.judge(dateTime[0], dateTime[1])) {
+                } else if (!sLeaveTime.equals("") && DateTime.judge(dateTime[0], dateTime[1])) {
                     cleanEdit();
                     Toast.makeText(view.getContext(), "离开时间必须比到达时间晚",Toast.LENGTH_SHORT).show();
                 } else {

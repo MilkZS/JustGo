@@ -3,8 +3,8 @@
     android:initialKeyguardLayout="@layout/widget_log_list"
     android:initialLayout="@layout/widget_log_list"
     android:minHeight="180dp"
-    android:minWidth="110dp"
+    android:minWidth="300dp"
     android:previewImage="@drawable/example_appwidget_preview"
-    android:resizeMode="none"
+    android:resizeMode="horizontal"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"></appwidget-provider>

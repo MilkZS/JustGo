@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -12,16 +13,18 @@ import android.widget.RemoteViews;
  */
 public class LogListAppWidget extends AppWidgetProvider {
 
+    private static String TAG = "LogListAppWidget";
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
+        Log.d(TAG,"here updateAppWidget");
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_log_list);
         Intent intent = new Intent(context, WidgetService.class);
         views.setRemoteAdapter(R.id.list_view_log,intent);
-
-        Intent intentName = new Intent(context,PlaceListActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intentName,0);
+       // views.setTextViewText(R.id.text_view_tt,"12346");
+        //Intent intentName = new Intent(context,PlaceListActivity.class);
+       // PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intentName,0);
 
 
         // Instruct the widget manager to update the widget
