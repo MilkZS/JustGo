@@ -47,6 +47,11 @@ public class DateTime {
      * @return
      */
     public static boolean judge(DateTime dateTime1,DateTime dateTime2) {
+
+        if(dateTime2 == null){
+            return true;
+        }
+
         if(dateTime1.getYear() < dateTime2.getYear()){
             return false;
         }else if(dateTime1.getYear() > dateTime2.getYear()){
