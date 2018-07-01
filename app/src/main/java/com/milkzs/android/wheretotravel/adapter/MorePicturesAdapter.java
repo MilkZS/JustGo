@@ -25,6 +25,11 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
     private ArrayList<Uri> picUriArray;
     private Context context;
     private int position;
+    private ClickPicture clickPicture;
+
+    public MorePicturesAdapter(ClickPicture clickPicture) {
+        this.clickPicture = clickPicture;
+    }
 
     @Override
     public PicturesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,7 +82,12 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         @Override
         public void onClick(View v) {
             if (DBG) Toast.makeText(context,position,Toast.LENGTH_SHORT).show();
+            clickPicture.onClick(position);
         }
+    }
+
+    public interface ClickPicture{
+        void onClick(int position);
     }
 
     /**

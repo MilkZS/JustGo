@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/activity_detail_id"
     tools:context="com.milkzs.android.wheretotravel.PlaceDetailActivity">
 
     <android.support.v7.widget.Toolbar

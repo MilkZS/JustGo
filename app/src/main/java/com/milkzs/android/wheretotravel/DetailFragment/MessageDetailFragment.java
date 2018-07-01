@@ -18,6 +18,7 @@ import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Tool.APKTools;
+import com.milkzs.android.wheretotravel.adapter.MorePicturesAdapter;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -54,6 +55,7 @@ public class MessageDetailFragment extends Fragment {
 
     }
 
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,4 +134,6 @@ public class MessageDetailFragment extends Fragment {
         }
 
     }
+
+
 }

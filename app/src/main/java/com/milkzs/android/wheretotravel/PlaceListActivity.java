@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.transition.Scene;
+import android.support.transition.TransitionInflater;
+import android.support.transition.TransitionManager;
+import android.support.transition.TransitionSet;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -16,6 +20,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -128,10 +134,14 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
 
     @Override
     public void onClick(int position, PlaceListInfo placeListInfo) {
-        if (DBG) Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, PlaceDetailActivity.class);
         intent.putExtra(BaseInfo.IntentFlag.FLAG_ARRAY_LIST_DETAIL, placeListInfo);
         startActivity(intent);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        Scene scene = Scene.getSceneForLayout(viewGroup,R.layout.detail_view_page_message,this);
+        TransitionSet transitionSet = (TransitionSet) TransitionInflater.from(viewGroup.getContext()).inflateTransition(R.transition.detail_transition);
+        TransitionManager.go(scene,transitionSet);
     }
 
     @Override
