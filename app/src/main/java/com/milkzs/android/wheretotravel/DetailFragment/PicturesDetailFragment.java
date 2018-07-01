@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
@@ -20,9 +19,7 @@ import java.util.ArrayList;
 
 public class PicturesDetailFragment extends Fragment {
 
-    private PlaceListInfo placeListInfo;
     private ArrayList<Uri> uriArrayList;
-    private RecyclerView recyclerView;
 
     public PicturesDetailFragment() {
     }
@@ -39,8 +36,10 @@ public class PicturesDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            placeListInfo = getArguments().getParcelable(BaseInfo.IntentFlag.FLAG_FRAGMENT_PICTURES);
-            uriArrayList = placeListInfo.getPicListSmallUrl();
+            PlaceListInfo placeListInfo = getArguments().getParcelable(BaseInfo.IntentFlag.FLAG_FRAGMENT_PICTURES);
+            if (placeListInfo != null) {
+                uriArrayList = placeListInfo.getPicListSmallUrl();
+            }
         }
     }
 
@@ -51,7 +50,7 @@ public class PicturesDetailFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.detail_view_page_picture,container,false);
 
-        recyclerView = view.findViewById(R.id.recycler_detail_picture);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_detail_picture);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(
                 view.getContext(), getResources().getInteger(R.integer.grid_layout_picture_detail));
         recyclerView.setLayoutManager(gridLayoutManager);

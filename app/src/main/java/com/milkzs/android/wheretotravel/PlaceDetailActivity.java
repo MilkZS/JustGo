@@ -1,8 +1,6 @@
 package com.milkzs.android.wheretotravel;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -21,7 +19,6 @@ import com.milkzs.android.wheretotravel.DetailFragment.MessageDetailFragment;
 import com.milkzs.android.wheretotravel.DetailFragment.PicturesDetailFragment;
 import com.milkzs.android.wheretotravel.Tool.FormatData;
 import com.milkzs.android.wheretotravel.adapter.DetailViewPageAdapter;
-import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 import java.util.ArrayList;
 
@@ -31,21 +28,15 @@ public class PlaceDetailActivity extends AppCompatActivity {
     private boolean DBG = false;
 
     private ViewPager viewPager;
-    private ArrayList<Fragment> viewArrayList;
     private TabLayout tabLayout;
     private ArrayList<String> tabList;
-    private Toolbar mToolbar;
-    private TextView mTitleName;
-
-    private int tabShowSum = 4;// sum of tab title
-    private int tabShowCount = 4; // counts of show tab at one time
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
 
-        mToolbar = findViewById(R.id.toolbar_detail);
+        Toolbar mToolbar = findViewById(R.id.toolbar_detail);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -58,7 +49,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         PlaceListInfo placeListInfo =
                 intent.getParcelableExtra(BaseInfo.IntentFlag.FLAG_ARRAY_LIST_DETAIL);
 
-        mTitleName = findViewById(R.id.detail_title_name);
+        TextView mTitleName = findViewById(R.id.detail_title_name);
         mTitleName.setText(placeListInfo.getPlaceName());
 
 
@@ -74,18 +65,20 @@ public class PlaceDetailActivity extends AppCompatActivity {
      * @param placeListInfo
      */
     private void initViewPage(PlaceListInfo placeListInfo){
-        viewArrayList = new ArrayList<>();
+        ArrayList<Fragment> viewArrayList = new ArrayList<>();
         viewArrayList.add(MessageDetailFragment.newInstance(placeListInfo));
         viewArrayList.add(ContentDetailFragment.newInstance(placeListInfo));
         viewArrayList.add(PicturesDetailFragment.newInstance(placeListInfo));
         viewArrayList.add(LogListFragment.newInstance(placeListInfo));
         DetailViewPageAdapter detailViewPageAdapter = new DetailViewPageAdapter(
-                getSupportFragmentManager(),viewArrayList);
+                getSupportFragmentManager(), viewArrayList);
         viewPager.setAdapter(detailViewPageAdapter);
     }
 
     private void initTabLayout(){
         // whether tab can scrollable
+        int tabShowSum = 4;
+        int tabShowCount = 4; // counts of show tab at one time
         tabLayout.setTabMode(
                 tabShowCount <= tabShowSum ? TabLayout.MODE_FIXED:TabLayout.MODE_SCROLLABLE) ;
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.color_tab_detail));

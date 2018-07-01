@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -48,13 +47,10 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
     private TitanicTextView titanicTextView;
 
     private GridLayoutManager gridLayoutManager;
-    private Toolbar mToolbar;
 
     private int position = RecyclerView.NO_POSITION;
     private String POSITION_FLAG = "flag_position";
     private String SHARED_FILE = "share_file";
-
-    private AdView mAdView;
 
     SharedPreferences sharedPreferences;
 
@@ -69,7 +65,7 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId(getResources().getString(R.string.sign_app_id));
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -77,7 +73,7 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         position = sharedPreferences.getInt(POSITION_FLAG, 0);
         Log.d(TAG,"get position is " + position);
 
-        mToolbar = findViewById(R.id.list_toolbar);
+        Toolbar mToolbar = findViewById(R.id.list_toolbar);
         setSupportActionBar(mToolbar);
 
         recyclerView = findViewById(R.id.main_recycler);
@@ -85,8 +81,6 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         gridLayoutManager = new GridLayoutManager(
                 this, getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setHasFixedSize(true);
-        //recyclerView.getLayoutManager().scrollToPosition(position);
-        //recyclerView.smoothScrollToPosition(position);
 
         titanicTextView = findViewById(R.id.before_main_show);
         refreshMode(PlaceAdapter.MODE_LIST);

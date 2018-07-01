@@ -39,10 +39,6 @@ public class PlaceListInfo implements Parcelable{
     public PlaceListInfo() {
     }
 
-    public Map<String, String> getLogMap() {
-        return logMap;
-    }
-
     public void setLogMap(Map<String, String> logMap) {
         this.logMap = logMap;
     }
@@ -141,10 +137,6 @@ public class PlaceListInfo implements Parcelable{
 
     public void setMainPicUri(Uri mainPicUri) {
         this.mainPicUri = mainPicUri;
-    }
-
-    public ArrayList<Uri> getPicListUrl() {
-        return picListUrl;
     }
 
     public void setPicListUrl(ArrayList<Uri> picListUrl) {

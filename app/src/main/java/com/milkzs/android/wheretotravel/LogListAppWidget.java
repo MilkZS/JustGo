@@ -1,6 +1,5 @@
 package com.milkzs.android.wheretotravel;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -22,10 +21,6 @@ public class LogListAppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_log_list);
         Intent intent = new Intent(context, WidgetService.class);
         views.setRemoteAdapter(R.id.list_view_log,intent);
-       // views.setTextViewText(R.id.text_view_tt,"12346");
-        //Intent intentName = new Intent(context,PlaceListActivity.class);
-       // PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intentName,0);
-
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -38,11 +33,6 @@ public class LogListAppWidget extends AppWidgetProvider {
             updateAppWidget(context, appWidgetManager, appWidgetId);
 
         }
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
     }
 
     @Override

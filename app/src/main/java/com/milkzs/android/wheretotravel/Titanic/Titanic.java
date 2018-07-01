@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.os.Build;
 import android.view.animation.LinearInterpolator;
 
 /**
@@ -14,15 +13,6 @@ import android.view.animation.LinearInterpolator;
 public class Titanic {
 
     private AnimatorSet animatorSet;
-    private Animator.AnimatorListener animatorListener;
-
-    public Animator.AnimatorListener getAnimatorListener() {
-        return animatorListener;
-    }
-
-    public void setAnimatorListener(Animator.AnimatorListener animatorListener) {
-        this.animatorListener = animatorListener;
-    }
 
     public void start(final TitanicTextView textView) {
 
@@ -79,11 +69,6 @@ public class Titanic {
 
                     }
                 });
-
-
-                if (animatorListener != null) {
-                    animatorSet.addListener(animatorListener);
-                }
 
                 animatorSet.start();
             }

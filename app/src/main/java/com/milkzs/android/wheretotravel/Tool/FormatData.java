@@ -21,7 +21,7 @@ public class FormatData {
      * @param context
      * @return
      */
-    public static String formatPrice(String price, Context context){
+     public static String formatPrice(String price, Context context){
         if(price == null || price.equals("") || price.equals(BaseInfo.ERROR_SHOW)){
             return context.getResources().getString(R.string.format_price_null);
         }

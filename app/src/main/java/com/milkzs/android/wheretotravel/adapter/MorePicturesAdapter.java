@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
@@ -28,13 +27,8 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
     private ArrayList<Uri> picUriArray;
     private Context context;
     private int position;
-    private ClickPicture clickPicture;
 
     public MorePicturesAdapter() {
-    }
-
-    public MorePicturesAdapter(ClickPicture clickPicture) {
-        this.clickPicture = clickPicture;
     }
 
     @Override
@@ -89,16 +83,11 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         @Override
         public void onClick(View v) {
             // Toast.makeText(context.getApplicationContext(),getAdapterPosition()+"",Toast.LENGTH_SHORT).show();
-           // clickPicture.onClick(position);
             Intent intent = new Intent(context.getApplicationContext(), ZooImageActivity.class);
             intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,getAdapterPosition());
             intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST,picUriArray);
             context.startActivity(intent);
         }
-    }
-
-    public interface ClickPicture{
-        void onClick(int position);
     }
 
     /**

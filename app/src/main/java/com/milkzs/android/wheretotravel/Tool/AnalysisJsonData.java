@@ -67,7 +67,7 @@ public class AnalysisJsonData {
                 //address
                 placeListInfo.setAddress(getJSONValue(singleOb,BaseInfo.CONTENT_LIST_ADDRESS));
 
-                /** pictures uri */
+                // pictures uri
                 bindArrayPicUri(singleOb);
                 placeListInfo.setPicListUrl(arrayListPicUri);
                 placeListInfo.setPicListSmallUrl(arrayListPicSmallUri);

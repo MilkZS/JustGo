@@ -36,8 +36,6 @@ public class LogListFragment extends Fragment {
     private EditText arriveTime;
     private EditText leaveTime;
     private TextView historyTime;
-    private Button button_save;
-    private Button button_leave;
     private Boolean ifFirst = false;
     private Cursor cursor;
 
@@ -69,8 +67,8 @@ public class LogListFragment extends Fragment {
         arriveTime = view.findViewById(R.id.log_time_edit);
         leaveTime = view.findViewById(R.id.log_time_edit_go);
         historyTime = view.findViewById(R.id.textView_show_history);
-        button_save = view.findViewById(R.id.button_save);
-        button_leave = view.findViewById(R.id.button_leave);
+        Button button_save = view.findViewById(R.id.button_save);
+        Button button_leave = view.findViewById(R.id.button_leave);
 
 
         final String name = placeListInfo.getPlaceName();
