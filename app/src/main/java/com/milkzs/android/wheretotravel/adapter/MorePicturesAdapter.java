@@ -1,6 +1,7 @@
 package com.milkzs.android.wheretotravel.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
+import com.milkzs.android.wheretotravel.ZooImageImpl.ZooImageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,6 +29,9 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
     private Context context;
     private int position;
     private ClickPicture clickPicture;
+
+    public MorePicturesAdapter() {
+    }
 
     public MorePicturesAdapter(ClickPicture clickPicture) {
         this.clickPicture = clickPicture;
@@ -62,6 +68,7 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         public PicturesHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.detail_more_pic);
+            imageView.setOnClickListener(this);
         }
 
         /**
@@ -81,8 +88,12 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
 
         @Override
         public void onClick(View v) {
-            if (DBG) Toast.makeText(context,position,Toast.LENGTH_SHORT).show();
-            clickPicture.onClick(position);
+            // Toast.makeText(context.getApplicationContext(),getAdapterPosition()+"",Toast.LENGTH_SHORT).show();
+           // clickPicture.onClick(position);
+            Intent intent = new Intent(context.getApplicationContext(), ZooImageActivity.class);
+            intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,getAdapterPosition());
+            intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST,picUriArray);
+            context.startActivity(intent);
         }
     }
 

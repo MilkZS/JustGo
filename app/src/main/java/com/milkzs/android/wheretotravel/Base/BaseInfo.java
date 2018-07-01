@@ -60,7 +60,6 @@ public interface BaseInfo {
     String ERROR_SHOW = "NONE";
 
     interface IntentFlag {
-        String FLAG_POSITION_LIST_DETAIL = "flag_position_list_detail";
         String FLAG_ARRAY_LIST_DETAIL = "flag_array_list_detail";
 
         String FLAG_FRAGMENT_MESSAGE = "flag_fragment_message";
@@ -68,6 +67,9 @@ public interface BaseInfo {
         String FLAG_FRAGMENT_PICTURES = "flag_fragment_pictures";
 
         String FLAG_FRAGMENT_LOG = "fragment_cursor";
+
+        String FLAG_PICTURE_LIST = "flag_picture_list";
+        String FLAG_PICTURE_POSITION = "flag_picture_position";
     }
 
     interface MapFlag {

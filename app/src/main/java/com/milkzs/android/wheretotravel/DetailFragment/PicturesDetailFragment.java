@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
@@ -17,7 +18,7 @@ import com.milkzs.android.wheretotravel.adapter.MorePicturesAdapter;
 import java.util.ArrayList;
 
 
-public class PicturesDetailFragment extends Fragment implements MorePicturesAdapter.ClickPicture{
+public class PicturesDetailFragment extends Fragment {
 
     private PlaceListInfo placeListInfo;
     private ArrayList<Uri> uriArrayList;
@@ -55,7 +56,8 @@ public class PicturesDetailFragment extends Fragment implements MorePicturesAdap
                 view.getContext(), getResources().getInteger(R.integer.grid_layout_picture_detail));
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setHasFixedSize(true);
-        MorePicturesAdapter morePicturesAdapter = new MorePicturesAdapter(this);
+
+        MorePicturesAdapter morePicturesAdapter = new MorePicturesAdapter();
         recyclerView.setAdapter(morePicturesAdapter);
         morePicturesAdapter.swapData(uriArrayList);
 
@@ -67,11 +69,4 @@ public class PicturesDetailFragment extends Fragment implements MorePicturesAdap
         super.onDetach();
     }
 
-    @Override
-    public void onClick(int position) {
-        if(recyclerView != null){
-            recyclerView.scrollToPosition(position);
-        }
-
-    }
 }

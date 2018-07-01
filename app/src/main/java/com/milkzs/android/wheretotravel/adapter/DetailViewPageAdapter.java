@@ -28,7 +28,6 @@ public class DetailViewPageAdapter extends FragmentPagerAdapter {
         return viewArrayList.get(position);
     }
 
-
     @Override
     public int getCount() {
         if(viewArrayList == null){
