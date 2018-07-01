@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <slide
+        android:duration="1000"
+        android:slideEdge="top">
+        <targets>
+            <target android:targetId="@+id/detail_image_title"></target>
+        </targets>
+    </slide>
+    <slide
+        android:slideEdge="left"
+        android:duration="1000">
+
+        <targets>
+            <target android:targetId="@+id/detail_text_view_price"/>
+            <target android:targetId="@+id/detail_text_view_discount" />
+            <target android:targetId="@+id/detail_text_view_time_label" />
+            <target android:targetId="@+id/detail_text_view_address"/>
+        </targets>
+    </slide>
+    <slide android:duration="1000"
+        android:slideEdge="bottom">
+
+        <targets>
+            <target android:targetId="@+id/detail_text_view_attention"/>
+        </targets>
+    </slide>
+
+    <slide android:slideEdge="right"
+        android:duration="1000">
+        <targets>
+            <target android:targetId="@+id/detail_text_view_open_time" />
+
+        </targets>
+    </slide>
+</transitionSet>
