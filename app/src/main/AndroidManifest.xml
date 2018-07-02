@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Android="http://schemas.android.com/apk/res-auto"
     package="com.milkzs.android.wheretotravel">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -41,7 +42,8 @@
                 android:resource="@xml/log_list_app_widget_info" />
         </receiver>
 
-        <activity android:name=".ZooImageImpl.ZooImageActivity"></activity>
+        <activity android:name=".ZooImageImpl.ZooImageActivity"
+            Android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>
