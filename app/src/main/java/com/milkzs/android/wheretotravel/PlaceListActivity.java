@@ -34,6 +34,7 @@ import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 import com.google.android.gms.ads.MobileAds;
+import com.milkzs.android.wheretotravel.search.SearchActivity;
 
 public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter.ClickTranform, LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -149,10 +150,17 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.item_list) {
-            refreshMode(PlaceAdapter.MODE_LIST);
-        } else if (item.getItemId() == R.id.item_log) {
-            refreshMode(PlaceAdapter.MODE_LOG);
+        switch (item.getItemId()){
+            case R.id.item_list:{
+                refreshMode(PlaceAdapter.MODE_LIST);
+            }break;
+            case R.id.item_log:{
+                refreshMode(PlaceAdapter.MODE_LOG);
+            }break;
+            case R.id.item_search:{
+                Intent intent = new Intent(this,SearchActivity.class);
+                startActivity(intent);
+            }break;
         }
         return true;
     }

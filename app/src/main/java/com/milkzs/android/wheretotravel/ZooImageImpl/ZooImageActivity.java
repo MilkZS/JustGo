@@ -24,7 +24,7 @@ public class ZooImageActivity extends AppCompatActivity {
         int position = intent.getIntExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,0);
         ArrayList<Uri> list = intent.getParcelableArrayListExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST);
 
-        ZooViewPageAdapter zooViewPageAdapter = new ZooViewPageAdapter(getSupportFragmentManager(),list);
+        ZooViewPageAdapter zooViewPageAdapter = new ZooViewPageAdapter(getSupportFragmentManager(),list,position);
         ViewPager viewPager = findViewById(R.id.view_page_zoo_picture);
         viewPager.setAdapter(zooViewPageAdapter);
         viewPager.setPageTransformer(true,new ZooPictureTransform());

@@ -14,16 +14,20 @@ import java.util.ArrayList;
 public class ZooViewPageAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Uri> arrayList;
+    private int tPosition = -1;
 
-    public ZooViewPageAdapter(FragmentManager fm,ArrayList<Uri> arrayList) {
+    public ZooViewPageAdapter(FragmentManager fm,ArrayList<Uri> arrayList,int position ) {
         super(fm);
         this.arrayList = arrayList;
+        this.tPosition = position;
     }
 
 
     @Override
     public Fragment getItem(int position) {
-        return  BigPictureFragment.newInstance(arrayList,position);
+        int po = (tPosition == -1)?position:tPosition;
+        tPosition = -1;
+        return  BigPictureFragment.newInstance(arrayList,po);
     }
 
     @Override

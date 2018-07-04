@@ -42,8 +42,10 @@
                 android:resource="@xml/log_list_app_widget_info" />
         </receiver>
 
-        <activity android:name=".ZooImageImpl.ZooImageActivity"
+        <activity
+            android:name=".ZooImageImpl.ZooImageActivity"
             Android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".search.SearchActivity"></activity>
     </application>
 
 </manifest>
