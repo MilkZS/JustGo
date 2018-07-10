@@ -43,9 +43,11 @@
         </receiver>
 
         <activity
-            android:name=".ZooImageImpl.ZooImageActivity"
+            android:name=".zooImageImpl.ZooImageActivity"
             Android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".search.SearchActivity"></activity>
+        <activity android:name=".search.SearchActivity"
+            android:parentActivityName=".PlaceListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

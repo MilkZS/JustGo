@@ -1,4 +1,4 @@
-package com.milkzs.android.wheretotravel.ZooImageImpl;
+package com.milkzs.android.wheretotravel.zooImageImpl;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

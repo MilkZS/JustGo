@@ -6,4 +6,16 @@
     <integer name="grid_layout_picture_detail">3</integer>
 
     <dimen name="detail_tab_layout_select">2dp</dimen>
+
+    <!-- search view -->
+    <dimen name="width_search_view_delete_button">10dp</dimen>
+    <dimen name="width_search_view_edit_view">240dp</dimen>
+    <dimen name="width_search_view_search_button">52dp</dimen>
+    <dimen name="width_search_view_back_button">50dp</dimen>
+    <dimen name="height_search_view">40dp</dimen>
+    <dimen name="height_search_fragment">45dp</dimen>
+
+    <!-- imageView delete -->
+    <dimen name="height_search_view_delete">20dp</dimen>
+    <dimen name="width_search_view_delete">20dp</dimen>
 </resources>

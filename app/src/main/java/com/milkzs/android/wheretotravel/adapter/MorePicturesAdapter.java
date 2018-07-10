@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
-import com.milkzs.android.wheretotravel.ZooImageImpl.ZooImageActivity;
+import com.milkzs.android.wheretotravel.zooImageImpl.ZooImageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -1,15 +1,13 @@
-package com.milkzs.android.wheretotravel.ZooImageImpl;
+package com.milkzs.android.wheretotravel.zooImageImpl;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
