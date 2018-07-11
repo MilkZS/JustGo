@@ -9,4 +9,8 @@
     <color name="tab_text_view">#000000</color>
 
     <color name="text_color">#000000</color>
+
+    <!-- activity_place_list.xml -->
+    <color name="action_bar_first_back">#3F51B5</color>
+    <color name="action_bar_first_text">#ffff</color>
 </resources>

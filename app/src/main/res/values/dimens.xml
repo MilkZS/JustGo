@@ -3,7 +3,7 @@
 
     <!-- place list activity -->
     <dimen name="toolbar_height">70dp</dimen>
-    <dimen name="tab_content_height">72dp</dimen>
+    <dimen name="tab_content_height">90dp</dimen>
 
 
     <!-- place detail activity bar -->

@@ -7,7 +7,21 @@
 
     <dimen name="detail_tab_layout_select">2dp</dimen>
 
-    <!-- search view -->
+    <!-- ====================== activity_place_list.xml  start =============================== -->
+
+    <!-- main activity action bar -->
+    <dimen name="action_bar_app_name_height">45dp</dimen>
+    <dimen name="action_bar_app_text_size">25sp</dimen>
+
+    <!-- second action bar -->
+    <dimen name="action_bar_height">40dp</dimen>
+    <dimen name="action_bar_second_margin">5dp</dimen>
+    <dimen name="action_bar_location_text">20sp</dimen>
+    <dimen name="action_bar_location_padding_top">6dp</dimen>
+    <!-- main activity action bar -->
+    <!-- ====================== activity_place_list.xml  end ================================= -->
+
+    <!-- define search view -->
     <dimen name="width_search_view_delete_button">10dp</dimen>
     <dimen name="width_search_view_edit_view">240dp</dimen>
     <dimen name="width_search_view_search_button">52dp</dimen>

@@ -36,7 +36,8 @@ import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.google.android.gms.ads.MobileAds;
 import com.milkzs.android.wheretotravel.search.SearchActivity;
 
-public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter.ClickTranform, LoaderManager.LoaderCallbacks<Cursor> {
+public class PlaceListActivity extends AppCompatActivity
+        implements PlaceAdapter.ClickTranform, LoaderManager.LoaderCallbacks<Cursor> {
 
     private String TAG = "PlaceListActivity";
     private boolean DBG = false;
@@ -73,9 +74,6 @@ public class PlaceListActivity extends AppCompatActivity implements PlaceAdapter
         sharedPreferences = getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
         position = sharedPreferences.getInt(POSITION_FLAG, 0);
         Log.d(TAG,"get position is " + position);
-
-        Toolbar mToolbar = findViewById(R.id.list_toolbar);
-        setSupportActionBar(mToolbar);
 
         recyclerView = findViewById(R.id.main_recycler);
 
