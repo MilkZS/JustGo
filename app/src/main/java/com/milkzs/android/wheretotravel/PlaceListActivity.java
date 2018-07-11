@@ -20,7 +20,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -47,6 +49,7 @@ public class PlaceListActivity extends AppCompatActivity
 
     private QueryDataTask queryDataTask;
     private TitanicTextView titanicTextView;
+    private ImageView searchImageView;
 
     private GridLayoutManager gridLayoutManager;
 
@@ -62,6 +65,15 @@ public class PlaceListActivity extends AppCompatActivity
         setContentView(R.layout.activity_place_list);
 
         Log.e(TAG,"this is onCreate");
+
+        searchImageView = findViewById(R.id.bar_search_img);
+        searchImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlaceListActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         MobileAds.initialize(this, getResources().getString(R.string.sign_build_id));
         AdView adView = new AdView(this);
