@@ -41,6 +41,12 @@
             android:background="@drawable/search2" />
     </LinearLayout>
 
+    <View
+        android:layout_marginTop="@dimen/tab_content_height"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

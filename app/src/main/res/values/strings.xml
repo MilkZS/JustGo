@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">去哪玩</string>
+    <string name="app_name">说走就走</string>
 
     <!-- for design place -->
     <string name="design_text_view_price">65元/人</string>

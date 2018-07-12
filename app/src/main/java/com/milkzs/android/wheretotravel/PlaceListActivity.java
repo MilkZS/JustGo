@@ -116,8 +116,8 @@ public class PlaceListActivity extends AppCompatActivity
                     queryDataTask.cancel(true);
                 }
                 queryDataTask = new QueryDataTask(this, placeAdapter,
-                        titanicTextView,recyclerView,position);
-                queryDataTask.execute();
+                        titanicTextView,recyclerView,position,QueryDataTask.MODE_SEARCH_DEFAULT);
+                queryDataTask.execute("");
 //                recyclerView.smoothScrollToPosition(position);
             }
             break;

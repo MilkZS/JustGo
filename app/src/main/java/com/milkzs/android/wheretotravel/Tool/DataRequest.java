@@ -39,6 +39,24 @@ public class DataRequest {
     }
 
     /**
+     * search json data by scene name
+     *
+     * @param name scene name entered by user
+     * @return response uri
+     */
+    public static URL buildURIForSearchKeyword(String name){
+        Uri buildUri = Uri.parse(BaseInfo.SEARCH_BY_NAME + name);
+        Log.i(TAG,"query uri is " + buildUri);
+        try {
+            URL url = new URL(buildUri.toString());
+            return url;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * This method returns the entire result from the HTTP response.
      *
      * @param url The URL to fetch the HTTP response from.

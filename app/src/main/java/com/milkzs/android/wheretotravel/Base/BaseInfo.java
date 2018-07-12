@@ -14,13 +14,18 @@ public interface BaseInfo {
     String SHOWAPI_API_ID = "showapi_appid";
     String API_ID = "62568"; // <----  api id
     String SHOWAPI_API_SIGN = "showapi_sign";
+    String SHOWAPI_NAME = "keyword";
     String API_SIGN = "6cf04f645e6341f0ae8d882d13db6aff";// <---- api sign
 
-    /** http://route.showapi.com/268-1?showapi_appid= &showapi_sign=  */
+    /** @link{http://route.showapi.com/268-1?showapi_appid=62568
+     * &showapi_sign=6cf04f645e6341f0ae8d882d13db6aff}*/
     String SHOWAPI_QUERY_MAIN = BASE_URI + "?"
             + SHOWAPI_API_ID + "=" + API_ID + "&"
             + SHOWAPI_API_SIGN + "=" + API_SIGN;
 
+    /** @link{http://route.showapi.com/268-1?showapi_appid=62568
+     * &showapi_sign=6cf04f645e6341f0ae8d882d13db6aff&SHOWAPI_NAME=北京} */
+    String SEARCH_BY_NAME = SHOWAPI_QUERY_MAIN + "&SHOWAPI_NAME=";
 
     /** used for get single value */
     String QUERY_BODY = "showapi_res_body";

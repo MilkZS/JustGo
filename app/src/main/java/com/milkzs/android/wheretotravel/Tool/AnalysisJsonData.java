@@ -28,6 +28,14 @@ public class AnalysisJsonData {
     private static ArrayList<Uri> arrayListPicUri;
     private static ArrayList<Uri> arrayListPicSmallUri;
 
+    /**
+     * default search data. analysis json data and return object PlaceListInfo which include
+     * messages about scenes.
+     *
+     * @param jsonString String that json turn to
+     * @param context Context of activity
+     * @return ArrayList includes object
+     */
     public static ArrayList<PlaceListInfo> getDataFromJson(String jsonString, Context context){
         try {
             if (DBG)Log.i(TAG,"then we would analyze json string is " + jsonString);
@@ -151,6 +159,7 @@ public class AnalysisJsonData {
         return null;
     }
 
+
     private static Map<String,String> readDataFromCursor(Cursor cursor){
         Map<String,String> map = new HashMap<>();
         if(null == cursor || cursor.getCount() == 0){
@@ -172,6 +181,10 @@ public class AnalysisJsonData {
         return map;
     }
 
+    /**
+     * just used for debug and logcat log
+     * @param cursor
+     */
     private static void forDebug(Cursor cursor){
         for(int i=0;i<cursor.getCount();i++){
             Log.d(TAG,"cursor index = " + i +" and content is " + cursor.getString(i));
