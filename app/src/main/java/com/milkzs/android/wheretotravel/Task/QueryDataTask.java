@@ -28,21 +28,18 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
     private TitanicTextView titanicTextView;
     private Titanic titanic = new Titanic();
     private RecyclerView recyclerView;
-    private int position;
+    private int position = -1;
 
     public final static int MODE_SEARCH_DEFAULT = 200;
     public final static int MODE_SEARCH_NAME = 201;
 
     private int choseMode = MODE_SEARCH_DEFAULT;
 
-    public QueryDataTask(Context context, PlaceAdapter placeAdapter
-            , TitanicTextView titanicTextView,RecyclerView recyclerView,
-                         int position,int choseMode) {
-        this.titanicTextView = titanicTextView;
+    public QueryDataTask(Context context, RecyclerView recyclerView, int choseMode) {
         this.context = context;
-        this.placeAdapter = placeAdapter;
         this.recyclerView = recyclerView;
-        this.position = position;
+        this.placeAdapter = (PlaceAdapter) recyclerView.getAdapter();
+        ;
         this.choseMode = choseMode;
     }
 
@@ -54,18 +51,23 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
 
     @Override
     protected ArrayList<PlaceListInfo> doInBackground(String... strings) {
-        String text = strings[0];
+        String text = "";
+        if (strings.length != 0) {
+            text = strings[0];
+        }
         try {
             String jsonString = "";
-            switch (choseMode){
-                case MODE_SEARCH_DEFAULT:{
+            switch (choseMode) {
+                case MODE_SEARCH_DEFAULT: {
                     jsonString = DataRequest.getResponseFromHttpUrl(
                             DataRequest.buildUriForShowApi());
-                }break;
-                case MODE_SEARCH_NAME:{
+                }
+                break;
+                case MODE_SEARCH_NAME: {
                     jsonString = DataRequest.getResponseFromHttpUrl(
                             DataRequest.buildURIForSearchKeyword(text));
-                }break;
+                }
+                break;
             }
             return AnalysisJsonData.getDataFromJson(jsonString, context);
         } catch (IOException e) {
@@ -74,24 +76,49 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
         return null;
     }
 
+    /**
+     * remember the location and scroll to the location
+     *
+     * @param position relative position
+     */
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     @Override
     protected void onPostExecute(ArrayList<PlaceListInfo> arrayList) {
         super.onPostExecute(arrayList);
         if (arrayList != null) {
             hideLoad();
-            recyclerView.getLayoutManager().scrollToPosition(position - 2);
+            if (position != -1) {
+                recyclerView.getLayoutManager().scrollToPosition(position - 2);
+            }
             placeAdapter.swapData(arrayList, null, PlaceAdapter.MODE_LIST);
-            Log.d(TAG,"item is " + position);
+            Log.d(TAG, "item is " + position);
         }
     }
 
+    /**
+     * set object for TitanicTextView which only show anim among start time.
+     *
+     * @param titanicTextView object
+     */
+    public void setTitanicTextView(TitanicTextView titanicTextView) {
+        this.titanicTextView = titanicTextView;
+    }
+
     private void showLoad() {
-        titanicTextView.setVisibility(View.VISIBLE);
-        titanic.start(titanicTextView);
+        if (titanicTextView != null) {
+            titanicTextView.setVisibility(View.VISIBLE);
+            titanic.start(titanicTextView);
+        }
     }
 
     private void hideLoad() {
-        titanic.cancel();
-        titanicTextView.setVisibility(View.INVISIBLE);
+        if (titanicTextView != null) {
+            titanic.cancel();
+            titanicTextView.setVisibility(View.INVISIBLE);
+            titanicTextView = null;//北京
+        }
     }
 }

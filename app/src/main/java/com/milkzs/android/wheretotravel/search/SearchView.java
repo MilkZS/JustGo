@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.R;
 
@@ -95,6 +97,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
                 ((Activity)mContext).finish();
             }break;
             case R.id.search_button:{
+                Log.d(TAG,"click search button");
                 notifyToSearch(searchEd.getText().toString());
             }break;
             case R.id.img_delete:{

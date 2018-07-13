@@ -1,10 +1,12 @@
 package com.milkzs.android.wheretotravel.search;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
 
 import java.util.ArrayList;
@@ -18,7 +20,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        SearchView searchView = findViewById(R.id.search_define_view);
+        searchView.setClickListener(this);
     }
 
     private void autoCompleteEditView(String text){
@@ -39,7 +42,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
     @Override
     public void startToSearch(String text) {
         //Toast.makeText(this,"search",Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(SearchActivity.this,SearchResultActivity.class);
+        intent.putExtra(BaseInfo.IntentFlag.FLAG_MODE_SEARCH_NAME,text);
+        startActivity(intent);
     }
 
     @Override

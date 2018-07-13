@@ -49,7 +49,6 @@ public class PlaceListActivity extends AppCompatActivity
 
     private QueryDataTask queryDataTask;
     private TitanicTextView titanicTextView;
-    private ImageView searchImageView;
 
     private GridLayoutManager gridLayoutManager;
 
@@ -66,7 +65,7 @@ public class PlaceListActivity extends AppCompatActivity
 
         Log.e(TAG,"this is onCreate");
 
-        searchImageView = findViewById(R.id.bar_search_img);
+        ImageView searchImageView = findViewById(R.id.bar_search_img);
         searchImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +96,7 @@ public class PlaceListActivity extends AppCompatActivity
         refreshMode(PlaceAdapter.MODE_LIST);
     }
 
+
     /**
      * chose mode to run
      *
@@ -115,10 +115,11 @@ public class PlaceListActivity extends AppCompatActivity
                 if (queryDataTask != null) {
                     queryDataTask.cancel(true);
                 }
-                queryDataTask = new QueryDataTask(this, placeAdapter,
-                        titanicTextView,recyclerView,position,QueryDataTask.MODE_SEARCH_DEFAULT);
+                queryDataTask = new QueryDataTask(this, recyclerView,
+                        QueryDataTask.MODE_SEARCH_DEFAULT);
+                queryDataTask.setTitanicTextView(titanicTextView);
+                queryDataTask.setPosition(position);
                 queryDataTask.execute("");
-//                recyclerView.smoothScrollToPosition(position);
             }
             break;
             case PlaceAdapter.MODE_LOG: {
@@ -188,37 +189,7 @@ public class PlaceListActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.e(TAG,"this is onResume");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.e(TAG,"this is onPause");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e(TAG,"this is onDestroy");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e(TAG,"this is onStart ");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.e(TAG,"this is onRestart ");
-    }
-
-    @Override
+  @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Uri placeUri = PlaceContract.PlaceBase.CONTENT_BASE;
         String order = PlaceContract.PlaceBase.COLUMN_PLACE_TIME + " ASC";
@@ -236,5 +207,4 @@ public class PlaceListActivity extends AppCompatActivity
     public void onLoaderReset(Loader<Cursor> loader) {
         placeAdapter.swapData(null, null, PlaceAdapter.MODE_LOG);
     }
-
 }

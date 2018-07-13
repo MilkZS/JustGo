@@ -17,15 +17,15 @@ public interface BaseInfo {
     String SHOWAPI_NAME = "keyword";
     String API_SIGN = "6cf04f645e6341f0ae8d882d13db6aff";// <---- api sign
 
-    /** @link{http://route.showapi.com/268-1?showapi_appid=62568
+    /** @link {http://route.showapi.com/268-1?showapi_appid=62568
      * &showapi_sign=6cf04f645e6341f0ae8d882d13db6aff}*/
     String SHOWAPI_QUERY_MAIN = BASE_URI + "?"
             + SHOWAPI_API_ID + "=" + API_ID + "&"
             + SHOWAPI_API_SIGN + "=" + API_SIGN;
 
-    /** @link{http://route.showapi.com/268-1?showapi_appid=62568
-     * &showapi_sign=6cf04f645e6341f0ae8d882d13db6aff&SHOWAPI_NAME=北京} */
-    String SEARCH_BY_NAME = SHOWAPI_QUERY_MAIN + "&SHOWAPI_NAME=";
+    /** @link {http://route.showapi.com/268-1?showapi_appid=62568
+     * &showapi_sign=6cf04f645e6341f0ae8d882d13db6aff&SHOWAPI_NAME=&#x5317} */
+    String SEARCH_BY_NAME = SHOWAPI_QUERY_MAIN + "&"+SHOWAPI_NAME + "=";
 
     /** used for get single value */
     String QUERY_BODY = "showapi_res_body";
@@ -75,6 +75,12 @@ public interface BaseInfo {
 
         String FLAG_PICTURE_LIST = "flag_picture_list";
         String FLAG_PICTURE_POSITION = "flag_picture_position";
+
+        /**
+         * SearchResultActivity get search keyword from intent.
+         * This string used to transform data between SearchActivity and SearchResultActivity.
+         */
+        String FLAG_MODE_SEARCH_NAME = "search_name";
     }
 
     interface MapFlag {
