@@ -13,7 +13,6 @@
             android:id="@+id/back_button"
             android:layout_width="@dimen/width_search_view_back_button"
             android:layout_height="@dimen/height_search_fragment"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/left_flower"
             tools:layout_editor_absoluteX="6dp"
@@ -32,21 +31,10 @@
                 android:background="@null"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:paddingLeft="13dp"
                 android:paddingStart="13dp"
                 tools:ignore="RtlSymmetry"
                 tools:layout_editor_absoluteX="69dp"
                 tools:layout_editor_absoluteY="0dp" />
-
-            <ImageView
-                android:id="@+id/img_delete"
-                android:layout_width="@dimen/width_search_view_delete"
-                android:layout_height="@dimen/height_search_view_delete"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/delete"
-                android:visibility="gone" />
 
         </FrameLayout>
 
@@ -55,12 +43,27 @@
             android:layout_width="@dimen/width_search_view_search_button"
             android:layout_height="@dimen/height_search_fragment"
             android:background="@drawable/search5"
-            android:paddingLeft="5dp" />
+            android:paddingStart="5dp"
+            tools:ignore="RtlSymmetry" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/show_list_search"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/left_margin_show_list"
+        android:layout_marginEnd="@dimen/right_margin_show_list"
+        android:layout_marginBottom="@dimen/bottom_margin_show_list"/>
+
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_search_view_delete"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/delete"
+        android:visibility="gone" />
 
 </LinearLayout>
