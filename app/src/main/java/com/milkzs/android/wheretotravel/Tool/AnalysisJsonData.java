@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
+import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 import org.json.JSONArray;
@@ -108,6 +109,32 @@ public class AnalysisJsonData {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Only get scene name from json data to save time
+     * @param jsonString json string from input analysis
+     * @param context Application content
+     * @return list of string name
+     */
+    public static ArrayList<String> getNameFromJson(String jsonString,Context context){
+        try {
+            ArrayList<String> arrayList = new ArrayList<>();
+            JSONObject jsonObject = new JSONObject(jsonString)
+                    .getJSONObject(BaseInfo.QUERY_BODY)
+                    .getJSONObject(BaseInfo.QUERY_BODY_PAGE);
+            JSONArray jsonArray = jsonObject.getJSONArray(BaseInfo.QUERY_BODY_PAGE_CONTENT_List);
+            int num = context.getResources().getInteger(R.integer.list_show_search_contents);
+            int len = jsonArray.length() > num ? num:jsonArray.length();
+            for(int i=0;i<len;i++){
+                arrayList.add(((JSONObject) jsonArray.get(i))
+                        .getString(BaseInfo.CONTENT_LIST_PLACE_NAME));
+            }
+            return arrayList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
     /**

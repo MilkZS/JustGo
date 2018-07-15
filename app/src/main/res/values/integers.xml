@@ -5,6 +5,8 @@
 
     <integer name="grid_layout_picture_detail">3</integer>
 
+    <integer name="list_show_search_contents">7</integer>
+
     <dimen name="detail_tab_layout_select">2dp</dimen>
 
     <!-- ====================== activity_place_list.xml  start =============================== -->
@@ -21,6 +23,7 @@
     <!-- main activity action bar -->
     <!-- ====================== activity_place_list.xml  end ================================= -->
 
+    <!-- ======================= Search data start========================================= -->
     <!-- define search view -->
     <dimen name="width_search_view_delete_button">10dp</dimen>
     <dimen name="width_search_view_edit_view">240dp</dimen>

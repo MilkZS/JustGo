@@ -39,7 +39,6 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
         this.context = context;
         this.recyclerView = recyclerView;
         this.placeAdapter = (PlaceAdapter) recyclerView.getAdapter();
-        ;
         this.choseMode = choseMode;
     }
 

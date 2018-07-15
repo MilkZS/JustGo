@@ -153,14 +153,20 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             if(!"".equals(s.toString())){
                 deleteImg.setVisibility(VISIBLE);
-                showList.setAdapter(autoComplete);
+                if(autoComplete != null){
+                    Log.d(TAG,"auto to complete data");
+                    showList.setAdapter(autoComplete);
+                }else {
+                    Toast.makeText(getContext(),"adapter is null",Toast.LENGTH_SHORT).show();
+                }
+                showList.setVisibility(VISIBLE);
                 if(searchViewListener != null){
                     searchViewListener.refreshSearchEdit(s.toString());
                 }
-                showList.setVisibility(VISIBLE);
+
             }else{
                 deleteImg.setVisibility(View.GONE);
-                showList.setVisibility(View.GONE    );
+                showList.setVisibility(View.GONE);
             }
         }
 
