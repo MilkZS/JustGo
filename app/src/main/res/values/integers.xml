@@ -20,7 +20,13 @@
     <dimen name="action_bar_second_margin">5dp</dimen>
     <dimen name="action_bar_location_text">20sp</dimen>
     <dimen name="action_bar_location_padding_top">6dp</dimen>
-    <!-- main activity action bar -->
+
+    <!-- view height -->
+    <dimen name="height_margin_view_only">90dp</dimen>
+
+    <!-- list recycle -->
+    <dimen name="height_margin_recycle">91dp</dimen>
+
     <!-- ====================== activity_place_list.xml  end ================================= -->
 
     <!-- ======================= Search data start ========================================= -->
@@ -33,6 +39,7 @@
     <dimen name="height_search_fragment">45dp</dimen>
 
     <!-- show list -->
+    <dimen name="top_margin_show_list">47dp</dimen>
     <dimen name="left_margin_show_list">49dp</dimen>
     <dimen name="right_margin_show_list">49dp</dimen>
     <dimen name="bottom_margin_show_list">200dp</dimen>

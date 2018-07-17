@@ -42,7 +42,7 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="@dimen/tab_content_height"
+        android:layout_marginTop="@dimen/height_margin_view_only"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#000000"/>
@@ -50,7 +50,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/tab_content_height">
+        android:layout_marginTop="@dimen/height_margin_recycle">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_recycler"

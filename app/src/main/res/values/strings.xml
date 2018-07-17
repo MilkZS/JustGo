@@ -58,10 +58,17 @@
     <string name="menu_log">我的足迹</string>
     <string name="menu_refresh">关于作者</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
+
+    <!-- ======================= search view define start ========================== -->
+    <!-- search tag -->
+    <string name="history_search_tag">搜索历史</string>
+    <string name="hot_search_tag">热门搜索</string>
 
 </resources>
 
