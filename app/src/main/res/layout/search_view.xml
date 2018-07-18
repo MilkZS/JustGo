@@ -81,11 +81,10 @@
             android:id="@+id/flex_box_tag_search_hot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/floatLayoutTheme">
-            <TextView
-                android:text="asfgagasg"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
+            app:flexWrap="wrap"
+            app:alignContent="flex_start"
+            app:flexDirection="row">
+
         </com.google.android.flexbox.FlexboxLayout>
     </LinearLayout>
 
@@ -105,7 +104,9 @@
             android:id="@+id/flex_box_tag_search_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/floatLayoutTheme"/>
+            app:flexWrap="wrap"
+            app:alignContent="flex_start"
+            app:flexDirection="row" />
     </LinearLayout>
 
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
@@ -19,6 +20,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
     private ArrayList<String> autoCompleteData = new ArrayList<>();
     private SearchNameTask searchNameTask;
 
+    private int default_num_history = 10;
+    private int default_num_hot = 10;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +35,26 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
                 ,autoCompleteData );
         searchView.setAutoCompleteAdapter(autoCompleteDataAdapter);
 
+        ArrayList<TextView> histoy = new ArrayList<>();
+        for(int i=0;i<default_num_history;i++){
+            TextView textView = new TextView(this);
+            textView.setText("文艺青年");
+            histoy.add(textView);
+        }
+
+        ArrayList<TextView> hot = new ArrayList<>();
+        for(int i=0;i<default_num_history;i++){
+            TextView textView = new TextView(this);
+            textView.setText("文艺青年");
+            hot.add(textView);
+        }
+
+        searchView.setHistoryList(histoy);
+        searchView.setHotList(hot);
+        searchView.initFlexboxLayout();
     }
+
+
 
     private void autoCompleteEditView(final String text) {
 

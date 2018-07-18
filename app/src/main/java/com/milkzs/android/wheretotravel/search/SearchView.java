@@ -1,8 +1,12 @@
 package com.milkzs.android.wheretotravel.search;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -21,7 +25,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.milkzs.android.wheretotravel.R;
+
+import java.util.ArrayList;
 
 public class SearchView extends LinearLayout implements View.OnClickListener{
 
@@ -29,13 +37,16 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
 
     private Context mContext;
 
-    private Button backBt;
-    private Button searchBt;
     private ImageView deleteImg;
     private EditText searchEd;
     private ListView showList;
 
+    private FlexboxLayout historyFlexboxlayout;
+    private FlexboxLayout hotFlexboxlayout;
+
     private ArrayAdapter<String> autoComplete;
+    private ArrayList<TextView> historyList;
+    private ArrayList<TextView> hotList;
 
     private SearchViewListener searchViewListener;
 
@@ -54,11 +65,14 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
      * init child view and set listener
      */
     private void initView(){
-        backBt = findViewById(R.id.back_button);
-        searchBt = findViewById(R.id.search_button);
+        Button backBt = findViewById(R.id.back_button);
+        Button searchBt = findViewById(R.id.search_button);
         deleteImg = findViewById(R.id.img_delete);
         searchEd = findViewById(R.id.edit_view_search);
         showList = findViewById(R.id.show_list_search);
+        historyFlexboxlayout = findViewById(R.id.flex_box_tag_search_history);
+        hotFlexboxlayout = findViewById(R.id.flex_box_tag_search_hot);
+
 
         backBt.setOnClickListener(this);
         searchBt.setOnClickListener(this);
@@ -88,6 +102,23 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
             }
         });
 
+
+
+    }
+
+    public void initFlexboxLayout(){
+        for (TextView textView:historyList){
+            textView.setBackgroundResource(R.drawable.tag_search_background);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,30);
+            params.setMargins(2,1,2,1);
+            textView.setLayoutParams(params);
+            historyFlexboxlayout.addView(textView);
+        }
+
+        for(TextView textView : hotList){
+            textView.setBackgroundResource(R.drawable.tag_search_background);
+            hotFlexboxlayout.addView(textView);
+        }
     }
 
     @Override
@@ -127,6 +158,14 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
         this.autoComplete = autoComplete;
     }
 
+    public void setHistoryList(ArrayList<TextView> historyList){
+        this.historyList = historyList;
+    }
+
+    public void setHotList(ArrayList<TextView> hotList){
+        this.hotList = hotList;
+    }
+
     public interface SearchViewListener{
         /**
          * start to search by text input.This is the end search word.
@@ -140,6 +179,8 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
          * @param text words input by user
          */
         void refreshSearchEdit(String text);
+
+
     }
 
     private class EditChangeListener implements TextWatcher{
