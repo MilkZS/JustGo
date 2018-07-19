@@ -31,7 +31,7 @@ import com.milkzs.android.wheretotravel.R;
 
 import java.util.ArrayList;
 
-public class SearchView extends LinearLayout implements View.OnClickListener{
+public class SearchView extends LinearLayout implements View.OnClickListener {
 
     private String TAG = "SearchView";
 
@@ -57,14 +57,14 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
     public SearchView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        LayoutInflater.from(context).inflate(R.layout.search_view,this);
+        LayoutInflater.from(context).inflate(R.layout.search_view, this);
         initView();
     }
 
     /**
      * init child view and set listener
      */
-    private void initView(){
+    private void initView() {
         Button backBt = findViewById(R.id.back_button);
         Button searchBt = findViewById(R.id.search_button);
         deleteImg = findViewById(R.id.img_delete);
@@ -94,7 +94,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
         searchEd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     showList.setVisibility(View.GONE);
                     notifyToSearch(searchEd.getText().toString());
                 }
@@ -103,70 +103,79 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
         });
 
 
-
     }
 
-    public void initFlexboxLayout(){
-        for (TextView textView:historyList){
+    public void initFlexboxLayout() {
+        for (TextView textView : historyList) {
             textView.setBackgroundResource(R.drawable.tag_search_background);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,30);
-            params.setMargins(2,1,2,1);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.setMargins(30, 15, 30, 15);
             textView.setLayoutParams(params);
             historyFlexboxlayout.addView(textView);
         }
 
-        for(TextView textView : hotList){
+        for (TextView textView : hotList) {
             textView.setBackgroundResource(R.drawable.tag_search_background);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.setMargins(30, 15, 30, 15);
+            textView.setLayoutParams(params);
             hotFlexboxlayout.addView(textView);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.back_button:{
-                ((Activity)mContext).finish();
-            }break;
-            case R.id.search_button:{
-                Log.d(TAG,"click search button");
+        switch (v.getId()) {
+            case R.id.back_button: {
+                ((Activity) mContext).finish();
+            }
+            break;
+            case R.id.search_button: {
+                Log.d(TAG, "click search button");
                 notifyToSearch(searchEd.getText().toString());
-            }break;
-            case R.id.img_delete:{
+            }
+            break;
+            case R.id.img_delete: {
                 deleteImg.setVisibility(View.GONE);
                 searchEd.setText("");
-            }break;
+            }
+            break;
         }
     }
 
-    public void notifyToSearch(String sText){
+    public void notifyToSearch(String sText) {
         searchViewListener.startToSearch(sText);
     }
 
     /**
      * interface method to add listener by user
+     *
      * @param searchViewListener SearchViewListener
      */
-    public void setClickListener(SearchViewListener searchViewListener){
+    public void setClickListener(SearchViewListener searchViewListener) {
         this.searchViewListener = searchViewListener;
     }
 
     /**
      * interface method to add adapter of listview by user
+     *
      * @param autoComplete ArrayAdapter<String>
      */
-    public void setAutoCompleteAdapter(ArrayAdapter<String> autoComplete){
+    public void setAutoCompleteAdapter(ArrayAdapter<String> autoComplete) {
         this.autoComplete = autoComplete;
     }
 
-    public void setHistoryList(ArrayList<TextView> historyList){
+    public void setHistoryList(ArrayList<TextView> historyList) {
         this.historyList = historyList;
     }
 
-    public void setHotList(ArrayList<TextView> hotList){
+    public void setHotList(ArrayList<TextView> hotList) {
         this.hotList = hotList;
     }
 
-    public interface SearchViewListener{
+    public interface SearchViewListener {
         /**
          * start to search by text input.This is the end search word.
          *
@@ -176,6 +185,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
 
         /**
          * For auto complete editView , when user input one word,we search at time.
+         *
          * @param text words input by user
          */
         void refreshSearchEdit(String text);
@@ -183,7 +193,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
 
     }
 
-    private class EditChangeListener implements TextWatcher{
+    private class EditChangeListener implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -192,20 +202,20 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!"".equals(s.toString())){
+            if (!"".equals(s.toString())) {
                 deleteImg.setVisibility(VISIBLE);
-                if(autoComplete != null){
-                    Log.d(TAG,"auto to complete data");
+                if (autoComplete != null) {
+                    Log.d(TAG, "auto to complete data");
                     showList.setAdapter(autoComplete);
-                }else {
-                    Toast.makeText(getContext(),"adapter is null",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "adapter is null", Toast.LENGTH_SHORT).show();
                 }
                 showList.setVisibility(VISIBLE);
-                if(searchViewListener != null){
+                if (searchViewListener != null) {
                     searchViewListener.refreshSearchEdit(s.toString());
                 }
 
-            }else{
+            } else {
                 deleteImg.setVisibility(View.GONE);
                 showList.setVisibility(View.GONE);
             }

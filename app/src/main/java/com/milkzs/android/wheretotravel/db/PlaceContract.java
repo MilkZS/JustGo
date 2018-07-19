@@ -32,4 +32,23 @@ public class PlaceContract {
                 COLUMN_PLACE_TIME_GO
         };
     }
+
+    public static final class SearchTAG implements BaseColumns{
+        public static String SEARCH_INFO = "searchTag";
+        public static String TABLE_NAME = "where_to_travel_search_tag";
+
+        public static final Uri CONTENT_BASE = CONTENT_BASE_URI.buildUpon()
+                .appendPath(SEARCH_INFO).build();
+
+        public static String COLUMN_ID = "search_tag_id";
+        public static String COLUMN_TAG = "search_tag_tags";
+        public static String COLUMN_USER_ID = "search_tag_userId";
+
+        public static String[] QUERY_ENTRY = {
+                _ID,
+                COLUMN_ID,
+                COLUMN_TAG,
+                COLUMN_USER_ID
+        };
+    }
 }

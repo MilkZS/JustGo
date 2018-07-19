@@ -28,7 +28,8 @@ public class PlaceContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        placeDBHelper = new PlaceDBHelper(getContext());
+        placeDBHelper = new PlaceDBHelper(
+                getContext(), PlaceDBHelper.DATABASE_NAME, null, PlaceDBHelper.version);
         return true;
     }
 
@@ -58,17 +59,17 @@ public class PlaceContentProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
-                Log.d(TAG,"provider cursor length is " + cursor.getCount());
+                Log.d(TAG, "provider cursor length is " + cursor.getCount());
             }
             break;
             case CODE_PLACE_ID: {
                 String id = uri.getLastPathSegment();
-                Log.d(TAG,"query by id and id is " + id);
+                Log.d(TAG, "query by id and id is " + id);
                 cursor = placeDBHelper.getWritableDatabase().query(
                         PlaceContract.PlaceBase.TABLE_NAME,
                         projection,
-                        PlaceContract.PlaceBase.COLUMN_PLACE_ID+"=48050" ,
-                       null,
+                        PlaceContract.PlaceBase.COLUMN_PLACE_ID + "=48050",
+                        null,
                         null,
                         null,
                         null);
@@ -108,7 +109,7 @@ public class PlaceContentProvider extends ContentProvider {
                 }
 
                 if (rowCount > 0) {
-                    Toast.makeText(getContext(),"insert success ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "insert success ", Toast.LENGTH_SHORT).show();
                     getContext().getContentResolver().notifyChange(uri, null);
                 }
                 return rowCount;
@@ -127,12 +128,15 @@ public class PlaceContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         int rowid = 0;
-        if(null == selection){selection = "1";}
-        switch (uriMatcher.match(uri)){
-            case CODE_PLACE:{
+        if (null == selection) {
+            selection = "1";
+        }
+        switch (uriMatcher.match(uri)) {
+            case CODE_PLACE: {
                 rowid = placeDBHelper.getWritableDatabase().delete(
-                        PlaceContract.PlaceBase.TABLE_NAME,selection,selectionArgs);
-            }break;
+                        PlaceContract.PlaceBase.TABLE_NAME, selection, selectionArgs);
+            }
+            break;
             default:
                 throw new UnsupportedOperationException("Un know uri :" + uri);
         }
@@ -147,19 +151,20 @@ public class PlaceContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         int count = -1;
-        switch (uriMatcher.match(uri)){
-            case CODE_PLACE_ID:{
+        switch (uriMatcher.match(uri)) {
+            case CODE_PLACE_ID: {
                 String id = uri.getLastPathSegment();
-                Log.d(TAG,"update id is " + id);
+                Log.d(TAG, "update id is " + id);
                 count = placeDBHelper.getWritableDatabase().update(
                         PlaceContract.PlaceBase.TABLE_NAME,
                         values,
-                        PlaceContract.PlaceBase.COLUMN_PLACE_ID+"="+id,
+                        PlaceContract.PlaceBase.COLUMN_PLACE_ID + "=" + id,
                         null);
-                if (DBG)Toast.makeText(getContext(),"here" + count,Toast.LENGTH_SHORT).show();
-                if(count != -1){
-                    if (DBG)Toast.makeText(getContext(),"update success",Toast.LENGTH_SHORT).show();
-                    getContext().getContentResolver().notifyChange(uri,null);
+                if (DBG) Toast.makeText(getContext(), "here" + count, Toast.LENGTH_SHORT).show();
+                if (count != -1) {
+                    if (DBG)
+                        Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
+                    getContext().getContentResolver().notifyChange(uri, null);
                 }
                 return count;
             }
