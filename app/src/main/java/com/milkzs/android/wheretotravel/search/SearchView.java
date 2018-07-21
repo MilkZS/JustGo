@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     private ImageView deleteImg;
     private EditText searchEd;
     private ListView showList;
+    private ImageView deleteTagImg;
 
     private FlexboxLayout historyFlexboxlayout;
     private FlexboxLayout hotFlexboxlayout;
@@ -46,7 +48,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
 
     private SearchViewListener searchViewListener;
 
-    private SharedPreferences sharedPreferences ;
+    private SharedPreferences sharedPreferences;
 
     public SearchView(Context context) {
         super(context);
@@ -56,7 +58,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         super(context, attrs);
         mContext = context;
         sharedPreferences = context.getSharedPreferences(
-                SearchActivity.FILE_SHARE,Context.MODE_PRIVATE);
+                SearchActivity.FILE_SHARE, Context.MODE_PRIVATE);
         LayoutInflater.from(context).inflate(R.layout.search_view, this);
         initView();
     }
@@ -68,6 +70,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         Button backBt = findViewById(R.id.back_button);
         Button searchBt = findViewById(R.id.search_button);
         deleteImg = findViewById(R.id.img_delete);
+        deleteTagImg = findViewById(R.id.delete_history_search_tag_img);
         searchEd = findViewById(R.id.edit_view_search);
         showList = findViewById(R.id.show_list_search);
         historyFlexboxlayout = findViewById(R.id.flex_box_tag_search_history);
@@ -76,6 +79,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         backBt.setOnClickListener(this);
         searchBt.setOnClickListener(this);
         deleteImg.setOnClickListener(this);
+        deleteTagImg.setOnClickListener(this);
 
         showList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,20 +111,28 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
      * init flexbox layout and add data .
      */
     public void initFlexboxLayout() {
-        for (final TextView textView : historyList) {
-            addSearchTag(textView,1);
-        }
+        initHistoryLayout();
         for (TextView textView : hotList) {
-            addSearchTag(textView,0);
+            addSearchTag(textView, BaseInfo.SearchTAG.FLAG_MODE_HOT);
+        }
+    }
+
+    /**
+     * init flexbox layout and add data for history.
+     */
+    private void initHistoryLayout(){
+        for (final TextView textView : historyList) {
+            addSearchTag(textView, BaseInfo.SearchTAG.FLAG_MODE_HISTORY);
         }
     }
 
     /**
      * add text view for history and hot search tag.
-     * @param textView  a TextView with tag data in it.
-     * @param mode history tag or search tag.
+     *
+     * @param textView a TextView with tag data in it.
+     * @param mode     history tag or search tag.
      */
-    private void addSearchTag(final TextView textView, final int mode){
+    private void addSearchTag(final TextView textView, final int mode) {
 
         textView.setBackgroundResource(R.drawable.tag_search_background);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -132,29 +144,40 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 searchEd.setText(text);
-                if (mode == 0){
+                if (mode == 0) {
                     addHistoryTAGToSharePre(text);
                 }
                 notifyToSearch(text);
             }
         });
-        if (mode == 0){
+        if (mode == BaseInfo.SearchTAG.FLAG_MODE_HOT) {
             hotFlexboxlayout.addView(textView);
-        }else{
+        } else {
             historyFlexboxlayout.addView(textView);
         }
     }
 
     /**
      * add single data for history tag.
+     *
      * @param text tag content
      */
-    private void addHistoryTAGToSharePre(String text){
+    private void addHistoryTAGToSharePre(String text) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String sHistory = sharedPreferences.getString(
-                SearchActivity.FLAG_SEARCH_HISTORY,"");
-        sHistory = sHistory + "=" + text;
-        editor.putString(SearchActivity.FLAG_SEARCH_HISTORY,sHistory);
+                SearchActivity.FLAG_SEARCH_HISTORY, "");
+        sHistory = sHistory + BaseInfo.SearchTAG.SPILT_HISTORY_TAG + text;
+        editor.putString(SearchActivity.FLAG_SEARCH_HISTORY, sHistory);
+        editor.apply();
+        editor.commit();
+    }
+
+    /**
+     * clear data about history tag.
+     */
+    private void clearHistoryTag(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
         editor.apply();
         editor.commit();
     }
@@ -176,6 +199,12 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
                 searchEd.setText("");
             }
             break;
+            case R.id.delete_history_search_tag_img: {
+                clearHistoryTag();
+                historyList.clear();
+                historyFlexboxlayout.removeAllViews();
+                initHistoryLayout();
+            } break;
         }
     }
 
@@ -210,6 +239,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     }
 
     public interface SearchViewListener {
+
         /**
          * start to search by text input.This is the end search word.
          *
@@ -223,15 +253,12 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
          * @param text words input by user
          */
         void refreshSearchEdit(String text);
-
-
     }
 
     private class EditChangeListener implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
@@ -257,7 +284,6 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable s) {
-
         }
     }
 }

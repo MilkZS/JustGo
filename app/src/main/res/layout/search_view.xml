@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,6 +56,66 @@
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/left_margin_search_tag"
+            android:text="@string/hot_search_tag" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flex_box_tag_search_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignContent="flex_start"
+            app:flexDirection="row"
+            app:flexWrap="wrap">
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/left_margin_search_tag"
+                android:text="@string/history_search_tag" />
+
+            <ImageView
+                android:id="@+id/delete_history_search_tag_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/delete_search_tag" />
+        </FrameLayout>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flex_box_tag_search_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignContent="flex_start"
+            app:flexDirection="row"
+            app:flexWrap="wrap" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/show_list_search"
         android:layout_width="match_parent"
@@ -64,49 +124,6 @@
         android:layout_marginEnd="@dimen/right_margin_show_list"
         android:layout_marginStart="@dimen/left_margin_show_list"
         android:layout_marginTop="47dp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="75dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:text="@string/hot_search_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flex_box_tag_search_hot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:flexWrap="wrap"
-            app:alignContent="flex_start"
-            app:flexDirection="row">
-
-        </com.google.android.flexbox.FlexboxLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="190dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:text="@string/history_search_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flex_box_tag_search_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:flexWrap="wrap"
-            app:alignContent="flex_start"
-            app:flexDirection="row" />
-    </LinearLayout>
-
+        android:visibility="gone"
+        android:background="#fff"/>
 </FrameLayout>

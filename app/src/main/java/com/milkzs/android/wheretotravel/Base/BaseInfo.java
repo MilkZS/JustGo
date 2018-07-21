@@ -64,6 +64,14 @@ public interface BaseInfo {
 
     String ERROR_SHOW = "NONE";
 
+    interface SearchTAG{
+        int FLAG_MODE_HOT = 0;
+        int FLAG_MODE_HISTORY = 1;
+
+        String SPILT_HOT_TAG = ";";
+        String SPILT_HISTORY_TAG = "=";
+    }
+
     interface IntentFlag {
         String FLAG_ARRAY_LIST_DETAIL = "flag_array_list_detail";
 

@@ -48,6 +48,10 @@
     <dimen name="height_search_view_delete">20dp</dimen>
     <dimen name="width_search_view_delete">20dp</dimen>
 
+    <!-- search tag -->
+    <dimen name="left_margin_search_tag">26dp</dimen>
     <!-- ======================== Search data end ========================================== -->
+
+
 
 </resources>

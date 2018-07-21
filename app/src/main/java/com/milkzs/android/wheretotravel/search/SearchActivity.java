@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
                 FILE_SHARE, MODE_PRIVATE);
         String str = sharedPreferences.getString(FLAG_SEARCH_HISTORY, "");
         ArrayList<TextView> history = new ArrayList<>();
-        for (String s : str.split("=")) {
+        for (String s : str.split(BaseInfo.SearchTAG.SPILT_HISTORY_TAG)) {
             if (!s.equals("")){
                 TextView textView = new TextView(this);
                 textView.setText(s);
@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
 
         String sHot = getString(R.string.hot_tag_ten);
         ArrayList<TextView> hot = new ArrayList<>();
-        for (String s:sHot.split(";")) {
+        for (String s:sHot.split(BaseInfo.SearchTAG.SPILT_HOT_TAG)) {
             TextView textView = new TextView(this);
             textView.setText(s);
             hot.add(textView);
