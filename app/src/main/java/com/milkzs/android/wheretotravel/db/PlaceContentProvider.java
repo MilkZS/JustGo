@@ -22,6 +22,8 @@ public class PlaceContentProvider extends ContentProvider {
     private final static int CODE_PLACE = 10;
     private final static int CODE_PLACE_ID = 11;
 
+    private final static int CODE_TAG_USER_ID = 20;
+
     private static UriMatcher uriMatcher = buildMatcher();
 
     private PlaceDBHelper placeDBHelper;

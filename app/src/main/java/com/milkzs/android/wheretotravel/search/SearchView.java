@@ -3,6 +3,7 @@ package com.milkzs.android.wheretotravel.search;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
@@ -50,6 +51,8 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
 
     private SearchViewListener searchViewListener;
 
+    private SharedPreferences sharedPreferences ;
+
     public SearchView(Context context) {
         super(context);
     }
@@ -57,6 +60,8 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     public SearchView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        sharedPreferences = context.getSharedPreferences(
+                SearchActivity.FILE_SHARE,Context.MODE_PRIVATE);
         LayoutInflater.from(context).inflate(R.layout.search_view, this);
         initView();
     }
@@ -96,22 +101,33 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     showList.setVisibility(View.GONE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    String sHistory = sharedPreferences.getString(
+                            SearchActivity.FLAG_SEARCH_HISTORY,"");
+                    sHistory = sHistory + "|" + v.getText().toString();
+                    editor.putString(SearchActivity.FLAG_SEARCH_HISTORY,sHistory);
+                    editor.apply();
                     notifyToSearch(searchEd.getText().toString());
                 }
                 return true;
             }
         });
-
-
     }
 
     public void initFlexboxLayout() {
-        for (TextView textView : historyList) {
+        for (final TextView textView : historyList) {
             textView.setBackgroundResource(R.drawable.tag_search_background);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.setMargins(30, 15, 30, 15);
             textView.setLayoutParams(params);
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchEd.setText(textView.getText());
+                    notifyToSearch(textView.getText().toString());
+                }
+            });
             historyFlexboxlayout.addView(textView);
         }
 
@@ -121,6 +137,14 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.setMargins(30, 15, 30, 15);
             textView.setLayoutParams(params);
+            final String text = textView.getText().toString();
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchEd.setText(text);
+                    notifyToSearch(text);
+                }
+            });
             hotFlexboxlayout.addView(textView);
         }
     }

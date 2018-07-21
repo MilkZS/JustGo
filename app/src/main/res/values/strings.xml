@@ -70,6 +70,8 @@
     <string name="history_search_tag">搜索历史</string>
     <string name="hot_search_tag">热门搜索</string>
 
+    <!-- search hot tag -->
+    <string name="hot_tag_ten">北京;新疆;水上乐园;漂流;山;重庆;天津;沙滩</string>
 </resources>
 
 
