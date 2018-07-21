@@ -15,11 +15,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -148,32 +144,6 @@ public class PlaceListActivity extends AppCompatActivity
         Scene scene = Scene.getSceneForLayout(viewGroup,R.layout.detail_view_page_message,this);
         TransitionSet transitionSet = (TransitionSet) TransitionInflater.from(viewGroup.getContext()).inflateTransition(R.transition.detail_transition);
         TransitionManager.go(scene,transitionSet);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.action_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.item_list:{
-                refreshMode(PlaceAdapter.MODE_LIST);
-            }break;
-            case R.id.item_log:{
-                refreshMode(PlaceAdapter.MODE_LOG);
-            }break;
-            case R.id.item_search:{
-                Intent intent = new Intent(this,SearchActivity.class);
-                startActivity(intent);
-            }break;
-        }
-        return true;
     }
 
     @Override
