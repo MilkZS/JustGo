@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
                 FILE_SHARE, MODE_PRIVATE);
         String str = sharedPreferences.getString(FLAG_SEARCH_HISTORY, "");
         ArrayList<TextView> history = new ArrayList<>();
-        for (String s : str.split("|")) {
+        for (String s : str.split("=")) {
             if (!s.equals("")){
                 TextView textView = new TextView(this);
                 textView.setText(s);

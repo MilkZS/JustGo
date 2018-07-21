@@ -1,13 +1,9 @@
 package com.milkzs.android.wheretotravel.search;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -27,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.flexbox.FlexboxLayout;
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.milkzs.android.wheretotravel.R;
 
 import java.util.ArrayList;
@@ -78,7 +73,6 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         historyFlexboxlayout = findViewById(R.id.flex_box_tag_search_history);
         hotFlexboxlayout = findViewById(R.id.flex_box_tag_search_hot);
 
-
         backBt.setOnClickListener(this);
         searchBt.setOnClickListener(this);
         deleteImg.setOnClickListener(this);
@@ -101,12 +95,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     showList.setVisibility(View.GONE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    String sHistory = sharedPreferences.getString(
-                            SearchActivity.FLAG_SEARCH_HISTORY,"");
-                    sHistory = sHistory + "|" + v.getText().toString();
-                    editor.putString(SearchActivity.FLAG_SEARCH_HISTORY,sHistory);
-                    editor.apply();
+                    addHistoryTAGToSharePre(v.getText().toString());
                     notifyToSearch(searchEd.getText().toString());
                 }
                 return true;
@@ -114,39 +103,60 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         });
     }
 
+    /**
+     * init flexbox layout and add data .
+     */
     public void initFlexboxLayout() {
         for (final TextView textView : historyList) {
-            textView.setBackgroundResource(R.drawable.tag_search_background);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(30, 15, 30, 15);
-            textView.setLayoutParams(params);
-            textView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    searchEd.setText(textView.getText());
-                    notifyToSearch(textView.getText().toString());
+            addSearchTag(textView,1);
+        }
+        for (TextView textView : hotList) {
+            addSearchTag(textView,0);
+        }
+    }
+
+    /**
+     * add text view for history and hot search tag.
+     * @param textView  a TextView with tag data in it.
+     * @param mode history tag or search tag.
+     */
+    private void addSearchTag(final TextView textView, final int mode){
+
+        textView.setBackgroundResource(R.drawable.tag_search_background);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.setMargins(30, 15, 30, 15);
+        textView.setLayoutParams(params);
+        final String text = textView.getText().toString();
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchEd.setText(text);
+                if (mode == 0){
+                    addHistoryTAGToSharePre(text);
                 }
-            });
+                notifyToSearch(text);
+            }
+        });
+        if (mode == 0){
+            hotFlexboxlayout.addView(textView);
+        }else{
             historyFlexboxlayout.addView(textView);
         }
+    }
 
-        for (TextView textView : hotList) {
-            textView.setBackgroundResource(R.drawable.tag_search_background);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(30, 15, 30, 15);
-            textView.setLayoutParams(params);
-            final String text = textView.getText().toString();
-            textView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    searchEd.setText(text);
-                    notifyToSearch(text);
-                }
-            });
-            hotFlexboxlayout.addView(textView);
-        }
+    /**
+     * add single data for history tag.
+     * @param text tag content
+     */
+    private void addHistoryTAGToSharePre(String text){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String sHistory = sharedPreferences.getString(
+                SearchActivity.FLAG_SEARCH_HISTORY,"");
+        sHistory = sHistory + "=" + text;
+        editor.putString(SearchActivity.FLAG_SEARCH_HISTORY,sHistory);
+        editor.apply();
+        editor.commit();
     }
 
     @Override
