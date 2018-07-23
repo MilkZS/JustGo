@@ -18,7 +18,7 @@
     <!-- second action bar -->
     <dimen name="action_bar_height">40dp</dimen>
     <dimen name="action_bar_second_margin">5dp</dimen>
-    <dimen name="action_bar_location_text">20sp</dimen>
+    <dimen name="action_bar_location_text">16sp</dimen>
     <dimen name="action_bar_location_padding_top">6dp</dimen>
 
     <!-- view height -->

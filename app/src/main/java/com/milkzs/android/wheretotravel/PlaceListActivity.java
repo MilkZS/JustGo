@@ -18,7 +18,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -33,6 +36,8 @@ import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 import com.google.android.gms.ads.MobileAds;
 import com.milkzs.android.wheretotravel.search.SearchActivity;
+
+import java.util.ArrayList;
 
 public class PlaceListActivity extends AppCompatActivity
         implements PlaceAdapter.ClickTranform, LoaderManager.LoaderCallbacks<Cursor> {
@@ -77,6 +82,13 @@ public class PlaceListActivity extends AppCompatActivity
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        Spinner locateSpinner = findViewById(R.id.bar_location_local_spinner);
+        String[] sArr = getResources().getStringArray(R.array.spinner_locate_province);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                this,R.layout.support_simple_spinner_dropdown_item,sArr);
+        locateSpinner.setAdapter(arrayAdapter);
+        locateSpinner.setSelection(0,true);
 
         sharedPreferences = getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
         position = sharedPreferences.getInt(POSITION_FLAG, 0);
