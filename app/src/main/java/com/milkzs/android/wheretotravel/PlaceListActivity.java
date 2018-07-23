@@ -18,7 +18,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -37,7 +36,6 @@ import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.google.android.gms.ads.MobileAds;
 import com.milkzs.android.wheretotravel.search.SearchActivity;
 
-import java.util.ArrayList;
 
 public class PlaceListActivity extends AppCompatActivity
         implements PlaceAdapter.ClickTranform, LoaderManager.LoaderCallbacks<Cursor> {
