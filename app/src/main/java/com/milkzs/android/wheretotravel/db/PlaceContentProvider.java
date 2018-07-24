@@ -22,7 +22,8 @@ public class PlaceContentProvider extends ContentProvider {
     private final static int CODE_PLACE = 10;
     private final static int CODE_PLACE_ID = 11;
 
-    private final static int CODE_TAG_USER_ID = 20;
+    private final static int CODE_SCENE = 20;
+    private final static int CODE_SCENE_ID = 21;
 
     private static UriMatcher uriMatcher = buildMatcher();
 
@@ -77,6 +78,26 @@ public class PlaceContentProvider extends ContentProvider {
                         null);
             }
             break;
+            case CODE_SCENE:{
+                cursor = placeDBHelper.getReadableDatabase().query(
+                        PlaceContract.SceneBase.TABLE_NAME,
+                        PlaceContract.SceneBase.QUERY_ENTRY,
+                        selection,
+                        selectionArgs,
+                        null,null,
+                        sortOrder);
+            }break;
+            case CODE_SCENE_ID:{
+                cursor = placeDBHelper.getReadableDatabase().query(
+                        PlaceContract.SceneBase.TABLE_NAME,
+                        projection,
+                        PlaceContract.SceneBase.COLUMN_SCENE_ID+"="+uri.getLastPathSegment(),
+                        null,
+                        null,
+                        null,
+                        null
+                );
+            }break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -109,16 +130,31 @@ public class PlaceContentProvider extends ContentProvider {
                 } finally {
                     placeDBHelper.getWritableDatabase().endTransaction();
                 }
-
-                if (rowCount > 0) {
-                    Toast.makeText(getContext(), "insert success ", Toast.LENGTH_SHORT).show();
-                    getContext().getContentResolver().notifyChange(uri, null);
-                }
-                return rowCount;
             }
+            case CODE_SCENE:{
+                placeDBHelper.getWritableDatabase().beginTransaction();
+                try{
+                    for (ContentValues contentValues:values) {
+                        long id = placeDBHelper.getWritableDatabase().insert(
+                                PlaceContract.SceneBase.TABLE_NAME,
+                                null,
+                                contentValues
+                        );
+                        if(id != -1) rowCount ++;
+                    }
+                    placeDBHelper.getWritableDatabase().setTransactionSuccessful();
+                }finally {
+                    placeDBHelper.getWritableDatabase().endTransaction();
+                }
+            }break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+        if (rowCount > 0) {
+            Toast.makeText(getContext(), "insert success ", Toast.LENGTH_SHORT).show();
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowCount;
     }
 
     @Nullable
@@ -139,6 +175,12 @@ public class PlaceContentProvider extends ContentProvider {
                         PlaceContract.PlaceBase.TABLE_NAME, selection, selectionArgs);
             }
             break;
+            case CODE_SCENE:{
+                rowid = placeDBHelper.getWritableDatabase().delete(
+                        PlaceContract.SceneBase.TABLE_NAME,
+                        selection,selectionArgs
+                );
+            }break;
             default:
                 throw new UnsupportedOperationException("Un know uri :" + uri);
         }
@@ -191,6 +233,8 @@ public class PlaceContentProvider extends ContentProvider {
         final String base = PlaceContract.CONTENT_AUTHORITY;
         matcher.addURI(base, PlaceContract.PlaceBase.PLACE_INFO, CODE_PLACE);
         matcher.addURI(base, PlaceContract.PlaceBase.PLACE_INFO + "/#", CODE_PLACE_ID);
+        matcher.addURI(base,PlaceContract.SceneBase.SCENE_INFO,CODE_SCENE);
+        matcher.addURI(base,PlaceContract.SceneBase.SCENE_INFO + "/#",CODE_SCENE_ID);
         return matcher;
     }
 }
