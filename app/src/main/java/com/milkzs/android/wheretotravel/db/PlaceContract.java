@@ -50,6 +50,13 @@ public class PlaceContract {
         public static String COLUMN_SCENE_DISCOUNT = "scene_discount";
         public static String COLUMN_SCENE_ATTENTION = "scene_attention";
         public static String COLUMN_SCENE_CONTENT = "scene_content";
+        public static String COLUMN_SCENE_SMALL_PIC = "scene_small_pic";
+        public static String COLUMN_SCENE_BIG_PIC = "scene_big_pic";
+        public static String COLUMN_SCENE_MAIN_PIC = "scene_main_pic";
+        public static String COLUMN_SCENE_LOCATION_LON = "scene_location_lon";
+        public static String COLUMN_SCENE_LOCATION_LAT = "scene_location_lat";
+        public static String COLUMN_SCENE_LOG_TIME = "scene_log_time";
+
 
         public static String[] QUERY_ENTRY = {
                 _ID,
@@ -62,7 +69,13 @@ public class PlaceContract {
                 COLUMN_SCENE_PICTURE_SRC,
                 COLUMN_SCENE_DISCOUNT,
                 COLUMN_SCENE_ATTENTION,
-                COLUMN_SCENE_CONTENT
+                COLUMN_SCENE_CONTENT,
+                COLUMN_SCENE_SMALL_PIC,
+                COLUMN_SCENE_BIG_PIC,
+                COLUMN_SCENE_MAIN_PIC,
+                COLUMN_SCENE_LOCATION_LON,
+                COLUMN_SCENE_LOCATION_LAT,
+                COLUMN_SCENE_LOG_TIME
         };
     }
 }

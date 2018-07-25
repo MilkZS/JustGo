@@ -34,6 +34,10 @@
             android:name=".WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service
+            android:name=".Task.SceneService"
+            android:exported="false"/>
+
         <receiver android:name=".LogListAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
