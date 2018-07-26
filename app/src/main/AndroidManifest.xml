@@ -33,10 +33,9 @@
         <service
             android:name=".WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
         <service
             android:name=".Task.SceneService"
-            android:exported="false"/>
+            android:exported="false" />
 
         <receiver android:name=".LogListAppWidget">
             <intent-filter>
@@ -55,7 +54,8 @@
             android:name=".search.SearchActivity"
             android:parentActivityName=".PlaceListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".search.SearchResultActivity"></activity>
+        <activity android:name=".search.SearchResultActivity" />
+        <activity android:name=".PlaceMainActivity"></activity>
     </application>
 
 </manifest>
