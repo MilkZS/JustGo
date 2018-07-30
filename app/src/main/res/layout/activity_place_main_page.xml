@@ -11,6 +11,36 @@
         android:id="@+id/tab_layout_main"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/home_tab_layout"
+            android:layout_width="0dp"
+            android:icon="@drawable/home"
+            android:layout_height="@dimen/height_main_tab_layout"
+            android:layout_weight="2.5"/>
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/pic_tab_layout"
+            android:layout_weight="2.5"
+            android:icon="@drawable/picture"
+            android:layout_height="@dimen/height_main_tab_layout"
+            android:layout_width="0dp" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/log_tab_layout"
+            android:layout_height="@dimen/height_main_tab_layout"
+            android:layout_width="0dp"
+            android:icon="@drawable/log"
+            android:layout_weight="2.5"/>
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/person_tab_layout"
+            android:layout_weight="2.5"
+            android:icon="@drawable/person"
+            android:layout_height="@dimen/height_main_tab_layout"
+            android:layout_width="0dp"/>
+
+    </android.support.design.widget.TabLayout>
 
 </FrameLayout>

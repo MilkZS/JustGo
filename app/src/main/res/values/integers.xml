@@ -9,6 +9,12 @@
 
     <dimen name="detail_tab_layout_select">2dp</dimen>
 
+    <!-- ====================== main_tab_layout.xml  start ===============================  -->
+    <dimen name="height_main_tab_layout">40dp</dimen>
+
+
+    <!-- ====================== main_tab_layout.xml  end   ===============================  -->
+
     <!-- ====================== activity_place_list.xml  start =============================== -->
 
     <!-- main activity action bar -->

@@ -33,7 +33,7 @@ public class SceneService extends IntentService {
         try {
             URL url = DataRequest.buildUriForShowApi();
             String sJson = DataRequest.getResponseFromHttpUrl(url);
-            ContentValues[] contentValues =
+
 
 
         } catch (IOException e) {

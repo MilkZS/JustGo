@@ -15,11 +15,7 @@
         <activity
             android:name=".PlaceListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".PlaceDetailActivity"
@@ -55,7 +51,13 @@
             android:parentActivityName=".PlaceListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".search.SearchResultActivity" />
-        <activity android:name=".PlaceMainActivity"></activity>
+        <activity android:name=".PlaceMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
