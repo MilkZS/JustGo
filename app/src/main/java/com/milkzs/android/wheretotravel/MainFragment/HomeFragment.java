@@ -1,53 +1,57 @@
 package com.milkzs.android.wheretotravel.MainFragment;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
+import com.milkzs.android.wheretotravel.Task.QueryDataTask;
+import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
+import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
+import com.milkzs.android.wheretotravel.search.SearchActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import static android.content.Context.MODE_PRIVATE;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform {
+
+    private String TAG = "HomeFragment";
+
+    private RecyclerView recyclerView;
+
+    private QueryDataTask queryDataTask;
+    private TitanicTextView titanicTextView;
+
+    private GridLayoutManager gridLayoutManager;
+
+    private int position = RecyclerView.NO_POSITION;
+    private String POSITION_FLAG = "flag_position";
+    private String SHARED_FILE = "share_file";
+
+    private View view;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,55 +59,99 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_home, container, false);
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        ImageView searchImageView = view.findViewById(R.id.bar_search_img);
+        searchImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        MobileAds.initialize(view.getContext(), getResources().getString(R.string.sign_build_id));
+        AdView adView = new AdView(view.getContext());
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId(getResources().getString(R.string.sign_app_id));
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        Spinner locateSpinner = view.findViewById(R.id.bar_location_local_spinner);
+        String[] sArr = getResources().getStringArray(R.array.spinner_locate_province);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                view.getContext(),R.layout.support_simple_spinner_dropdown_item,sArr);
+        locateSpinner.setAdapter(arrayAdapter);
+        locateSpinner.setSelection(0,true);
+
+        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
+        position = sharedPreferences.getInt(POSITION_FLAG, 0);
+        Log.d(TAG,"get position is " + position);
+
+        recyclerView = view.findViewById(R.id.main_recycler);
+
+        gridLayoutManager = new GridLayoutManager(
+                view.getContext(), getResources().getInteger(R.integer.grid_layout_span_list));
+        recyclerView.setHasFixedSize(true);
+
+        titanicTextView = view.findViewById(R.id.before_main_show);
+        refreshMode(view);
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    private void refreshMode(View view){
+        gridLayoutManager.setSpanCount(
+                getResources().getInteger(R.integer.grid_layout_span_list));
+        recyclerView.setLayoutManager(gridLayoutManager);
+        PlaceAdapter placeAdapter = new PlaceAdapter(this, PlaceAdapter.MODE_LIST);
+        recyclerView.setAdapter(placeAdapter);
+
+        if (queryDataTask != null) {
+            queryDataTask.cancel(true);
         }
+        queryDataTask = new QueryDataTask(view.getContext(), recyclerView,
+                QueryDataTask.MODE_SEARCH_DEFAULT);
+        queryDataTask.setTitanicTextView(titanicTextView);
+        queryDataTask.setPosition(position);
+        queryDataTask.execute("");
     }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onClick(int position, PlaceListInfo placeListInfo) {
+
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.d(TAG,"this is onSaveInstanceState");
+        SharedPreferences sharedPreferences = view.getContext()
+                .getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
+        position = ((GridLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(POSITION_FLAG, position);
+        editor.apply();
+        editor.commit();
+        super.onSaveInstanceState(outState);
+    }
+
 }

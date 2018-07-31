@@ -1,46 +1,54 @@
-<FrameLayout android:layout_height="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_page_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_main"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <android.support.design.widget.TabItem
             android:id="@+id/home_tab_layout"
             android:layout_width="0dp"
-            android:icon="@drawable/home"
             android:layout_height="@dimen/height_main_tab_layout"
-            android:layout_weight="2.5"/>
+            android:layout_weight="2.5" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/pic_tab_layout"
-            android:layout_weight="2.5"
-            android:icon="@drawable/picture"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_main_tab_layout"
-            android:layout_width="0dp" />
+            android:layout_weight="2.5" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/log_tab_layout"
-            android:layout_height="@dimen/height_main_tab_layout"
             android:layout_width="0dp"
-            android:icon="@drawable/log"
-            android:layout_weight="2.5"/>
+            android:layout_height="@dimen/height_main_tab_layout"
+            android:layout_weight="2.5" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/person_tab_layout"
-            android:layout_weight="2.5"
-            android:icon="@drawable/person"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_main_tab_layout"
-            android:layout_width="0dp"/>
+            android:layout_weight="2.5" />
 
     </android.support.design.widget.TabLayout>
 
-</FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_page_main"
+        android:layout_width="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tab_layout_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_height="0dp" />
+
+</android.support.constraint.ConstraintLayout>
