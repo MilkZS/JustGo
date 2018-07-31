@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.transition.Scene;
+import android.support.transition.TransitionInflater;
+import android.support.transition.TransitionManager;
+import android.support.transition.TransitionSet;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +18,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
+import com.milkzs.android.wheretotravel.PlaceDetailActivity;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Task.QueryDataTask;
 import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
@@ -138,7 +145,10 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
 
     @Override
     public void onClick(int position, PlaceListInfo placeListInfo) {
-
+        //Toast.makeText(getContext(),"click success",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(view.getContext(), PlaceDetailActivity.class);
+        intent.putExtra(BaseInfo.IntentFlag.FLAG_ARRAY_LIST_DETAIL, placeListInfo);
+        startActivity(intent);
     }
 
     @Override

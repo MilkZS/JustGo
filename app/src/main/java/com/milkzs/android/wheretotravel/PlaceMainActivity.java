@@ -1,12 +1,9 @@
 package com.milkzs.android.wheretotravel;
 
-import android.support.design.widget.TabItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.support.design.widget.TabLayout;
 
 import com.milkzs.android.wheretotravel.MainFragment.HomeFragment;

@@ -13,13 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PlaceListActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".PlaceDetailActivity"
-            android:parentActivityName=".PlaceListActivity" />
+            android:name=".PlaceDetailActivity" />
 
         <provider
             android:name=".db.PlaceContentProvider"
@@ -48,7 +42,6 @@
             Android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name=".search.SearchActivity"
-            android:parentActivityName=".PlaceListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".search.SearchResultActivity" />
         <activity android:name=".PlaceMainActivity">
