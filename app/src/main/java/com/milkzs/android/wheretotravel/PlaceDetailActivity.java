@@ -68,8 +68,8 @@ public class PlaceDetailActivity extends AppCompatActivity {
         ArrayList<Fragment> viewArrayList = new ArrayList<>();
         viewArrayList.add(MessageDetailFragment.newInstance(placeListInfo));
         viewArrayList.add(ContentDetailFragment.newInstance(placeListInfo));
-       // viewArrayList.add(PicturesDetailFragment.newInstance(placeListInfo));
-       // viewArrayList.add(LogListFragment.newInstance(placeListInfo));
+        viewArrayList.add(PicturesDetailFragment.newInstance(placeListInfo));
+        viewArrayList.add(LogListFragment.newInstance(placeListInfo));
         DetailViewPageAdapter detailViewPageAdapter = new DetailViewPageAdapter(
                 getSupportFragmentManager(), viewArrayList);
         viewPager.setAdapter(detailViewPageAdapter);
@@ -86,7 +86,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
         // connect view page with tab layout
         tabLayout.setupWithViewPager(viewPager);
-        for (int i=0;i<2;i++){
+        for (int i=0;i<4;i++){
             Log.d(TAG,"tablist index i is " + tabList.get(i));
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             TextView textView = (TextView) LayoutInflater.from(this)

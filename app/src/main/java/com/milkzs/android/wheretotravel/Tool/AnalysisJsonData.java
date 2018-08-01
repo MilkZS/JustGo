@@ -40,7 +40,7 @@ public class AnalysisJsonData {
      */
     public static ArrayList<PlaceListInfo> getDataFromJson(String jsonString, Context context) {
         try {
-            if (DBG) Log.i(TAG, "then we would analyze json string is " + jsonString);
+            //Log.i(TAG, "then we would analyze json string is " + jsonString);
             JSONObject placeObject = new JSONObject(jsonString);
             JSONObject body = placeObject.getJSONObject(BaseInfo.QUERY_BODY);
             JSONObject page = body.getJSONObject(BaseInfo.QUERY_BODY_PAGE);
