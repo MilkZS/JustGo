@@ -3,6 +3,8 @@ package com.milkzs.android.wheretotravel.db;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import java.net.URL;
+
 /**
  * Created by milkdz on 2018/5/1.
  */
@@ -76,6 +78,24 @@ public class PlaceContract {
                 COLUMN_SCENE_LOCATION_LON,
                 COLUMN_SCENE_LOCATION_LAT,
                 COLUMN_SCENE_LOG_TIME
+        };
+    }
+
+    public static final class SceneImgBase implements BaseColumns{
+
+        public static String SCENEIMG_INFO = "scene_img_info";
+        public static String TABLE_NAME = "scene_img_url";
+
+        public static final Uri CONTENT_BASE = CONTENT_BASE_URI.buildUpon()
+                .appendPath(SCENEIMG_INFO).build();
+
+        public static String COLUMN_SCENE_ID = "scene_img_id";
+        public static String COLUMN_SCENE_IMG_URI = "scene_img_uri";
+
+        public static String[] QUERY_ENTRY = {
+                _ID,
+                COLUMN_SCENE_ID,
+                COLUMN_SCENE_IMG_URI
         };
     }
 }
