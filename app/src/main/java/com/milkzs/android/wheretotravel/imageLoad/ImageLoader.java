@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.LruCache;
 
@@ -11,14 +12,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -55,13 +54,24 @@ public class ImageLoader {
     /**
      * Add pictures to cache.
      *
-     * @param key    picture utl string
+     * @param urlstring    picture utl string
      * @param bitmap picture bitmap
      */
-    public void addBitMapToCacheMemory(String key, Bitmap bitmap) {
+    public void addBitMapToCacheMemory(String urlstring, Bitmap bitmap) {
+        String key = hashKeyForDisk(urlstring);
         if (mMemoryCache.get(key) == null) {
             mMemoryCache.put(key, bitmap);
         }
+    }
+
+    /**
+     * Get bitmap from bitmap cache.
+     * @param urlstring url string of picture
+     * @return Bitmap from cache
+     */
+    public Bitmap getBitmapFromCacheMemory(String urlstring){
+        String key = hashKeyForDisk(urlstring);
+        return mMemoryCache.get(key);
     }
 
     /**
@@ -93,6 +103,39 @@ public class ImageLoader {
                 }
             }
         }).start();
+    }
+
+    /**
+     * Get bitmap from DiskCache.
+     * @param urlstring url string of picture
+     * @return bitmap about target picture
+     */
+    public Bitmap getbitMapFromDiskCache(String urlstring){
+       String key = hashKeyForDisk(urlstring);
+        try {
+            DiskLruCache.Snapshot snapshot = mDirskCache.get(key);
+            if (snapshot != null){
+                InputStream is = snapshot.getInputStream(0);
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                return bitmap;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Delete target key cache
+     * @param urlstring url string of bitmap
+     */
+    public void clearTargetDiskCache(String urlstring){
+        String key = hashKeyForDisk(urlstring);
+        try {
+            mDirskCache.remove(key);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
