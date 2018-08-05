@@ -25,6 +25,9 @@ public class PlaceContentProvider extends ContentProvider {
     private final static int CODE_SCENE = 20;
     private final static int CODE_SCENE_ID = 21;
 
+    private final static int CODE_SCENE_PIC = 30;
+    private final static int CODE_SCENE_PIC_ID = 31;
+
     private static UriMatcher uriMatcher = buildMatcher();
 
     private PlaceDBHelper placeDBHelper;
@@ -54,55 +57,76 @@ public class PlaceContentProvider extends ContentProvider {
         Cursor cursor;
         switch (uriMatcher.match(uri)) {
             case CODE_PLACE: {
-                cursor = placeDBHelper.getReadableDatabase().query(
-                        PlaceContract.PlaceBase.TABLE_NAME,
-                        PlaceContract.PlaceBase.QUERY_ENTRY,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder);
+                cursor = getCursorForAll(PlaceContract.PlaceBase.TABLE_NAME,
+                        PlaceContract.PlaceBase.QUERY_ENTRY, selection, selectionArgs, sortOrder);
                 Log.d(TAG, "provider cursor length is " + cursor.getCount());
             }
             break;
             case CODE_PLACE_ID: {
                 String id = uri.getLastPathSegment();
                 Log.d(TAG, "query by id and id is " + id);
-                cursor = placeDBHelper.getWritableDatabase().query(
-                        PlaceContract.PlaceBase.TABLE_NAME,
-                        projection,
-                        PlaceContract.PlaceBase.COLUMN_PLACE_ID + "=48050",
-                        null,
-                        null,
-                        null,
-                        null);
+                cursor = getCursorForId(
+                        PlaceContract.PlaceBase.TABLE_NAME, projection,
+                        PlaceContract.PlaceBase.COLUMN_PLACE_ID + "=48050");
             }
             break;
             case CODE_SCENE:{
-                cursor = placeDBHelper.getReadableDatabase().query(
-                        PlaceContract.SceneBase.TABLE_NAME,
-                        PlaceContract.SceneBase.QUERY_ENTRY,
-                        selection,
-                        selectionArgs,
-                        null,null,
-                        sortOrder);
+                cursor = getCursorForAll(PlaceContract.SceneBase.TABLE_NAME,
+                        PlaceContract.SceneBase.QUERY_ENTRY, selection, selectionArgs, sortOrder);
             }break;
             case CODE_SCENE_ID:{
-                cursor = placeDBHelper.getReadableDatabase().query(
-                        PlaceContract.SceneBase.TABLE_NAME,
-                        projection,
-                        PlaceContract.SceneBase.COLUMN_SCENE_ID+"="+uri.getLastPathSegment(),
-                        null,
-                        null,
-                        null,
-                        null
+                cursor = getCursorForId(
+                        PlaceContract.SceneBase.TABLE_NAME, projection,
+                        PlaceContract.SceneBase.COLUMN_SCENE_ID+"="+uri.getLastPathSegment()
                 );
+            }break;
+            case CODE_SCENE_PIC:{
+                cursor = getCursorForAll(PlaceContract.SceneImgBase.TABLE_NAME,
+                        PlaceContract.SceneImgBase.QUERY_ENTRY,selection,selectionArgs,sortOrder);
+            }break;
+            case CODE_SCENE_PIC_ID:{
+                cursor = getCursorForId(PlaceContract.SceneImgBase.TABLE_NAME,projection,
+                        PlaceContract.SceneImgBase.COLUMN_SCENE_ID + "=" + selection);
             }break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
+    }
+
+    /**
+     * Get cursor for all data
+     * @param tableName db table name
+     * @param queryEntry query entry such as *
+     * @param selection chose default null
+     * @param selectionArgs chose values default null
+     * @param sortOrder order by
+     * @return cursor include result
+     */
+    private Cursor getCursorForAll(String tableName,String[] queryEntry,String selection,
+                                   @Nullable String[] selectionArgs, @Nullable String sortOrder){
+        return placeDBHelper.getWritableDatabase().query(
+                tableName,
+                queryEntry,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder);
+    }
+
+    /**
+     * Get cursor for data id
+     * @param tableName db table name
+     * @param projection query entry array
+     * @param select chose sql string
+     * @return cursor search by id
+     */
+    private Cursor getCursorForId(String tableName,String[] projection,String select){
+        return placeDBHelper.getWritableDatabase().query(
+                tableName,projection,select,
+                null,null,null,null);
     }
 
     @Nullable
@@ -116,36 +140,13 @@ public class PlaceContentProvider extends ContentProvider {
         int rowCount = 0;
         switch (uriMatcher.match(uri)) {
             case CODE_PLACE: {
-                placeDBHelper.getWritableDatabase().beginTransaction();
-                try {
-                    for (ContentValues c : values) {
-                        long id = placeDBHelper.getWritableDatabase().insert(
-                                PlaceContract.PlaceBase.TABLE_NAME, null, c);
-                        if (id != -1) {
-                            rowCount++;
-                        }
-                    }
-
-                    placeDBHelper.getWritableDatabase().setTransactionSuccessful();
-                } finally {
-                    placeDBHelper.getWritableDatabase().endTransaction();
-                }
-            }
+                rowCount = insertDataToDB(values);
+            }break;
             case CODE_SCENE:{
-                placeDBHelper.getWritableDatabase().beginTransaction();
-                try{
-                    for (ContentValues contentValues:values) {
-                        long id = placeDBHelper.getWritableDatabase().insert(
-                                PlaceContract.SceneBase.TABLE_NAME,
-                                null,
-                                contentValues
-                        );
-                        if(id != -1) rowCount ++;
-                    }
-                    placeDBHelper.getWritableDatabase().setTransactionSuccessful();
-                }finally {
-                    placeDBHelper.getWritableDatabase().endTransaction();
-                }
+                rowCount = insertDataToDB(values);
+            }break;
+            case CODE_SCENE_PIC:{
+                rowCount = insertDataToDB(values);
             }break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -153,6 +154,29 @@ public class PlaceContentProvider extends ContentProvider {
         if (rowCount > 0) {
             Toast.makeText(getContext(), "insert success ", Toast.LENGTH_SHORT).show();
             getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowCount;
+    }
+
+    /**
+     * Insert data to DB
+     * @param values content values of Data
+     * @return rows insert successful
+     */
+    private int insertDataToDB(ContentValues[] values){
+        int rowCount = -1;
+        placeDBHelper.getWritableDatabase().beginTransaction();
+        try {
+            for (ContentValues c : values) {
+                long id = placeDBHelper.getWritableDatabase().insert(
+                        PlaceContract.PlaceBase.TABLE_NAME, null, c);
+                if (id != -1) {
+                    rowCount++;
+                }
+            }
+            placeDBHelper.getWritableDatabase().setTransactionSuccessful();
+        } finally {
+            placeDBHelper.getWritableDatabase().endTransaction();
         }
         return rowCount;
     }
@@ -181,6 +205,10 @@ public class PlaceContentProvider extends ContentProvider {
                         selection,selectionArgs
                 );
             }break;
+            case CODE_SCENE_PIC:{
+                rowid = placeDBHelper.getWritableDatabase().delete(
+                        PlaceContract.SceneImgBase.TABLE_NAME,selection,selectionArgs);
+            }break;
             default:
                 throw new UnsupportedOperationException("Un know uri :" + uri);
         }
@@ -188,7 +216,6 @@ public class PlaceContentProvider extends ContentProvider {
         if (rowid != -1) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
         return rowid;
     }
 
@@ -235,6 +262,8 @@ public class PlaceContentProvider extends ContentProvider {
         matcher.addURI(base, PlaceContract.PlaceBase.PLACE_INFO + "/#", CODE_PLACE_ID);
         matcher.addURI(base,PlaceContract.SceneBase.SCENE_INFO,CODE_SCENE);
         matcher.addURI(base,PlaceContract.SceneBase.SCENE_INFO + "/#",CODE_SCENE_ID);
+        matcher.addURI(base,PlaceContract.SceneImgBase.SCENEIMG_INFO,CODE_SCENE_PIC);
+        matcher.addURI(base,PlaceContract.SceneImgBase.SCENEIMG_INFO + "/#",CODE_SCENE_PIC_ID);
         return matcher;
     }
 }
