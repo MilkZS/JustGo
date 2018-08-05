@@ -22,7 +22,8 @@ public class ScenePcturesDBHelperi extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + PlaceContract.SceneImgBase.TABLE_NAME + " ( "
                 + PlaceContract.SceneImgBase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + PlaceContract.SceneImgBase.COLUMN_SCENE_ID + ","
-                + PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI
+                + PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI + ","
+                + PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_BIG_URL
                 + " ); ");
     }
 

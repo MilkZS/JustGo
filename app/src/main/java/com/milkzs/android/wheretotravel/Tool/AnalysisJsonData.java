@@ -199,6 +199,42 @@ public class AnalysisJsonData {
         return null;
     }
 
+
+    public static ContentValues[] getContentValuesOfPictures(String jsonString) {
+        try {
+            JSONObject placeObject = new JSONObject(jsonString);
+            JSONObject body = placeObject.getJSONObject(BaseInfo.QUERY_BODY);
+            JSONObject page = body.getJSONObject(BaseInfo.QUERY_BODY_PAGE);
+            JSONArray contentList = page.getJSONArray(BaseInfo.QUERY_BODY_PAGE_CONTENT_List);
+
+            JSONObject singleOb;
+            int len = contentList.length();
+            ArrayList<ContentValues> contentValuesArrayList = new ArrayList<>();
+            for (int i = 0; i < len; i++) {
+                singleOb = contentList.getJSONObject(i);
+                JSONArray jsonArray = singleOb.getJSONArray(BaseInfo.CONTENT_LIST_PIC_LIST);
+                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID);
+                for (int j = 0; j < jsonArray.length(); j++) {
+                    JSONObject urijsobOject = jsonArray.getJSONObject(j);
+                    ContentValues singleContentValues = new ContentValues();
+                    singleContentValues.put(PlaceContract.SceneImgBase.COLUMN_SCENE_ID, sid);
+                    singleContentValues.put(
+                            PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI,
+                            urijsobOject.getString(BaseInfo.CONTENT_LIST_PIC_LIST_SMALL_URI));
+                    singleContentValues.put(
+                            PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_BIG_URL,
+                            urijsobOject.getString(BaseInfo.CONTENT_LIST_PIC_LIST__URI));
+                    contentValuesArrayList.add(singleContentValues);
+                }
+            }
+            return (ContentValues[]) contentValuesArrayList.toArray();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     /**
      * Only get scene name from json data to save time
      *
@@ -310,7 +346,7 @@ public class AnalysisJsonData {
         return "1;" + cursor.getString(
                 cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME)) + ";"
                 + cursor.getString(
-                        cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO));
+                cursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO));
     }
 
     /**

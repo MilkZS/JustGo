@@ -91,11 +91,13 @@ public class PlaceContract {
 
         public static String COLUMN_SCENE_ID = "scene_img_id";
         public static String COLUMN_SCENE_IMG_URI = "scene_img_uri";
+        public static String COLUMN_SCENE_IMG_BIG_URL = "scene_img_big_uri";
 
         public static String[] QUERY_ENTRY = {
                 _ID,
                 COLUMN_SCENE_ID,
-                COLUMN_SCENE_IMG_URI
+                COLUMN_SCENE_IMG_URI,
+                COLUMN_SCENE_IMG_BIG_URL
         };
     }
 }

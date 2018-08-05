@@ -29,8 +29,16 @@ public class ImageLoader {
     private LruCache<String, Bitmap> mMemoryCache;
     private DiskLruCache mDirskCache;
 
+    private static ImageLoader imageLoader;
 
-    public ImageLoader(Context context, String PathName) {
+    public static ImageLoader newInstance(Context context,String path) {
+        if(imageLoader == null){
+            imageLoader = new ImageLoader(context,path);
+        }
+        return imageLoader;
+    }
+
+    private ImageLoader(Context context, String PathName) {
         int maxMemory = (int) Runtime.getRuntime().maxMemory();
         int cacheMemory = maxMemory / 8;
         mMemoryCache = new LruCache<String, Bitmap>(cacheMemory) {
