@@ -85,9 +85,8 @@ public class ImageLoader {
     /**
      * Add picture to DiskCache and this method start a new thread to do it.
      * @param urlstring string of picture string
-     * @param bitmap bitmap of picture
      */
-    public void addBitMapToDisMemory(String urlstring, Bitmap bitmap) {
+    public void addBitMapToDisMemory(String urlstring) {
         final String sp = urlstring;
         new Thread(new Runnable() {
             @Override

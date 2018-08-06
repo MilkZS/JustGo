@@ -29,6 +29,7 @@ import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.PlaceDetailActivity;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Task.QueryDataTask;
+import com.milkzs.android.wheretotravel.Task.SceneService;
 import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
 import com.milkzs.android.wheretotravel.search.SearchActivity;

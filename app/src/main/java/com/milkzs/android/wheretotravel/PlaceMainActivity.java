@@ -1,5 +1,7 @@
 package com.milkzs.android.wheretotravel;
 
+import android.app.IntentService;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import com.milkzs.android.wheretotravel.MainFragment.LogRecordFragment;
 import com.milkzs.android.wheretotravel.MainFragment.PictureFragment;
 import com.milkzs.android.wheretotravel.MainFragment.SceneMainFragment;
 import com.milkzs.android.wheretotravel.MainFragment.adapter.MainViewPageAdapter;
+import com.milkzs.android.wheretotravel.Task.SceneService;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,8 @@ public class PlaceMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_main_page);
+        Intent service = new Intent(this,SceneService.class);
+        startService(service);
         init();
     }
 
@@ -43,7 +48,5 @@ public class PlaceMainActivity extends AppCompatActivity {
         tableLayout.getTabAt(1).setIcon(R.drawable.picture);
         tableLayout.getTabAt(2).setIcon(R.drawable.log);
         tableLayout.getTabAt(3).setIcon(R.drawable.person);
-
-
     }
 }

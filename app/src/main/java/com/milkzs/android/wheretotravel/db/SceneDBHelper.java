@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SceneDBHelper extends SQLiteOpenHelper {
 
-    private final static int version = 1;
+    private final static int version = 2;
     private final  static String DB_NAME = "scene_info.db";
 
     public SceneDBHelper(Context context) {
@@ -32,7 +32,8 @@ public class SceneDBHelper extends SQLiteOpenHelper {
                 + PlaceContract.SceneBase.COLUMN_SCENE_DISCOUNT + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_NAME + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_PRICE + ","
-                + PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY
+                + PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_OPEN_TIME
                 + " ); ");
     }
 

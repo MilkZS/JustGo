@@ -3,6 +3,8 @@ package com.milkzs.android.wheretotravel.Task;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
@@ -39,21 +41,26 @@ public class SceneService extends IntentService {
             URL url = DataRequest.buildUriForShowApi();
             String sJson = DataRequest.getResponseFromHttpUrl(url);
             ContentValues[] contentValues =
-                    AnalysisJsonData.getContentValuesFromJson(sJson,getApplicationContext());
-            if(contentValues != null){
+                    AnalysisJsonData.getContentValuesFromJson(sJson, getApplicationContext());
+            if (contentValues != null) {
                 getApplicationContext().getContentResolver().delete(
-                        PlaceContract.SceneBase.CONTENT_BASE,null,null);
+                        PlaceContract.SceneBase.CONTENT_BASE, null, null);
                 getApplicationContext().getContentResolver().bulkInsert(
-                        PlaceContract.SceneBase.CONTENT_BASE,contentValues);
+                        PlaceContract.SceneBase.CONTENT_BASE, contentValues);
             }
             ContentValues[] uriContentValue = AnalysisJsonData.getContentValuesOfPictures(sJson);
-            if(uriContentValue != null){
+            if (uriContentValue != null) {
                 getApplicationContext().getContentResolver().delete(
-                        PlaceContract.SceneImgBase.CONTENT_BASE,null,null);
+                        PlaceContract.SceneImgBase.CONTENT_BASE, null, null);
                 getApplicationContext().getContentResolver().bulkInsert(
-                        PlaceContract.SceneImgBase.CONTENT_BASE,uriContentValue);
-                ImageLoader imageLoader = ImageLoader.newInstance(getApplicationContext(),"JustGoImg");
-
+                        PlaceContract.SceneImgBase.CONTENT_BASE, uriContentValue);
+            }
+            ImageLoader imageLoader = ImageLoader.newInstance(getApplicationContext(), "JustGoImg");
+            for (int i = 0; i < uriContentValue.length; i++) {
+                imageLoader.addBitMapToDisMemory(
+                        uriContentValue[i].getAsString(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI));
+                imageLoader.addBitMapToDisMemory(
+                        uriContentValue[i].getAsString(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_BIG_URL));
             }
         } catch (IOException e) {
             e.printStackTrace();
