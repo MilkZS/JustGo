@@ -3,12 +3,11 @@ package com.milkzs.android.wheretotravel.MainFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.transition.Scene;
-import android.support.transition.TransitionInflater;
-import android.support.transition.TransitionManager;
-import android.support.transition.TransitionSet;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,7 +28,6 @@ import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.PlaceDetailActivity;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Task.QueryDataTask;
-import com.milkzs.android.wheretotravel.Task.SceneService;
 import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
 import com.milkzs.android.wheretotravel.search.SearchActivity;
@@ -37,7 +35,7 @@ import com.milkzs.android.wheretotravel.search.SearchActivity;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform {
+public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform,LoaderManager.LoaderCallbacks<Cursor> {
 
     private String TAG = "HomeFragment";
 
@@ -165,4 +163,19 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
 }

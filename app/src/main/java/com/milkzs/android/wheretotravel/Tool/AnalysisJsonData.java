@@ -158,17 +158,7 @@ public class AnalysisJsonData {
                 //address
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_ADDRESS,
                         getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ADDRESS));
-                // pictures uri
-               /*
-                bindArrayPicUri(singleOb);
-                singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_BIG_PIC,
-                        arrayListPicUri);
-                placeListInfo.setPicListUrl(arrayListPicUri);
-                placeListInfo.setPicListSmallUrl(arrayListPicSmallUri);
 
-                placeListInfo.setMainPicUri(arrayListPicSmallUri.get(0));
-                Log.d(TAG,"pic uri is " + arrayListPicSmallUri.get(0));
-*/
                 //discount
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_DISCOUNT,
                         getJSONValue(singleOb, BaseInfo.CONTENT_LIST_DISCOUNT));
