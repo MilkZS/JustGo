@@ -227,7 +227,11 @@ public class AnalysisJsonData {
                     contentValuesArrayList.add(singleContentValues);
                 }
             }
-            return (ContentValues[]) contentValuesArrayList.toArray();
+            ContentValues[] contentValues = new ContentValues[contentValuesArrayList.size()];
+            for(int i=0;i<contentValuesArrayList.size();i++){
+                contentValues[i] = contentValuesArrayList.get(i);
+            }
+            return contentValues;
         } catch (JSONException e) {
             e.printStackTrace();
         }

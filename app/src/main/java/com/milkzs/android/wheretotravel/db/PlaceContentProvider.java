@@ -32,15 +32,11 @@ public class PlaceContentProvider extends ContentProvider {
     private static UriMatcher uriMatcher = buildMatcher();
 
     private PlaceDBHelper placeDBHelper;
-    private ScenePcturesDBHelperi scenePcturesDBHelperi;
-    private SceneDBHelper sceneDBHelper;
 
     @Override
     public boolean onCreate() {
         placeDBHelper = new PlaceDBHelper(
                 getContext(), PlaceDBHelper.DATABASE_NAME, null, PlaceDBHelper.version);
-        scenePcturesDBHelperi = new ScenePcturesDBHelperi(getContext());
-        sceneDBHelper = new SceneDBHelper(getContext());
         return true;
     }
 
@@ -80,23 +76,23 @@ public class PlaceContentProvider extends ContentProvider {
             case CODE_SCENE:{
                 cursor = getCursorForAll(PlaceContract.SceneBase.TABLE_NAME,
                         PlaceContract.SceneBase.QUERY_ENTRY, selection, selectionArgs, sortOrder,
-                        sceneDBHelper);
+                        placeDBHelper);
             }break;
             case CODE_SCENE_ID:{
                 cursor = getCursorForId(
                         PlaceContract.SceneBase.TABLE_NAME, projection,
                         PlaceContract.SceneBase.COLUMN_SCENE_ID+"="+uri.getLastPathSegment(),
-                        sceneDBHelper);
+                        placeDBHelper);
             }break;
             case CODE_SCENE_PIC:{
                 cursor = getCursorForAll(PlaceContract.SceneImgBase.TABLE_NAME,
                         PlaceContract.SceneImgBase.QUERY_ENTRY,selection,selectionArgs,sortOrder,
-                        scenePcturesDBHelperi);
+                        placeDBHelper);
             }break;
             case CODE_SCENE_PIC_ID:{
                 cursor = getCursorForId(PlaceContract.SceneImgBase.TABLE_NAME,projection,
                         PlaceContract.SceneImgBase.COLUMN_SCENE_ID + "=" + selection,
-                        scenePcturesDBHelperi);
+                        placeDBHelper);
             }break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -155,10 +151,10 @@ public class PlaceContentProvider extends ContentProvider {
                 rowCount = insertDataToDB(values,placeDBHelper,PlaceContract.PlaceBase.TABLE_NAME);
             }break;
             case CODE_SCENE:{
-                rowCount = insertDataToDB(values,sceneDBHelper, PlaceContract.SceneBase.TABLE_NAME);
+                rowCount = insertDataToDB(values,placeDBHelper, PlaceContract.SceneBase.TABLE_NAME);
             }break;
             case CODE_SCENE_PIC:{
-                rowCount = insertDataToDB(values,scenePcturesDBHelperi, PlaceContract.SceneImgBase.TABLE_NAME);
+                rowCount = insertDataToDB(values,placeDBHelper, PlaceContract.SceneImgBase.TABLE_NAME);
             }break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -212,13 +208,13 @@ public class PlaceContentProvider extends ContentProvider {
             }
             break;
             case CODE_SCENE:{
-                rowid = sceneDBHelper.getWritableDatabase().delete(
+                rowid = placeDBHelper.getWritableDatabase().delete(
                         PlaceContract.SceneBase.TABLE_NAME,
                         selection,selectionArgs
                 );
             }break;
             case CODE_SCENE_PIC:{
-                rowid = scenePcturesDBHelperi.getWritableDatabase().delete(
+                rowid = placeDBHelper.getWritableDatabase().delete(
                         PlaceContract.SceneImgBase.TABLE_NAME,selection,selectionArgs);
             }break;
             default:
@@ -259,8 +255,6 @@ public class PlaceContentProvider extends ContentProvider {
     @Override
     public void shutdown() {
         placeDBHelper.close();
-        sceneDBHelper.close();
-        scenePcturesDBHelperi.close();
         super.shutdown();
     }
 

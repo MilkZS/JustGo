@@ -37,7 +37,7 @@ public class PlaceContract {
 
     public static final class SceneBase implements BaseColumns{
         public static String SCENE_INFO = "scene";
-        public static String TABLE_NAME = "where_to_travel_scene";
+        public static String TABLE_NAME = "scene_full_info";
 
         public static final Uri CONTENT_BASE = CONTENT_BASE_URI
                 .buildUpon().appendPath(SCENE_INFO).build();
@@ -68,13 +68,13 @@ public class PlaceContract {
                 COLUMN_SCENE_PRICE,
                 COLUMN_SCENE_OPEN_TIME,
                 COLUMN_SCENE_ADDRESS,
-                COLUMN_SCENE_PICTURE_SRC,
+
                 COLUMN_SCENE_DISCOUNT,
                 COLUMN_SCENE_ATTENTION,
                 COLUMN_SCENE_CONTENT,
-                COLUMN_SCENE_SMALL_PIC,
-                COLUMN_SCENE_BIG_PIC,
-                COLUMN_SCENE_MAIN_PIC,
+
+
+
                 COLUMN_SCENE_LOCATION_LON,
                 COLUMN_SCENE_LOCATION_LAT,
                 COLUMN_SCENE_LOG_TIME

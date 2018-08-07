@@ -14,6 +14,7 @@ import com.milkzs.android.wheretotravel.MainFragment.PictureFragment;
 import com.milkzs.android.wheretotravel.MainFragment.SceneMainFragment;
 import com.milkzs.android.wheretotravel.MainFragment.adapter.MainViewPageAdapter;
 import com.milkzs.android.wheretotravel.Task.SceneService;
+import com.milkzs.android.wheretotravel.Task.SceneSyncThread;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,7 @@ public class PlaceMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_main_page);
-        Intent service = new Intent(this,SceneService.class);
-        startService(service);
+        SceneSyncThread.initialize(getApplicationContext());
         init();
     }
 

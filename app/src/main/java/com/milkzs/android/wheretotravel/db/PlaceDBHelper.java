@@ -20,6 +20,8 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createTable());
+        db.execSQL(createTableForScene());
+        db.execSQL(createTableForSceneImg());
     }
 
     /**
@@ -37,9 +39,39 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
                 + " ); ";
     }
 
+    private String createTableForScene(){
+        return "CREATE TABLE " + PlaceContract.SceneBase.TABLE_NAME + " ( "
+                + PlaceContract.SceneBase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + PlaceContract.SceneBase.COLUMN_SCENE_ID + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_ADDRESS + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_ATTENTION + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_BIG_PIC + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_LOG_TIME + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LAT + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LON + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_CONTENT + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_DISCOUNT + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_NAME + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_PRICE + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_OPEN_TIME
+                + " ); ";
+    }
+
+    private String createTableForSceneImg(){
+        return "CREATE TABLE " + PlaceContract.SceneImgBase.TABLE_NAME + " ( "
+                + PlaceContract.SceneImgBase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + PlaceContract.SceneImgBase.COLUMN_SCENE_ID + ","
+                + PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI + ","
+                + PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_BIG_URL
+                + " ); ";
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + PlaceContract.PlaceBase.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PlaceContract.SceneBase.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PlaceContract.SceneImgBase.TABLE_NAME);
         onCreate(db);
     }
 }
