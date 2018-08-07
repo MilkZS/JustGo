@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        
+
         return null;
     }
 
