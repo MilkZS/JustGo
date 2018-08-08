@@ -10,6 +10,7 @@ import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
+import com.milkzs.android.wheretotravel.imageLoad.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ public class AnalysisJsonData {
     private static boolean DBG = false;
     private static ArrayList<Uri> arrayListPicUri;
     private static ArrayList<Uri> arrayListPicSmallUri;
+
 
     /**
      * default search data. analysis json data and return object PlaceListInfo which include
@@ -140,7 +142,9 @@ public class AnalysisJsonData {
                         null, null, null);
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOG_TIME,
                         getArriveLeaveTime(cursor));
-                Map<String, String> map = readDataFromCursor(cursor);
+
+                String urlImg = getMainPic(singleOb,context);
+                singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC,urlImg);
 
                 // name
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_NAME,
@@ -288,6 +292,18 @@ public class AnalysisJsonData {
             arrayListPicSmallUri.add(
                     i, Uri.parse(uriOB.getString(BaseInfo.CONTENT_LIST_PIC_LIST_SMALL_URI)));
         }
+    }
+
+    private static String getMainPic(JSONObject jsonObject,Context context) throws JSONException {
+        JSONArray picArray = jsonObject.getJSONArray(BaseInfo.CONTENT_LIST_PIC_LIST);
+        if(picArray.length() == 0){
+            return null;
+        }
+        JSONObject uriOB = picArray.getJSONObject(0);
+        String urlString = uriOB.getString(BaseInfo.CONTENT_LIST_PIC_LIST_SMALL_URI);
+        ImageLoader imageLoader = ImageLoader.newInstance(context,ImageLoader.patch);
+        imageLoader.addBitMapToDisMemory(urlString);
+        return urlString;
     }
 
     /**

@@ -28,7 +28,7 @@ public class ImageLoader {
 
     private LruCache<String, Bitmap> mMemoryCache;
     private DiskLruCache mDirskCache;
-
+    public static String patch = "JustGoImg";
     private static ImageLoader imageLoader;
 
     public static ImageLoader newInstance(Context context,String path) {

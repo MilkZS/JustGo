@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,32 +19,28 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.milkzs.android.wheretotravel.Base.BaseInfo;
-import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.PlaceDetailActivity;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Task.QueryDataTask;
 import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.milkzs.android.wheretotravel.search.SearchActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform,LoaderManager.LoaderCallbacks<Cursor> {
+public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform, LoaderManager.LoaderCallbacks<Cursor> {
 
     private String TAG = "HomeFragment";
 
     private RecyclerView recyclerView;
 
-    private QueryDataTask queryDataTask;
-    private TitanicTextView titanicTextView;
 
     private GridLayoutManager gridLayoutManager;
 
@@ -51,6 +49,8 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
     private String SHARED_FILE = "share_file";
 
     private View view;
+
+    private PlaceAdapter placeAdapter;
 
     public HomeFragment() {
     }
@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(view == null){
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_home, container, false);
         }
 
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         searchImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),SearchActivity.class);
+                Intent intent = new Intent(getContext(), SearchActivity.class);
                 startActivity(intent);
             }
         });
@@ -95,13 +95,14 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         Spinner locateSpinner = view.findViewById(R.id.bar_location_local_spinner);
         String[] sArr = getResources().getStringArray(R.array.spinner_locate_province);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                view.getContext(),R.layout.support_simple_spinner_dropdown_item,sArr);
+                view.getContext(), R.layout.support_simple_spinner_dropdown_item, sArr);
         locateSpinner.setAdapter(arrayAdapter);
-        locateSpinner.setSelection(0,true);
+        locateSpinner.setSelection(0, true);
 
-        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
+        SharedPreferences sharedPreferences =
+                view.getContext().getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
         position = sharedPreferences.getInt(POSITION_FLAG, 0);
-        Log.d(TAG,"get position is " + position);
+        Log.d(TAG, "get position is " + position);
 
         recyclerView = view.findViewById(R.id.main_recycler);
 
@@ -109,28 +110,19 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
                 view.getContext(), getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setHasFixedSize(true);
 
-        titanicTextView = view.findViewById(R.id.before_main_show);
+       // titanicTextView = view.findViewById(R.id.before_main_show);
         refreshMode(view);
         return view;
     }
 
-    private void refreshMode(View view){
+    private void refreshMode(View view) {
         gridLayoutManager.setSpanCount(
                 getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setLayoutManager(gridLayoutManager);
-        PlaceAdapter placeAdapter = new PlaceAdapter(this, PlaceAdapter.MODE_LIST);
+        placeAdapter = new PlaceAdapter(this);
         recyclerView.setAdapter(placeAdapter);
-
-        if (queryDataTask != null) {
-            queryDataTask.cancel(true);
-        }
-        queryDataTask = new QueryDataTask(view.getContext(), recyclerView,
-                QueryDataTask.MODE_SEARCH_DEFAULT);
-        queryDataTask.setTitanicTextView(titanicTextView);
-        queryDataTask.setPosition(position);
-        queryDataTask.execute("");
+        getLoaderManager().initLoader(0, null, this);
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -143,19 +135,18 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
     }
 
     @Override
-    public void onClick(int position, PlaceListInfo placeListInfo) {
+    public void onClick(int position) {
         //Toast.makeText(getContext(),"click success",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(view.getContext(), PlaceDetailActivity.class);
-        intent.putExtra(BaseInfo.IntentFlag.FLAG_ARRAY_LIST_DETAIL, placeListInfo);
         startActivity(intent);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.d(TAG,"this is onSaveInstanceState");
+        Log.d(TAG, "this is onSaveInstanceState");
         SharedPreferences sharedPreferences = view.getContext()
                 .getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
-        position = ((GridLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+        position = ((GridLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(POSITION_FLAG, position);
         editor.apply();
@@ -163,19 +154,20 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         super.onSaveInstanceState(outState);
     }
 
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-        return null;
+        Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
+        String order = PlaceContract.SceneBase.COLUMN_SCENE_ID + " ASC ";
+        return new CursorLoader(getContext(), uri, new String[]{"*"}, null, null, order);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+        placeAdapter.swapData(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 }

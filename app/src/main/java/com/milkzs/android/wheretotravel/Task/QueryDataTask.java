@@ -92,7 +92,7 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
             if (position != -1) {
                 recyclerView.getLayoutManager().scrollToPosition(position - 2);
             }
-            placeAdapter.swapData(arrayList, null, PlaceAdapter.MODE_LIST);
+            //placeAdapter.swapData(arrayList, null, PlaceAdapter.MODE_LIST);
             Log.d(TAG, "item is " + position);
         }
     }

@@ -27,7 +27,7 @@ public class SearchResultActivity extends AppCompatActivity implements PlaceAdap
         RecyclerView recyclerView = findViewById(R.id.result_search_recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        PlaceAdapter placeAdapter = new PlaceAdapter(this,PlaceAdapter.MODE_LIST);
+        PlaceAdapter placeAdapter = new PlaceAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);

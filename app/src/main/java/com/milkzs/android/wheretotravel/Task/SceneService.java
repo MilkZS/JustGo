@@ -55,7 +55,7 @@ public class SceneService extends IntentService {
                 getApplicationContext().getContentResolver().bulkInsert(
                         PlaceContract.SceneImgBase.CONTENT_BASE, uriContentValue);
             }
-            ImageLoader imageLoader = ImageLoader.newInstance(getApplicationContext(), "JustGoImg");
+            ImageLoader imageLoader = ImageLoader.newInstance(getApplicationContext(), ImageLoader.patch);
             for (int i = 0; i < uriContentValue.length; i++) {
                 imageLoader.addBitMapToDisMemory(
                         uriContentValue[i].getAsString(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI));
