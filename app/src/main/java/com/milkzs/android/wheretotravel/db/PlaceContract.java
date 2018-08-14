@@ -68,13 +68,10 @@ public class PlaceContract {
                 COLUMN_SCENE_PRICE,
                 COLUMN_SCENE_OPEN_TIME,
                 COLUMN_SCENE_ADDRESS,
-
                 COLUMN_SCENE_DISCOUNT,
                 COLUMN_SCENE_ATTENTION,
                 COLUMN_SCENE_CONTENT,
-
-
-
+                COLUMN_SCENE_MAIN_PIC,
                 COLUMN_SCENE_LOCATION_LON,
                 COLUMN_SCENE_LOCATION_LAT,
                 COLUMN_SCENE_LOG_TIME

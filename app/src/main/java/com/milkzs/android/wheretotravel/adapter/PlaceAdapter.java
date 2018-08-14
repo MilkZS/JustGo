@@ -105,7 +105,11 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         public void bindToView(int position, Context context, Cursor cursor) {
             this.position = position;
 //            placeListInfo = placeListInfos.get(position);
-            // Picasso.with(context).load(placeListInfo.getMainPicUri()).into(mainPic);
+
+             Picasso.with(context).load(
+                     cursor.getString(
+                             cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC)))
+                     .into(mainPic);
             nameText.setText(
                     cursor.getString(
                             cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_NAME)));
@@ -121,7 +125,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
             priceText.setText(
                     cursor.getString(
                             cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_PRICE)));
-
         }
 
         @Override

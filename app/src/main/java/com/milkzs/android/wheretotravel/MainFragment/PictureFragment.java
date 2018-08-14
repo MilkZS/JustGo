@@ -1,7 +1,6 @@
 package com.milkzs.android.wheretotravel.MainFragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +14,8 @@ import com.milkzs.android.wheretotravel.R;
 public class PictureFragment extends Fragment {
 
     public PictureFragment() {
-        // Required empty public constructor
     }
+
 
 
     public static PictureFragment newInstance() {
@@ -34,11 +33,16 @@ public class PictureFragment extends Fragment {
         }
     }
 
+    private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_picture, container, false);
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_picture, container, false);
+        }
+        
+
+        return view;
     }
 
 

@@ -45,7 +45,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
                 + PlaceContract.SceneBase.COLUMN_SCENE_ID + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_ADDRESS + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_ATTENTION + ","
-                + PlaceContract.SceneBase.COLUMN_SCENE_BIG_PIC + ","
+                + PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_LOG_TIME + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LAT + ","
                 + PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LON + ","

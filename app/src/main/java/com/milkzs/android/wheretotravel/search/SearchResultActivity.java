@@ -41,7 +41,7 @@ public class SearchResultActivity extends AppCompatActivity implements PlaceAdap
     }
 
     @Override
-    public void onClick(int position, PlaceListInfo placeListInfo) {
+    public void onClick(int position) {
 
     }
 }
