@@ -1,21 +1,31 @@
 package com.milkzs.android.wheretotravel.MainFragment;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.milkzs.android.wheretotravel.R;
+import com.milkzs.android.wheretotravel.adapter.MorePicturesAdapter;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 
+public class PictureFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-
-public class PictureFragment extends Fragment {
+    private String TAG = "PictureFragment";
+    private MorePicturesAdapter morePicturesAdapter;
 
     public PictureFragment() {
     }
-
 
 
     public static PictureFragment newInstance() {
@@ -34,18 +44,24 @@ public class PictureFragment extends Fragment {
     }
 
     private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(view == null){
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_picture, container, false);
         }
-        
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_fragment_pic);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        morePicturesAdapter = new MorePicturesAdapter();
+        recyclerView.setAdapter(morePicturesAdapter);
+
+        getLoaderManager().initLoader(0,null,this);
 
         return view;
     }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -54,8 +70,20 @@ public class PictureFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Uri uri = PlaceContract.SceneImgBase.CONTENT_BASE;
+        return new CursorLoader(
+                getContext(), uri, PlaceContract.SceneImgBase.QUERY_ENTRY, null, null, null);
     }
 
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (morePicturesAdapter != null)
+            Log.d(TAG,"cursor data length is " + data.getCount());
+            morePicturesAdapter.swapData(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
 }

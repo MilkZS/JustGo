@@ -26,10 +26,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.milkzs.android.wheretotravel.PlaceDetailActivity;
 import com.milkzs.android.wheretotravel.R;
-import com.milkzs.android.wheretotravel.Task.QueryDataTask;
-import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
+import com.milkzs.android.wheretotravel.db.base.DBSQList;
 import com.milkzs.android.wheretotravel.search.SearchActivity;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -158,7 +157,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
-        String order = PlaceContract.SceneBase.COLUMN_SCENE_ID + " ASC ";
+        String order = PlaceContract.SceneBase.COLUMN_SCENE_ID + DBSQList.ORDER_BY;
         return new CursorLoader(getContext(), uri, new String[]{"*"}, null, null, order);
     }
 

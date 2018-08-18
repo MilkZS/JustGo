@@ -1,20 +1,17 @@
 package com.milkzs.android.wheretotravel.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.R;
-import com.milkzs.android.wheretotravel.zooImageImpl.ZooImageActivity;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 
 /**
  * Created by milkdz on 2018/4/29.
@@ -24,7 +21,7 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
 
     private String TAG = "MorePicturesAdapter";
     private boolean DBG = true;
-    private ArrayList<Uri> picUriArray;
+    private Cursor mCursor;
     private Context context;
     private int position;
 
@@ -49,10 +46,10 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
 
     @Override
     public int getItemCount() {
-        if(picUriArray == null){
+        if(mCursor == null){
             return 0;
         }
-        return picUriArray.size();
+        return mCursor.getCount();
     }
 
     class PicturesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -71,11 +68,14 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
          * @param position
          */
         public void bindUI(int position){
-            if(picUriArray.get(position).equals("")){
+            mCursor.moveToPosition(position);
+            String sUri = mCursor.getString(
+                    mCursor.getColumnIndex(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI));
+            if(sUri == null){
                 return;
             }
             Picasso.with(context)
-                    .load(picUriArray.get(position))
+                    .load(sUri)
                     .error(R.drawable.error_pic)
                     .into(imageView);
         }
@@ -83,20 +83,20 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         @Override
         public void onClick(View v) {
             // Toast.makeText(context.getApplicationContext(),getAdapterPosition()+"",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context.getApplicationContext(), ZooImageActivity.class);
-            intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,getAdapterPosition());
-            intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST,picUriArray);
-            context.startActivity(intent);
+            //Intent intent = new Intent(context.getApplicationContext(), ZooImageActivity.class);
+            //intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,getAdapterPosition());
+            //intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST,picUriArray);
+           // context.startActivity(intent);
         }
     }
 
     /**
      * Swap data and notify
      *
-     * @param picUriArray
+     * @param mCursor
      */
-    public void swapData(ArrayList<Uri> picUriArray){
-        this.picUriArray = picUriArray;
+    public void swapData(Cursor mCursor){
+        this.mCursor = mCursor;
         notifyDataSetChanged();
     }
 }

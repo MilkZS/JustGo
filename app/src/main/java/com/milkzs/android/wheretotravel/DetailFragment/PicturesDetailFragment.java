@@ -58,7 +58,7 @@ public class PicturesDetailFragment extends Fragment {
 
         MorePicturesAdapter morePicturesAdapter = new MorePicturesAdapter();
         recyclerView.setAdapter(morePicturesAdapter);
-        morePicturesAdapter.swapData(uriArrayList);
+      //  morePicturesAdapter.swapData(uriArrayList);
 
         return view;
     }
