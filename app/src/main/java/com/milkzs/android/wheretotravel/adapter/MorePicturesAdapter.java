@@ -54,7 +54,7 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         return mCursor.getCount();
     }
 
-    class PicturesHolder extends RecyclerView.ViewHolder implements View.OnClickListener,Picasso.Listener{
+    class PicturesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView imageView;
 
@@ -90,7 +90,6 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
                         public void onError() {
                         }
                     });
-                    //.into(imageView);
         }
 
         @Override
@@ -100,11 +99,6 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
             //intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,getAdapterPosition());
             //intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST,picUriArray);
            // context.startActivity(intent);
-        }
-
-        @Override
-        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-
         }
     }
 
