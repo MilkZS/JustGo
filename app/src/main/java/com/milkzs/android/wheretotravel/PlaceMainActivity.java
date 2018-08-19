@@ -1,7 +1,5 @@
 package com.milkzs.android.wheretotravel;
 
-import android.app.IntentService;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +11,6 @@ import com.milkzs.android.wheretotravel.MainFragment.LogRecordFragment;
 import com.milkzs.android.wheretotravel.MainFragment.PictureFragment;
 import com.milkzs.android.wheretotravel.MainFragment.SceneMainFragment;
 import com.milkzs.android.wheretotravel.MainFragment.adapter.MainViewPageAdapter;
-import com.milkzs.android.wheretotravel.Task.SceneService;
 import com.milkzs.android.wheretotravel.Task.SceneSyncThread;
 
 import java.util.ArrayList;

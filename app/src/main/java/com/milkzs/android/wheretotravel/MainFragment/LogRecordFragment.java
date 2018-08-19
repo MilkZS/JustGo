@@ -1,68 +1,55 @@
 package com.milkzs.android.wheretotravel.MainFragment;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.milkzs.android.wheretotravel.MainFragment.adapter.LogListAdapter;
 import com.milkzs.android.wheretotravel.R;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 
+public class LogRecordFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LogRecordFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LogRecordFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class LogRecordFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public LogRecordFragment() {
-        // Required empty public constructor
     }
 
     public static LogRecordFragment newInstance() {
-        LogRecordFragment fragment = new LogRecordFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new LogRecordFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
+
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_log_record, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_log_record, container, false);
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_fragment_log);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        LogListAdapter logListAdapter = new LogListAdapter();
+        recyclerView.setAdapter(logListAdapter);
+        getLoaderManager().initLoader(0,null,this);
+        return view;
     }
 
     @Override
@@ -73,21 +60,21 @@ public class LogRecordFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Uri uri = PlaceContract.PlaceBase.CONTENT_BASE;
+        return new CursorLoader(
+                getContext(), uri, PlaceContract.PlaceBase.QUERY_ENTRY, null, null, null);
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
     }
 }

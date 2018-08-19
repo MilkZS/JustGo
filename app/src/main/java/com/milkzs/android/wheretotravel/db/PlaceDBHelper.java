@@ -32,6 +32,7 @@ public class PlaceDBHelper extends SQLiteOpenHelper {
     private String createTable() {
         return "CREATE TABLE " + PlaceContract.PlaceBase.TABLE_NAME + " ( "
                 + PlaceContract.PlaceBase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + PlaceContract.PlaceBase.COLUMN_PLACE_PIC + ","
                 + PlaceContract.PlaceBase.COLUMN_PLACE_ID + ","
                 + PlaceContract.PlaceBase.COLUMN_PLACE_TIME + ","
                 + PlaceContract.PlaceBase.COLUMN_PLACE_NAME + ","

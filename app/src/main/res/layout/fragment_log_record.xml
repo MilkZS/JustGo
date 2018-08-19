@@ -1,13 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.milkzs.android.wheretotravel.MainFragment.LogRecordFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/action_bar_first_back"
+        android:textColor="@color/action_bar_first_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/action_bar_app_text_size"
+        android:textStyle="italic"
+        android:layout_height="@dimen/action_bar_app_name_height"
+        android:text="@string/main_fragment_log" />
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_fragment_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

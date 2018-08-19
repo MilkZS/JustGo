@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">说走就走</string>
 
+    <string name="main_fragment_log">旅行足迹</string>
+
     <!-- for design place -->
     <string name="design_text_view_price">65元/人</string>
     <string name="design_text_view_open_time_label">开放时间 : </string>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_sub_title">14sp</dimen>
+
+    <dimen name="margin_start_label_time">33dp</dimen>
+    <dimen name="margin_start_show_time">116dp</dimen>
+
+    <dimen name="margin_top_label_arrive_time">40dp</dimen>
+    <dimen name="margin_top_label_leave_time">66dp</dimen>
+
+    <dimen name="width_label">60dp</dimen>
+    <dimen name="height_label_log">21dp</dimen>
+
+</resources>
