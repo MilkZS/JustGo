@@ -2,6 +2,7 @@ package com.milkzs.android.wheretotravel.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
@@ -52,7 +54,7 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         return mCursor.getCount();
     }
 
-    class PicturesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class PicturesHolder extends RecyclerView.ViewHolder implements View.OnClickListener,Picasso.Listener{
 
         private ImageView imageView;
 
@@ -69,15 +71,26 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
          */
         public void bindUI(int position){
             mCursor.moveToPosition(position);
-            String sUri = mCursor.getString(
+            final String sUri = mCursor.getString(
                     mCursor.getColumnIndex(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI));
             if(sUri == null){
                 return;
             }
             Picasso.with(context)
                     .load(sUri)
-                    .error(R.drawable.error_pic)
-                    .into(imageView);
+                    .fetch(new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Picasso.with(context)
+                                    .load(sUri)
+                                    .into(imageView);
+                        }
+
+                        @Override
+                        public void onError() {
+                        }
+                    });
+                    //.into(imageView);
         }
 
         @Override
@@ -87,6 +100,11 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
             //intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_POSITION,getAdapterPosition());
             //intent.putExtra(BaseInfo.IntentFlag.FLAG_PICTURE_LIST,picUriArray);
            // context.startActivity(intent);
+        }
+
+        @Override
+        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+
         }
     }
 
