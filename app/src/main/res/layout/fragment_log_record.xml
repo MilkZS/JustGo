@@ -5,15 +5,28 @@
     android:orientation="vertical"
     tools:context="com.milkzs.android.wheretotravel.MainFragment.LogRecordFragment">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:background="@color/action_bar_first_back"
-        android:textColor="@color/action_bar_first_text"
-        android:textAlignment="center"
-        android:textSize="@dimen/action_bar_app_text_size"
-        android:textStyle="italic"
-        android:layout_height="@dimen/action_bar_app_name_height"
-        android:text="@string/main_fragment_log" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_app_name_height"
+            android:background="@color/action_bar_first_back"
+            android:text="@string/main_fragment_log"
+            android:textAlignment="center"
+            android:textColor="@color/action_bar_first_text"
+            android:textSize="@dimen/action_bar_app_text_size"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/fragment_log_record_add_img"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:src="@drawable/add"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginEnd="14dp"/>
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_fragment_log"

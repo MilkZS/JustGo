@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.adapter.MorePicturesAdapter;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
+import com.milkzs.android.wheretotravel.db.base.DBSQList;
 
 public class PictureFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -72,8 +73,9 @@ public class PictureFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Uri uri = PlaceContract.SceneImgBase.CONTENT_BASE;
+        String order = PlaceContract.SceneImgBase.COLUMN_SCENE_ID+ DBSQList.ORDER_BY;
         return new CursorLoader(
-                getContext(), uri, PlaceContract.SceneImgBase.QUERY_ENTRY, null, null, null);
+                getContext(), uri, PlaceContract.SceneImgBase.QUERY_ENTRY, null, null, order);
     }
 
     @Override

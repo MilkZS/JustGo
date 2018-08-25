@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.milkzs.android.wheretotravel.MainFragment.adapter.LogListAdapter;
 import com.milkzs.android.wheretotravel.R;
@@ -49,6 +50,14 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
         LogListAdapter logListAdapter = new LogListAdapter();
         recyclerView.setAdapter(logListAdapter);
         getLoaderManager().initLoader(0,null,this);
+
+        ImageView addImageView = view.findViewById(R.id.fragment_log_record_add_img);
+        addImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         return view;
     }
 
