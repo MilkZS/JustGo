@@ -55,6 +55,7 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
         addImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
 
