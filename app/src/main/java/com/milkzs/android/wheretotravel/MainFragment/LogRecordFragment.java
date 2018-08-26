@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.milkzs.android.wheretotravel.Log.EditCustomDialog;
 import com.milkzs.android.wheretotravel.MainFragment.adapter.LogListAdapter;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
@@ -55,7 +56,8 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
         addImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                EditCustomDialog editCustomDialog = new EditCustomDialog();
+                editCustomDialog.show(getFragmentManager(),"EditCustomDialog");
             }
         });
 

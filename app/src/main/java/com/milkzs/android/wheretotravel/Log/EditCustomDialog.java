@@ -10,24 +10,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.milkzs.android.wheretotravel.R;
+
 /**
  * Created by alan on 2018/8/25.
  */
 
-public class EditCustomDialog extends DialogFragment{
+public class EditCustomDialog extends DialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @NonNull
+    private View mView;
+
+    @Nullable
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        if (mView == null) {
+            mView = inflater.inflate(R.layout.define_view_edit_log, container);
+        }
 
 
-        return null;
+
+        return mView;
     }
 }

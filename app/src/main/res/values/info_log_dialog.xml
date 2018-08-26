@@ -4,5 +4,11 @@
     <dimen name="log_dialog_img_height">60dp</dimen>
     <dimen name="log_dialog_img_width">60dp</dimen>
 
+    <dimen name="log_dialog_name_height">50dp</dimen>
+    <dimen name="log_dialog_name_width">250dp</dimen>
+
+    <dimen name="log_dialog_time_height">40dp</dimen>
+    <dimen name="log_dialog_time_width">105dp</dimen>
+
     <string name="log_name_hint">点击输入景点名称</string>
 </resources>

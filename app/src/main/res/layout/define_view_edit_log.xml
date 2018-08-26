@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
@@ -12,10 +12,10 @@
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"/>
 
-    <TextView
+    <EditText
         android:id="@+id/define_view_log_name"
-        android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/log_dialog_name_width"
+        android:layout_height="@dimen/log_dialog_name_height"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
         android:hint="@string/log_name_hint"/>
@@ -29,13 +29,13 @@
         <TextView
             android:layout_width="65dp"
             android:textSize="15sp"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/log_dialog_time_height"
             android:text="@string/design_label_log"/>
 
-        <TextView
+        <EditText
             android:id="@+id/define_view_log_arrive_time"
             android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/log_dialog_time_height"
             android:textAlignment="center"
             android:layout_marginStart="5dp"
             tools:text="2018-12-02" />
@@ -51,16 +51,35 @@
         <TextView
             android:layout_width="65dp"
             android:textSize="15sp"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/log_dialog_time_height"
             android:text="@string/design_label_log_leave"/>
 
-        <TextView
+        <EditText
             android:id="@+id/define_view_log_leave_time"
             android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/log_dialog_time_height"
             android:textAlignment="center"
             android:layout_marginStart="5dp"
             tools:text="2018-12-02"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <Button
+            android:id="@+id/define_view_log_enter_but"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="确定"/>
+
+        <Button
+            android:id="@+id/define_view_log_enter_cancel"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="取消"/>
+
+    </LinearLayout>
+
 </LinearLayout>
