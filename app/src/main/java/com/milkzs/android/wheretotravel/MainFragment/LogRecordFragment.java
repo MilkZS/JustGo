@@ -1,5 +1,6 @@
 package com.milkzs.android.wheretotravel.MainFragment;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 public class LogRecordFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private LogListAdapter logListAdapter;
 
     public LogRecordFragment() {
     }
@@ -48,17 +50,40 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        LogListAdapter logListAdapter = new LogListAdapter();
+        logListAdapter = new LogListAdapter();
         recyclerView.setAdapter(logListAdapter);
         getLoaderManager().initLoader(0,null,this);
 
         ImageView addImageView = view.findViewById(R.id.fragment_log_record_add_img);
         addImageView.setOnClickListener(new View.OnClickListener() {
+
+            private EditCustomDialog editCustomDialog;
+
             @Override
             public void onClick(View v) {
-                EditCustomDialog editCustomDialog = new EditCustomDialog();
+                editCustomDialog = new EditCustomDialog();
                 editCustomDialog.show(getFragmentManager(),"EditCustomDialog");
+                editCustomDialog.setEditCustomDialogClickListener(editCustomDialogClickListener);
             }
+
+            private EditCustomDialog.EditCustomDialogClickListener editCustomDialogClickListener = new EditCustomDialog.EditCustomDialogClickListener() {
+                @Override
+                public void clickImg() {
+
+                }
+
+                @Override
+                public void clickButEnter(String sName, String sArriveTime, String sLeaveTime) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_NAME,sName);
+                    contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_TIME,sArriveTime);
+                    contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO,sLeaveTime);
+                    contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_PIC,"");
+                    Uri uri = PlaceContract.PlaceBase.CONTENT_BASE;
+                    getContext().getContentResolver().bulkInsert(uri,new ContentValues[]{contentValues});
+                    getLoaderManager().initLoader(0,null,LogRecordFragment.this);
+                }
+            };
         });
 
         return view;
@@ -84,6 +109,7 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        logListAdapter.swap(data);
     }
 
     @Override
