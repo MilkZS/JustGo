@@ -29,6 +29,7 @@
             android:layout_height="24dp"
             android:layout_marginTop="5dp"
             android:textSize="@dimen/text_size_title"
+            android:textAlignment="center"
             android:layout_gravity="center_horizontal"
             tools:text="哈尔冰红肠" />
 

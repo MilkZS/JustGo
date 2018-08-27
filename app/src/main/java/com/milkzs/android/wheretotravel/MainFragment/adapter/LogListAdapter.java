@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
  * Created by alan on 2018/8/19.
  */
 
-public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListHolder>{
+public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListHolder> {
 
     private Cursor mCursor;
     private Context context;
@@ -29,7 +29,7 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
         this.context = parent.getContext();
         int layoutIndex = R.layout.recycler_list_card_view_log;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(layoutIndex,null,false);
+        View view = layoutInflater.inflate(layoutIndex, null, false);
         return new LogListHolder(view);
     }
 
@@ -40,13 +40,13 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
 
     @Override
     public int getItemCount() {
-        if(mCursor == null){
+        if (mCursor == null) {
             return 0;
         }
         return mCursor.getCount();
     }
 
-    public class LogListHolder extends RecyclerView.ViewHolder{
+    public class LogListHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
         private TextView titleTextView;
@@ -61,8 +61,8 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
             leaveTimeTextView = itemView.findViewById(R.id.main_fragment_log_leave_time);
         }
 
-        public void bindData(int position){
-            if(mCursor == null){
+        public void bindData(int position) {
+            if (mCursor == null) {
                 return;
             }
             mCursor.moveToPosition(position);
@@ -70,10 +70,15 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
             Uri uri = Uri.parse(
                     mCursor.getString(
                             mCursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_PIC)));
-            Picasso.with(context)
-                    .load(uri)
-                    .into(imageView);
-
+            if (uri.toString().equals("")) {
+                Picasso.with(context)
+                        .load(R.drawable.add_pic_but)
+                        .into(imageView);
+            } else {
+                Picasso.with(context)
+                        .load(uri)
+                        .into(imageView);
+            }
             titleTextView.setText(
                     mCursor.getString(
                             mCursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_NAME)));
@@ -86,7 +91,7 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
         }
     }
 
-    public void swap(Cursor mCursor){
+    public void swap(Cursor mCursor) {
         this.mCursor = mCursor;
         notifyDataSetChanged();
     }

@@ -1,6 +1,7 @@
 package com.milkzs.android.wheretotravel.Log;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,11 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.milkzs.android.wheretotravel.Base.DateTime;
 import com.milkzs.android.wheretotravel.R;
+
+import java.util.Calendar;
 
 /**
  * Created by alan on 2018/8/25.
