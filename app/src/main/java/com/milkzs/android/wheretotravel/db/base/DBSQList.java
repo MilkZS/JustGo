@@ -8,4 +8,6 @@ public interface DBSQList {
 
     String ORDER_BY = " ASC ";
 
+    String ORDER_BY_DESC = " DESC ";
+
 }

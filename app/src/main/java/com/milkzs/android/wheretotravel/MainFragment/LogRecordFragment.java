@@ -20,6 +20,7 @@ import com.milkzs.android.wheretotravel.Log.EditCustomDialog;
 import com.milkzs.android.wheretotravel.MainFragment.adapter.LogListAdapter;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
+import com.milkzs.android.wheretotravel.db.base.DBSQList;
 
 public class LogRecordFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -81,11 +82,10 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
                     contentValues.put(PlaceContract.PlaceBase.COLUMN_PLACE_PIC,"");
                     Uri uri = PlaceContract.PlaceBase.CONTENT_BASE;
                     getContext().getContentResolver().bulkInsert(uri,new ContentValues[]{contentValues});
-                    getLoaderManager().initLoader(0,null,LogRecordFragment.this);
+                    getLoaderManager().restartLoader(0,null,LogRecordFragment.this);
                 }
             };
         });
-
         return view;
     }
 
@@ -102,9 +102,9 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Uri uri = PlaceContract.PlaceBase.CONTENT_BASE;
+        String order = PlaceContract.PlaceBase._ID + DBSQList.ORDER_BY_DESC;
         return new CursorLoader(
-                getContext(), uri, PlaceContract.PlaceBase.QUERY_ENTRY, null, null, null);
-
+                getContext(), uri, PlaceContract.PlaceBase.QUERY_ENTRY, null, null, order);
     }
 
     @Override
@@ -114,5 +114,6 @@ public class LogRecordFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        logListAdapter.swap(null);
     }
 }
