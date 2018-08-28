@@ -13,4 +13,6 @@
     <!-- activity_place_list.xml -->
     <color name="action_bar_first_back">#3F51B5</color>
     <color name="action_bar_first_text">#ffff</color>
+
+    <color name="log_bt_yes_no">#FF4081</color>
 </resources>

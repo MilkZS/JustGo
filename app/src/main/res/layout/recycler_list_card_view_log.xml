@@ -95,6 +95,7 @@
             android:layout_marginTop="17dp"
             android:text="@string/bt_yes"
             android:textSize="12sp"
+            android:background="@color/log_bt_yes_no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,6 +107,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/bt_no"
             android:textSize="12sp"
+            android:background="@color/log_bt_yes_no"
             app:layout_constraintEnd_toEndOf="@+id/log_edit_yes"
             app:layout_constraintTop_toBottomOf="@+id/log_edit_yes" />
     </android.support.constraint.ConstraintLayout>

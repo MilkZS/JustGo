@@ -8,6 +8,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -102,6 +103,9 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
                     editImageView.setVisibility(View.INVISIBLE);
                     yesBt.setVisibility(View.VISIBLE);
                     noBt.setVisibility(View.VISIBLE);
+                    editImageView.setAnimation(AnimationUtils.makeOutAnimation(context,true));
+                    yesBt.setAnimation(AnimationUtils.makeInAnimation(context,false));
+                    noBt.setAnimation(AnimationUtils.makeInAnimation(context,false));
                 }
             });
 
@@ -111,6 +115,10 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
                     yesBt.setVisibility(View.INVISIBLE);
                     noBt.setVisibility(View.INVISIBLE);
                     editImageView.setVisibility(View.VISIBLE);
+                    yesBt.setAnimation(AnimationUtils.makeOutAnimation(context,true));
+                    noBt.setAnimation(AnimationUtils.makeOutAnimation(context,true));
+                    editImageView.setAnimation(AnimationUtils.makeInAnimation(context,false));
+
                 }
             });
 
@@ -120,6 +128,9 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
                     yesBt.setVisibility(View.INVISIBLE);
                     noBt.setVisibility(View.INVISIBLE);
                     editImageView.setVisibility(View.VISIBLE);
+                    yesBt.setAnimation(AnimationUtils.makeOutAnimation(context,true));
+                    noBt.setAnimation(AnimationUtils.makeOutAnimation(context,true));
+                    editImageView.setAnimation(AnimationUtils.makeInAnimation(context,false));
                 }
             });
         }
