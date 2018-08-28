@@ -117,6 +117,11 @@
         <item>澳门特别行政区</item>
     </string-array>
     <!-- ======================= locate  end   ========================== -->
+
+    <!-- for log -->
+    <string name="bt_yes">确定</string>
+    <string name="bt_no">取消</string>
+
 </resources>
 
 

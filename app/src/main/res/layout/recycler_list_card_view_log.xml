@@ -26,7 +26,7 @@
             android:id="@+id/main_fragment_log_title"
             android:layout_width="120dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="64dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginTop="14dp"
             android:textAlignment="center"
             android:textSize="@dimen/text_size_title"
@@ -39,7 +39,7 @@
             android:id="@+id/main_fragment_log_arrive_lable"
             android:layout_width="@dimen/width_label"
             android:layout_height="@dimen/height_label_log"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/design_label_log"
             android:textSize="@dimen/text_size_sub_title"
             app:layout_constraintEnd_toStartOf="@+id/main_fragment_log_leave_time"
@@ -68,7 +68,7 @@
             android:id="@+id/main_fragment_log_leave_time"
             android:layout_width="@dimen/width_label_log"
             android:layout_height="@dimen/height_label_log"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="12dp"
             android:textSize="@dimen/text_size_sub_title"
             app:layout_constraintEnd_toStartOf="@+id/edit_img_log"
@@ -76,6 +76,7 @@
             tools:text="2018-09-12" />
 
         <ImageView
+            android:visibility="visible"
             android:id="@+id/edit_img_log"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -85,5 +86,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/log_edit_yes"
+            android:visibility="invisible"
+            android:layout_width="@dimen/log_bt_width_yn"
+            android:layout_height="@dimen/log_bt_height_yn"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/bt_yes"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/log_edit_no"
+            android:visibility="invisible"
+            android:layout_width="@dimen/log_bt_width_yn"
+            android:layout_height="@dimen/log_bt_height_yn"
+            android:layout_marginTop="4dp"
+            android:text="@string/bt_no"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/log_edit_yes"
+            app:layout_constraintTop_toBottomOf="@+id/log_edit_yes" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

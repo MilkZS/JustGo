@@ -8,6 +8,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,6 +53,10 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
         private TextView titleTextView;
         private TextView arriveTimeTextView;
         private TextView leaveTimeTextView;
+        private ImageView editImageView;
+        private Button yesBt;
+        private Button noBt;
+
 
         public LogListHolder(View itemView) {
             super(itemView);
@@ -59,6 +64,9 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
             titleTextView = itemView.findViewById(R.id.main_fragment_log_title);
             arriveTimeTextView = itemView.findViewById(R.id.main_fragment_log_arrive_time);
             leaveTimeTextView = itemView.findViewById(R.id.main_fragment_log_leave_time);
+            editImageView = itemView.findViewById(R.id.edit_img_log);
+            yesBt = itemView.findViewById(R.id.log_edit_yes);
+            noBt = itemView.findViewById(R.id.log_edit_no);
         }
 
         public void bindData(int position) {
@@ -88,6 +96,32 @@ public class LogListAdapter extends RecyclerView.Adapter<LogListAdapter.LogListH
             leaveTimeTextView.setText(
                     mCursor.getString(
                             mCursor.getColumnIndex(PlaceContract.PlaceBase.COLUMN_PLACE_TIME_GO)));
+            editImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editImageView.setVisibility(View.INVISIBLE);
+                    yesBt.setVisibility(View.VISIBLE);
+                    noBt.setVisibility(View.VISIBLE);
+                }
+            });
+
+            yesBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    yesBt.setVisibility(View.INVISIBLE);
+                    noBt.setVisibility(View.INVISIBLE);
+                    editImageView.setVisibility(View.VISIBLE);
+                }
+            });
+
+            noBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    yesBt.setVisibility(View.INVISIBLE);
+                    noBt.setVisibility(View.INVISIBLE);
+                    editImageView.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
 
