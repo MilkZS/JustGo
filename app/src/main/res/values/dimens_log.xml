@@ -12,5 +12,6 @@
 
     <dimen name="width_label">60dp</dimen>
     <dimen name="height_label_log">21dp</dimen>
+    <dimen name="width_label_log">80dp</dimen>
 
 </resources>
