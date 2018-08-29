@@ -15,7 +15,7 @@ public class SceneSyncThread {
 
     private static boolean ifFirst = true;
 
-    public synchronized static void initialize(final Context context){
+    public synchronized static void initialize(final Context context, final String keyword){
         if (!ifFirst){
             return;
         }
@@ -29,6 +29,7 @@ public class SceneSyncThread {
                         uri,projection,null,null,null);
                 if(null == cursor || cursor.getCount() == 0){
                     Intent service = new Intent(context,SceneService.class);
+                    service.putExtra(SceneService.FLAG_SCENE_KEYWORD,keyword);
                     context.startService(service);
                 }
                 if(cursor != null){

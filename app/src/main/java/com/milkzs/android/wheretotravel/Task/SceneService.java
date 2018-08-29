@@ -21,6 +21,11 @@ import java.net.URL;
  */
 
 public class SceneService extends IntentService {
+
+    public static String FLAG_SCENE_KEYWORD = "scene_search_key_word";
+
+    private String keyWord = "";
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      */
@@ -30,15 +35,26 @@ public class SceneService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        if (intent!=null){
+            keyWord = intent.getStringExtra(FLAG_SCENE_KEYWORD);
+        }
         syncSceneData();
     }
+
+
 
     /**
      * delete old scene data and insert new scene data.
      */
     private synchronized void syncSceneData() {
         try {
-            URL url = DataRequest.buildUriForShowApi();
+            URL url;
+            if(keyWord.equals("")){
+                url = DataRequest.buildUriForShowApi();
+            }else{
+                url = DataRequest.buildURIForSearchKeyword(keyWord);
+            }
+
             String sJson = DataRequest.getResponseFromHttpUrl(url);
             ContentValues[] contentValues =
                     AnalysisJsonData.getContentValuesFromJson(sJson, getApplicationContext());
@@ -55,13 +71,6 @@ public class SceneService extends IntentService {
                 getApplicationContext().getContentResolver().bulkInsert(
                         PlaceContract.SceneImgBase.CONTENT_BASE, uriContentValue);
             }
-          /*  ImageLoader imageLoader = ImageLoader.newInstance(getApplicationContext(), ImageLoader.patch);
-            for (int i = 0; i < uriContentValue.length; i++) {
-                imageLoader.addBitMapToDisMemory(
-                        uriContentValue[i].getAsString(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI));
-                imageLoader.addBitMapToDisMemory(
-                        uriContentValue[i].getAsString(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_BIG_URL));
-            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -26,6 +27,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.milkzs.android.wheretotravel.PlaceDetailActivity;
 import com.milkzs.android.wheretotravel.R;
+import com.milkzs.android.wheretotravel.Task.SceneService;
+import com.milkzs.android.wheretotravel.Task.SceneSyncThread;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.milkzs.android.wheretotravel.db.base.DBSQList;
@@ -39,7 +42,6 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
     private String TAG = "HomeFragment";
 
     private RecyclerView recyclerView;
-
 
     private GridLayoutManager gridLayoutManager;
 
@@ -92,11 +94,26 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         mAdView.loadAd(adRequest);
 
         Spinner locateSpinner = view.findViewById(R.id.bar_location_local_spinner);
-        String[] sArr = getResources().getStringArray(R.array.spinner_locate_province);
+        final String[] sArr = getResources().getStringArray(R.array.spinner_locate_province);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 view.getContext(), R.layout.support_simple_spinner_dropdown_item, sArr);
         locateSpinner.setAdapter(arrayAdapter);
         locateSpinner.setSelection(0, true);
+        locateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String sChose = sArr[position];
+                if (sChose.equals("全国"))
+                    sChose = "";
+                SceneSyncThread.initialize(parent.getContext(), sChose);
+                refreshMode(sChose);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         SharedPreferences sharedPreferences =
                 view.getContext().getSharedPreferences(SHARED_FILE, MODE_PRIVATE);
@@ -109,18 +126,22 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
                 view.getContext(), getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setHasFixedSize(true);
 
-       // titanicTextView = view.findViewById(R.id.before_main_show);
-        refreshMode(view);
-        return view;
-    }
-
-    private void refreshMode(View view) {
         gridLayoutManager.setSpanCount(
                 getResources().getInteger(R.integer.grid_layout_span_list));
         recyclerView.setLayoutManager(gridLayoutManager);
         placeAdapter = new PlaceAdapter(this);
         recyclerView.setAdapter(placeAdapter);
         getLoaderManager().initLoader(0, null, this);
+        return view;
+    }
+
+    private void refreshMode(String keyWord) {
+        gridLayoutManager.setSpanCount(
+                getResources().getInteger(R.integer.grid_layout_span_list));
+        recyclerView.setLayoutManager(gridLayoutManager);
+        placeAdapter = new PlaceAdapter(this);
+        recyclerView.setAdapter(placeAdapter);
+        getLoaderManager().restartLoader(0, null, this);
     }
 
     @Override
@@ -156,9 +177,17 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String keys = "";
+        if (args != null) {
+            keys = args.getString(SceneService.FLAG_SCENE_KEYWORD);
+        }
+        String selection = null;
+        if (!keys.equals("")) {
+            selection = PlaceContract.SceneBase.COLUMN_SCENE_NAME + "=" + keys;
+        }
         Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
         String order = PlaceContract.SceneBase.COLUMN_SCENE_ID + DBSQList.ORDER_BY;
-        return new CursorLoader(getContext(), uri, new String[]{"*"}, null, null, order);
+        return new CursorLoader(getContext(), uri, new String[]{"*"}, selection, null, order);
     }
 
     @Override
