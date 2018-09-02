@@ -69,9 +69,7 @@ public class MessageDetailFragment extends Fragment {
         final Cursor cursor =
                 getActivity().getContentResolver().query(uri, new String[]{"*"}, sel, null, null);
 
-        cursor.moveToLast();
-
-        if (cursor.getCount() == 0){
+        if (cursor == null || cursor.getCount() == 0){
             return view;
         }
 

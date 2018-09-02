@@ -60,7 +60,11 @@ public class ContentDetailFragment extends Fragment{
         String sel = PlaceContract.SceneBase._ID + "=" + sceneId;
         Cursor cursor = getActivity().getContentResolver().query(uri,new String[]{"*"},sel,null,null);
 
+        if (cursor == null || cursor.getCount() == 0){
+            return view;
+        }
         cursor.moveToLast();
+
 
         summaryTextView.setText(
                 cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY)));
