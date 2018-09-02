@@ -2,6 +2,7 @@ package com.milkzs.android.wheretotravel.DetailFragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Tool.APKTools;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -27,15 +29,15 @@ import com.squareup.picasso.Picasso;
 
 public class MessageDetailFragment extends Fragment {
 
-    private PlaceListInfo placeListInfo;
+    private int sceneId;
 
     public MessageDetailFragment() {
     }
 
-    public static MessageDetailFragment newInstance(PlaceListInfo placeListInfo) {
+    public static MessageDetailFragment newInstance(int sceneId) {
 
         Bundle args = new Bundle();
-        args.putParcelable(BaseInfo.IntentFlag.FLAG_FRAGMENT_MESSAGE, placeListInfo);
+        args.putInt(BaseInfo.IntentFlag.FLAG_FRAGMENT_MESSAGE, sceneId);
         MessageDetailFragment fragment = new MessageDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -44,8 +46,9 @@ public class MessageDetailFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        placeListInfo = getArguments().getParcelable(BaseInfo.IntentFlag.FLAG_FRAGMENT_MESSAGE);
-
+        if(getArguments() != null){
+            sceneId = getArguments().getInt(BaseInfo.IntentFlag.FLAG_FRAGMENT_MESSAGE);
+        }
     }
 
     @Nullable
@@ -61,17 +64,36 @@ public class MessageDetailFragment extends Fragment {
         TextView attentionTextView = view.findViewById(R.id.detail_text_view_attention);
         FloatingActionButton floatingActionButton = view.findViewById(R.id.detail_message_fba);
 
-        Picasso.with(view.getContext()).load(placeListInfo.getMainPicUri()).into(mainPicImage);
-        priceTextView.setText(placeListInfo.getPrice());
-        discountTextView.setText(placeListInfo.getDiscount());
-        timeTextView.setText(placeListInfo.getOpenTime());
-        addressTextView.setText(placeListInfo.getAddress());
-        attentionTextView.setText(placeListInfo.getAttention());
+        Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
+        String sel = PlaceContract.SceneBase._ID + "=" + sceneId;
+        final Cursor cursor =
+                getActivity().getContentResolver().query(uri, new String[]{"*"}, sel, null, null);
+
+        cursor.moveToLast();
+
+        if (cursor.getCount() == 0){
+            return view;
+        }
+
+        String picUri =
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC));
+        Picasso.with(view.getContext()).load(picUri).into(mainPicImage);
+        priceTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_PRICE)));
+        discountTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_DISCOUNT)));
+        timeTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_OPEN_TIME)));
+        addressTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_ADDRESS)));
+        attentionTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_ATTENTION)));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choseLocationMap(view.getContext(),
-                        placeListInfo.getLocation_lon(), placeListInfo.getLocation_lat());
+                        cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LON)),
+                        cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LAT)));
             }
         });
         return view;
@@ -116,9 +138,9 @@ public class MessageDetailFragment extends Fragment {
 
         Intent intent = new Intent();
         intent.setData(Uri.parse(BaseInfo.OpenLocationMap.GOOGLE_MAP + x + "," + y));
-        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
-        }else {
+        } else {
             Toast.makeText(
                     context,
                     context.getResources().getString(R.string.package_no_activity),

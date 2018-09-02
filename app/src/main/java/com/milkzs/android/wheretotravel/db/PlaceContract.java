@@ -57,7 +57,7 @@ public class PlaceContract {
         public static String COLUMN_SCENE_LOCATION_LON = "scene_location_lon";
         public static String COLUMN_SCENE_LOCATION_LAT = "scene_location_lat";
         public static String COLUMN_SCENE_LOG_TIME = "scene_log_time";
-
+        public static String COLUMN_SCENE_TAG_LOCATION = "scene_tag_location";
 
         public static String[] QUERY_ENTRY = {
                 _ID,
@@ -73,7 +73,7 @@ public class PlaceContract {
                 COLUMN_SCENE_MAIN_PIC,
                 COLUMN_SCENE_LOCATION_LON,
                 COLUMN_SCENE_LOCATION_LAT,
-                COLUMN_SCENE_LOG_TIME
+                COLUMN_SCENE_LOG_TIME,
         };
     }
 

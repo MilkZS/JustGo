@@ -184,6 +184,9 @@ public class AnalysisJsonData {
                     singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LON, "0");
                     singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LAT, "0");
                 }
+
+               // singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_TAG_LOCATION,"0");
+
                 contentValuesArr[i] = singleContentValues;
             }
             return contentValuesArr;

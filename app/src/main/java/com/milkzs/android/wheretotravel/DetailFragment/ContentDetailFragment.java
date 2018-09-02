@@ -1,5 +1,9 @@
 package com.milkzs.android.wheretotravel.DetailFragment;
 
+import android.app.LoaderManager;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,22 +15,23 @@ import android.widget.TextView;
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
+import com.milkzs.android.wheretotravel.db.PlaceContract;
 
 /**
  * Created by milkdz on 2018/4/29.
  */
 
-public class ContentDetailFragment extends Fragment {
+public class ContentDetailFragment extends Fragment{
 
-    private PlaceListInfo placeListInfo;
+    private int sceneId;
 
     public ContentDetailFragment() {
     }
 
-    public static ContentDetailFragment newInstance(PlaceListInfo placeListInfo) {
+    public static ContentDetailFragment newInstance(int sceneId) {
 
         Bundle args = new Bundle();
-        args.putParcelable(BaseInfo.IntentFlag.FLAG_FRAGMENT_CONTENT, placeListInfo);
+        args.putInt(BaseInfo.IntentFlag.FLAG_FRAGMENT_CONTENT, sceneId);
         ContentDetailFragment fragment = new ContentDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -36,7 +41,7 @@ public class ContentDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            placeListInfo = getArguments().getParcelable(BaseInfo.IntentFlag.FLAG_FRAGMENT_CONTENT);
+            sceneId = getArguments().getInt(BaseInfo.IntentFlag.FLAG_FRAGMENT_CONTENT);
         }
     }
 
@@ -51,8 +56,16 @@ public class ContentDetailFragment extends Fragment {
         TextView summaryTextView = view.findViewById(R.id.detail_text_view_summary);
         TextView contentTextView = view.findViewById(R.id.detail_text_view_content);
 
-        summaryTextView.setText(placeListInfo.getSummary());
-        contentTextView.setText(placeListInfo.getDetailContent());
+        Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
+        String sel = PlaceContract.SceneBase._ID + "=" + sceneId;
+        Cursor cursor = getActivity().getContentResolver().query(uri,new String[]{"*"},sel,null,null);
+
+        cursor.moveToLast();
+
+        summaryTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY)));
+        contentTextView.setText(
+                cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_CONTENT)));
         return view;
     }
 

@@ -25,6 +25,7 @@ public class SceneSyncThread {
             public void run() {
                 Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
                 String[] projection = new String[]{PlaceContract.SceneBase.COLUMN_SCENE_ID};
+
                 Cursor cursor = context.getContentResolver().query(
                         uri,projection,null,null,null);
                 if(null == cursor || cursor.getCount() == 0){

@@ -76,6 +76,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         private TextView timeText;
         private TextView priceText;
         private int position;
+        private String sceneName;
+        private int sceneId;
 
         public MyPlaceAdapterHolder(View itemView) {
             super(itemView);
@@ -104,15 +106,14 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
          */
         public void bindToView(int position, Context context, Cursor cursor) {
             this.position = position;
-//            placeListInfo = placeListInfos.get(position);
 
-             Picasso.with(context).load(
-                     cursor.getString(
-                             cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC)))
-                     .into(mainPic);
-            nameText.setText(
+            Picasso.with(context).load(
                     cursor.getString(
-                            cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_NAME)));
+                            cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC)))
+                    .into(mainPic);
+            sceneName = cursor.getString(
+                    cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_NAME));
+            nameText.setText(sceneName);
             summaryText.setText(
                     cursor.getString(
                             cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY)));
@@ -125,15 +126,17 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
             priceText.setText(
                     cursor.getString(
                             cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_PRICE)));
+            sceneId = cursor.getInt(
+                    cursor.getColumnIndex(PlaceContract.SceneBase._ID));
         }
 
         @Override
         public void onClick(View v) {
-            clickTranform.onClick(position);
+            clickTranform.onClick(sceneId, sceneName);
         }
     }
 
     public interface ClickTranform {
-        void onClick(int position);
+        void onClick(int sceneId, String name);
     }
 }

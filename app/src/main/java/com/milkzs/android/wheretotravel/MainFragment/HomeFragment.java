@@ -95,6 +95,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
 
         Spinner locateSpinner = view.findViewById(R.id.bar_location_local_spinner);
         final String[] sArr = getResources().getStringArray(R.array.spinner_locate_province);
+        final String[] sArrKeys = getResources().getStringArray(R.array.spinner_locate_province_keys);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 view.getContext(), R.layout.support_simple_spinner_dropdown_item, sArr);
         locateSpinner.setAdapter(arrayAdapter);
@@ -102,9 +103,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         locateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String sChose = sArr[position];
-                if (sChose.equals("全国"))
-                    sChose = "";
+                String sChose = sArrKeys[position];
                 SceneSyncThread.initialize(parent.getContext(), sChose);
                 refreshMode(sChose);
             }
@@ -155,9 +154,10 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
     }
 
     @Override
-    public void onClick(int position) {
-        //Toast.makeText(getContext(),"click success",Toast.LENGTH_SHORT).show();
+    public void onClick(int sceneId,String name) {
         Intent intent = new Intent(view.getContext(), PlaceDetailActivity.class);
+        intent.putExtra(PlaceDetailActivity.FLAG_SCENE_DETAIL_SCENE_NAMWE,name);
+        intent.putExtra(PlaceDetailActivity.FLAG_SCENE_DETAIL_SCENE_ID,sceneId);
         startActivity(intent);
     }
 
@@ -187,7 +187,7 @@ public class HomeFragment extends Fragment implements PlaceAdapter.ClickTranform
         }
         Uri uri = PlaceContract.SceneBase.CONTENT_BASE;
         String order = PlaceContract.SceneBase.COLUMN_SCENE_ID + DBSQList.ORDER_BY;
-        return new CursorLoader(getContext(), uri, new String[]{"*"}, selection, null, order);
+        return new CursorLoader(getContext(), uri, new String[]{"*"}, null, null, order);
     }
 
     @Override
