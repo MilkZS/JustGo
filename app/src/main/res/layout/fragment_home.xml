@@ -72,6 +72,7 @@
     </FrameLayout>
 
     <com.milkzs.android.wheretotravel.Titanic.TitanicTextView
+        android:visibility="gone"
         android:id="@+id/before_main_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

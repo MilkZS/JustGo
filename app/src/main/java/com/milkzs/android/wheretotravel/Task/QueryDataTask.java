@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.Titanic.Titanic;
@@ -12,6 +14,7 @@ import com.milkzs.android.wheretotravel.Titanic.TitanicTextView;
 import com.milkzs.android.wheretotravel.Tool.AnalysisJsonData;
 import com.milkzs.android.wheretotravel.Tool.DataRequest;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;
+import com.milkzs.android.wheretotravel.search.SearchPlaceAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,16 +33,22 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
     private RecyclerView recyclerView;
     private int position = -1;
 
+    SearchPlaceAdapter searchPlaceAdapter;
+
     public final static int MODE_SEARCH_DEFAULT = 200;
     public final static int MODE_SEARCH_NAME = 201;
 
     private int choseMode = MODE_SEARCH_DEFAULT;
+    private ProgressBar progressBar;
 
-    public QueryDataTask(Context context, RecyclerView recyclerView, int choseMode) {
+
+    public QueryDataTask(Context context, RecyclerView recyclerView, ProgressBar progressBar) {
         this.context = context;
         this.recyclerView = recyclerView;
-        this.placeAdapter = (PlaceAdapter) recyclerView.getAdapter();
-        this.choseMode = choseMode;
+        //this.placeAdapter = (PlaceAdapter) recyclerView.getAdapter();
+        this.progressBar = progressBar;
+        this.searchPlaceAdapter = (SearchPlaceAdapter) recyclerView.getAdapter();
+
     }
 
     @Override
@@ -88,11 +97,13 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
     protected void onPostExecute(ArrayList<PlaceListInfo> arrayList) {
         super.onPostExecute(arrayList);
         if (arrayList != null) {
+            Toast.makeText(context, "go into", Toast.LENGTH_SHORT).show();
             hideLoad();
             if (position != -1) {
                 recyclerView.getLayoutManager().scrollToPosition(position - 2);
             }
-            //placeAdapter.swapData(arrayList, null, PlaceAdapter.MODE_LIST);
+            searchPlaceAdapter.swap(arrayList);
+
             Log.d(TAG, "item is " + position);
         }
     }
@@ -107,6 +118,7 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
     }
 
     private void showLoad() {
+        progressBar.setVisibility(View.VISIBLE);
         if (titanicTextView != null) {
             titanicTextView.setVisibility(View.VISIBLE);
             titanic.start(titanicTextView);
@@ -114,6 +126,7 @@ public class QueryDataTask extends AsyncTask<String, Void, ArrayList<PlaceListIn
     }
 
     private void hideLoad() {
+        progressBar.setVisibility(View.INVISIBLE);
         if (titanicTextView != null) {
             titanic.cancel();
             titanicTextView.setVisibility(View.INVISIBLE);

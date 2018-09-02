@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
@@ -27,16 +28,19 @@ public class SearchResultActivity extends AppCompatActivity implements PlaceAdap
         RecyclerView recyclerView = findViewById(R.id.result_search_recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        PlaceAdapter placeAdapter = new PlaceAdapter(this);
-
+        //PlaceAdapter placeAdapter = new PlaceAdapter(this);
+        SearchPlaceAdapter searchPlaceAdapter = new SearchPlaceAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(placeAdapter);
+        recyclerView.setAdapter(searchPlaceAdapter);
 
         if(queryDataTask != null){
             queryDataTask = null;
         }
-        queryDataTask = new QueryDataTask(this,recyclerView,QueryDataTask.MODE_SEARCH_NAME);
+
+        ProgressBar progressBar = findViewById(R.id.progress_bar_detail);
+
+        queryDataTask = new QueryDataTask(this,recyclerView,progressBar);
         queryDataTask.execute(text);
     }
 

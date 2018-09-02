@@ -84,8 +84,8 @@ public class AnalysisJsonData {
                 placeListInfo.setPicListUrl(arrayListPicUri);
                 placeListInfo.setPicListSmallUrl(arrayListPicSmallUri);
 
-                placeListInfo.setMainPicUri(arrayListPicSmallUri.get(0));
-                Log.d(TAG, "pic uri is " + arrayListPicSmallUri.get(0));
+              //  placeListInfo.setMainPicUri(arrayListPicSmallUri.get(0));
+               // Log.d(TAG, "pic uri is " + arrayListPicSmallUri.get(0));
 
                 //discount
                 placeListInfo.setDiscount(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_DISCOUNT));

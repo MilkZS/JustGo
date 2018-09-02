@@ -73,6 +73,8 @@ public class MessageDetailFragment extends Fragment {
             return view;
         }
 
+        cursor.moveToLast();
+
         String picUri =
                 cursor.getString(cursor.getColumnIndex(PlaceContract.SceneBase.COLUMN_SCENE_MAIN_PIC));
         Picasso.with(view.getContext()).load(picUri).into(mainPicImage);
