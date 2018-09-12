@@ -64,10 +64,7 @@ public class DateTime {
             return true;
         }
 
-        if(dateTime1.getDay() >= dateTime2.getDay()){
-            return true;
-        }
-        return false;
+        return dateTime1.getDay() >= dateTime2.getDay();
     }
 
     public static class Builder {

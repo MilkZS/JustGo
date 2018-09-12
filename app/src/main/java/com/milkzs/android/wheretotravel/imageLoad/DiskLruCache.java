@@ -720,7 +720,7 @@ public final class DiskLruCache implements Closeable {
 
     private static final OutputStream NULL_OUTPUT_STREAM = new OutputStream() {
         @Override
-        public void write(int b) throws IOException {
+        public void write(int b) {
             // Eat all writes silently. Nom nom.
         }
     };
@@ -741,7 +741,7 @@ public final class DiskLruCache implements Closeable {
          * Returns an unbuffered input stream to read the last committed value,
          * or null if no value has been committed.
          */
-        public InputStream newInputStream(int index) throws IOException {
+        public InputStream newInputStream(int index) {
             synchronized (DiskLruCache.this) {
                 if (entry.currentEditor != this) {
                     throw new IllegalStateException();
@@ -773,7 +773,7 @@ public final class DiskLruCache implements Closeable {
          * {@link #commit} is called. The returned output stream does not throw
          * IOExceptions.
          */
-        public OutputStream newOutputStream(int index) throws IOException {
+        public OutputStream newOutputStream(int index) {
             if (index < 0 || index >= valueCount) {
                 throw new IllegalArgumentException("Expected index " + index + " to "
                         + "be greater than 0 and less than the maximum value count "
@@ -905,7 +905,7 @@ public final class DiskLruCache implements Closeable {
             this.lengths = new long[valueCount];
         }
 
-        public String getLengths() throws IOException {
+        public String getLengths() {
             StringBuilder result = new StringBuilder();
             for (long size : lengths) {
                 result.append(' ').append(size);

@@ -58,6 +58,7 @@
     <dimen name="left_margin_search_tag">26dp</dimen>
     <!-- ======================== Search data end ========================================== -->
 
-
+    <!-- ====== content page ================ start -->
+    <dimen name="detail_view_page_content_text_size">19sp</dimen>
 
 </resources>
