@@ -2,7 +2,6 @@ package com.milkzs.android.wheretotravel.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +20,8 @@ import com.squareup.picasso.Picasso;
 
 public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapter.PicturesHolder> {
 
-    private String TAG = "MorePicturesAdapter";
-    private boolean DBG = true;
     private Cursor mCursor;
     private Context context;
-    private int position;
 
     public MorePicturesAdapter() {
     }
@@ -42,7 +38,6 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
 
     @Override
     public void onBindViewHolder(PicturesHolder holder, int position) {
-        this.position = position;
         holder.bindUI(position);
     }
 
@@ -58,7 +53,7 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
 
         private ImageView imageView;
 
-        public PicturesHolder(View itemView) {
+        PicturesHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.detail_more_pic);
             imageView.setOnClickListener(this);
@@ -67,9 +62,9 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
         /**
          * bind data to UI
          *
-         * @param position
+         * @param position cursor position
          */
-        public void bindUI(int position){
+        void bindUI(int position){
             mCursor.moveToPosition(position);
             final String sUri = mCursor.getString(
                     mCursor.getColumnIndex(PlaceContract.SceneImgBase.COLUMN_SCENE_IMG_URI));
@@ -105,7 +100,7 @@ public class MorePicturesAdapter extends RecyclerView.Adapter<MorePicturesAdapte
     /**
      * Swap data and notify
      *
-     * @param mCursor
+     * @param mCursor swap cursor for notification
      */
     public void swapData(Cursor mCursor){
         this.mCursor = mCursor;

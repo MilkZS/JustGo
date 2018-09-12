@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class PlaceDBHelper extends SQLiteOpenHelper {
 
     public final static String DATABASE_NAME = "scenic_spot.db";
-    public final static int version = 20;
+    public final static int version = 21;
 
     public PlaceDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

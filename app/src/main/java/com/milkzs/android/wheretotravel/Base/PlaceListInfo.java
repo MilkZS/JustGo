@@ -31,15 +31,15 @@ public class PlaceListInfo implements Parcelable{
     private String location_lat;
 
     /** pictures */
-    private ArrayList<Uri> picListUrl ;
-    private ArrayList<Uri> picListSmallUrl;
+    private ArrayList picListUrl ;
+    private ArrayList picListSmallUrl;
 
-    private Map<String,String> logMap;
+    private HashMap logMap;
 
     public PlaceListInfo() {
     }
 
-    public void setLogMap(Map<String, String> logMap) {
+    public void setLogMap(HashMap<String, String> logMap) {
         this.logMap = logMap;
     }
 
@@ -191,7 +191,7 @@ public class PlaceListInfo implements Parcelable{
         }
     };
 
-    public PlaceListInfo(Parcel parcel) {
+    private PlaceListInfo(Parcel parcel) {
         placeName = parcel.readString();
         summary = parcel.readString();
         address = parcel.readString();

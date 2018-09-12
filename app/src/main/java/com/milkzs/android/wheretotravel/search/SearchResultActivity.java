@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
-import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Task.QueryDataTask;
 import com.milkzs.android.wheretotravel.adapter.PlaceAdapter;

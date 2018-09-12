@@ -11,13 +11,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
-import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.Tool.APKTools;
 import com.milkzs.android.wheretotravel.db.PlaceContract;

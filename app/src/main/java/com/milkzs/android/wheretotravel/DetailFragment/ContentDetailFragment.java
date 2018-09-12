@@ -1,7 +1,5 @@
 package com.milkzs.android.wheretotravel.DetailFragment;
 
-import android.app.LoaderManager;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
-import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
 

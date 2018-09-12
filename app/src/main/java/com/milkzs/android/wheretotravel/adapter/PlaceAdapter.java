@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
 import com.milkzs.android.wheretotravel.R;
 import com.milkzs.android.wheretotravel.db.PlaceContract;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 /**
  * Created by milkdz on 2018/4/22.
@@ -48,7 +45,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
             mCursor.moveToPosition(position);
             Log.d(TAG, "run here test and position is " + position);
         }
-        holder.bindToView(position, context, mCursor);
+        holder.bindToView(context, mCursor);
     }
 
     @Override
@@ -75,11 +72,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         private TextView addressText;
         private TextView timeText;
         private TextView priceText;
-        private int position;
         private String sceneName;
         private int sceneId;
 
-        public MyPlaceAdapterHolder(View itemView) {
+        MyPlaceAdapterHolder(View itemView) {
             super(itemView);
             initView(itemView);
         }
@@ -87,7 +83,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         /**
          * init view by mode
          *
-         * @param itemView
+         * @param itemView item view of recyclerview
          */
         private void initView(View itemView) {
             itemView.setOnClickListener(this);
@@ -102,10 +98,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyPlaceAdapt
         /**
          * Bind data to view list
          *
-         * @param position data index of array list
          */
-        public void bindToView(int position, Context context, Cursor cursor) {
-            this.position = position;
+        void bindToView(Context context, Cursor cursor) {
 
             Picasso.with(context).load(
                     cursor.getString(

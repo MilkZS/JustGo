@@ -3,8 +3,6 @@ package com.milkzs.android.wheretotravel.db;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import java.net.URL;
-
 /**
  * Created by milkdz on 2018/5/1.
  */

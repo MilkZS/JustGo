@@ -19,15 +19,15 @@ public class DateTime {
         this.day = dateTime.day;
     }
 
-    public int getYear() {
+    private int getYear() {
         return year;
     }
 
-    public int getMonth() {
+    private int getMonth() {
         return month;
     }
 
-    public int getDay() {
+    private int getDay() {
         return day;
     }
 
@@ -42,9 +42,9 @@ public class DateTime {
      * less return false
      * equal return true
      *
-     * @param dateTime1
-     * @param dateTime2
-     * @return
+     * @param dateTime1 data time first arrive
+     * @param dateTime2 data time second leave
+     * @return if format is right
      */
     public static boolean judge(DateTime dateTime1,DateTime dateTime2) {
 

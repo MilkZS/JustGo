@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class DetailViewPageAdapter extends FragmentPagerAdapter {
 
-    ArrayList<Fragment> viewArrayList;
+    private ArrayList<Fragment> viewArrayList;
 
     public DetailViewPageAdapter(FragmentManager fm,ArrayList<Fragment> viewArrayList) {
         super(fm);
