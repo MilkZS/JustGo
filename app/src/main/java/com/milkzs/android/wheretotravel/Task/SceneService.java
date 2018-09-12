@@ -64,7 +64,7 @@ public class SceneService extends IntentService {
                 getApplicationContext().getContentResolver().bulkInsert(
                         PlaceContract.SceneBase.CONTENT_BASE, contentValues);
             }
-            ContentValues[] uriContentValue = AnalysisJsonData.getContentValuesOfPictures(sJson);
+            ContentValues[] uriContentValue = AnalysisJsonData.getContentValuesOfPictures(sJson,getApplicationContext());
             if (uriContentValue != null) {
                 getApplicationContext().getContentResolver().delete(
                         PlaceContract.SceneImgBase.CONTENT_BASE, null, null);

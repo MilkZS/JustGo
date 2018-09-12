@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.milkzs.android.wheretotravel.Base.BaseInfo;
 import com.milkzs.android.wheretotravel.Base.PlaceListInfo;
@@ -31,7 +32,6 @@ public class AnalysisJsonData {
     private static ArrayList<Uri> arrayListPicUri;
     private static ArrayList<Uri> arrayListPicSmallUri;
 
-
     /**
      * default search data. analysis json data and return object PlaceListInfo which include
      * messages about scenes.
@@ -56,7 +56,7 @@ public class AnalysisJsonData {
                 placeListInfo = new PlaceListInfo();
 
                 //id
-                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID);
+                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID,context);
                 placeListInfo.setsId(sid);
                 Uri uri = PlaceContract.PlaceBase.CONTENT_BASE.buildUpon().appendPath(sid).build();
                 Log.i(TAG, "query string is " + uri.toString());
@@ -68,37 +68,35 @@ public class AnalysisJsonData {
                 placeListInfo.setLogMap(map);
 
                 // name
-                placeListInfo.setPlaceName(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PLACE_NAME));
+                placeListInfo.setPlaceName(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PLACE_NAME,context));
                 //summary
-                placeListInfo.setSummary(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_SUMMARY));
+                placeListInfo.setSummary(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_SUMMARY,context));
                 //price
-                String price = getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PRICE);
+                String price = getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PRICE,context).trim();
                 placeListInfo.setPrice(FormatData.formatPrice(price, context));
                 //open time
-                placeListInfo.setOpenTime(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_OPEN_TIME));
+                String time = getJSONValue(singleOb, BaseInfo.CONTENT_LIST_OPEN_TIME,context);
+                placeListInfo.setOpenTime(FormatData.formatTime(time,context));
                 //address
-                placeListInfo.setAddress(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ADDRESS));
+                placeListInfo.setAddress(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ADDRESS,context));
 
                 // pictures uri
                 bindArrayPicUri(singleOb);
                 placeListInfo.setPicListUrl(arrayListPicUri);
                 placeListInfo.setPicListSmallUrl(arrayListPicSmallUri);
 
-              //  placeListInfo.setMainPicUri(arrayListPicSmallUri.get(0));
-               // Log.d(TAG, "pic uri is " + arrayListPicSmallUri.get(0));
-
                 //discount
-                placeListInfo.setDiscount(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_DISCOUNT));
+                placeListInfo.setDiscount(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_DISCOUNT,context));
                 //attention
-                placeListInfo.setAttention(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ATTENTION));
+                placeListInfo.setAttention(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ATTENTION,context));
                 //content
-                placeListInfo.setDetailContent(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_CONTENT));
+                placeListInfo.setDetailContent(getJSONValue(singleOb, BaseInfo.CONTENT_LIST_CONTENT,context));
 
                 // for location
                 JSONObject locationOB = getObject(singleOb, BaseInfo.LOCATION);
                 if (locationOB != null) {
-                    placeListInfo.setLocation_lon(getJSONValue(locationOB, BaseInfo.LOCATION_LON));
-                    placeListInfo.setLocation_lat(getJSONValue(locationOB, BaseInfo.LOCATION_LAT));
+                    placeListInfo.setLocation_lon(getJSONValue(locationOB, BaseInfo.LOCATION_LON,context));
+                    placeListInfo.setLocation_lat(getJSONValue(locationOB, BaseInfo.LOCATION_LAT,context));
                 } else {
                     placeListInfo.setLocation_lon("0");
                     placeListInfo.setLocation_lat("0");
@@ -131,7 +129,7 @@ public class AnalysisJsonData {
 
                 singleContentValues = new ContentValues();
                 //id
-                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID);
+                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID,context);
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_ID, sid);
 
                 Uri uri = PlaceContract.PlaceBase.CONTENT_BASE.buildUpon().appendPath(sid).build();
@@ -148,44 +146,43 @@ public class AnalysisJsonData {
 
                 // name
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_NAME,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PLACE_NAME));
+                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PLACE_NAME,context));
                 //summary
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_SUMMERY,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_SUMMARY));
+                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_SUMMARY,context));
                 //price
-                String price = getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PRICE);
+                String price = getJSONValue(singleOb, BaseInfo.CONTENT_LIST_PRICE,context);
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_PRICE,
                         FormatData.formatPrice(price, context));
                 //open time
+                String time = getJSONValue(singleOb, BaseInfo.CONTENT_LIST_OPEN_TIME,context);
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_OPEN_TIME,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_OPEN_TIME));
+                        FormatData.formatTime(time,context));
                 //address
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_ADDRESS,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ADDRESS));
+                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ADDRESS,context));
 
                 //discount
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_DISCOUNT,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_DISCOUNT));
+                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_DISCOUNT,context));
                 //attention
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_ATTENTION,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ATTENTION));
+                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_ATTENTION,context));
                 //content
                 singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_CONTENT,
-                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_CONTENT));
+                        getJSONValue(singleOb, BaseInfo.CONTENT_LIST_CONTENT,context));
 
                 // for location
                 JSONObject locationOB = getObject(singleOb, BaseInfo.LOCATION);
                 if (locationOB != null) {
                     singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LAT,
-                            getJSONValue(locationOB, BaseInfo.LOCATION_LAT));
+                            getJSONValue(locationOB, BaseInfo.LOCATION_LAT,context));
                     singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LON,
-                            getJSONValue(locationOB, BaseInfo.LOCATION_LON));
+                            getJSONValue(locationOB, BaseInfo.LOCATION_LON,context));
                 } else {
                     singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LON, "0");
                     singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_LOCATION_LAT, "0");
                 }
-
-               // singleContentValues.put(PlaceContract.SceneBase.COLUMN_SCENE_TAG_LOCATION,"0");
 
                 contentValuesArr[i] = singleContentValues;
             }
@@ -197,7 +194,7 @@ public class AnalysisJsonData {
     }
 
 
-    public static ContentValues[] getContentValuesOfPictures(String jsonString) {
+    public static ContentValues[] getContentValuesOfPictures(String jsonString,Context context) {
         try {
             JSONObject placeObject = new JSONObject(jsonString);
             JSONObject body = placeObject.getJSONObject(BaseInfo.QUERY_BODY);
@@ -210,7 +207,7 @@ public class AnalysisJsonData {
             for (int i = 0; i < len; i++) {
                 singleOb = contentList.getJSONObject(i);
                 JSONArray jsonArray = singleOb.getJSONArray(BaseInfo.CONTENT_LIST_PIC_LIST);
-                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID);
+                String sid = getJSONValue(singleOb, BaseInfo.QUERY_ID,context);
                 for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject urijsobOject = jsonArray.getJSONObject(j);
                     ContentValues singleContentValues = new ContentValues();
@@ -271,11 +268,12 @@ public class AnalysisJsonData {
      * @return
      * @throws JSONException
      */
-    private static String getJSONValue(JSONObject jsonObject, String param) throws JSONException {
+    private static String getJSONValue(JSONObject jsonObject, String param,Context context) throws JSONException {
         if (jsonObject.has(param)) {
             return jsonObject.getString(param);
         }
-        return BaseInfo.ERROR_SHOW;
+        Toast.makeText(context,"next",Toast.LENGTH_SHORT);
+        return FormatData.formatNone(param,context);
     }
 
     /**

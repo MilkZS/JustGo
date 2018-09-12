@@ -73,8 +73,6 @@ public class PlaceDetailActivity extends AppCompatActivity {
         ArrayList<Fragment> viewArrayList = new ArrayList<>();
         viewArrayList.add(MessageDetailFragment.newInstance(sceneId));
         viewArrayList.add(ContentDetailFragment.newInstance(sceneId));
-        //viewArrayList.add(PicturesDetailFragment.newInstance(placeListInfo));
-        //viewArrayList.add(LogListFragment.newInstance(placeListInfo));
         DetailViewPageAdapter detailViewPageAdapter = new DetailViewPageAdapter(
                 getSupportFragmentManager(), viewArrayList);
         viewPager.setAdapter(detailViewPageAdapter);
@@ -96,6 +94,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             TextView textView = (TextView) LayoutInflater.from(this)
                     .inflate(R.layout.detail_tab_layout,tabLayout,false);
+            textView.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             textView.setText(tabList.get(i));
             tab.setCustomView(textView);
         }
